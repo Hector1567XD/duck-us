@@ -15,7 +15,7 @@ public abstract class Container {
         this.scale = scale;
     }
 
-    public void start(String ipAddress) {
+    public void start() {
         runner.start();
         network.start();
     }
@@ -25,9 +25,7 @@ public abstract class Container {
         controller.update(this);
     }
 
-    public void render() {
-        // Do nothing :)
-    }
+    public abstract void render();
 
     public Runner getRunner() {
         return runner;
@@ -39,5 +37,9 @@ public abstract class Container {
 
     public Controller getController() {
         return controller;
+    }
+
+    public Scale getScale() {
+        return scale;
     }
 }

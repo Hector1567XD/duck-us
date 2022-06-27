@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public abstract class Network {
-    private Queue<Packet> pendingPackages = new LinkedList<Packet>();
+    protected Queue<Packet> pendingPackages = new LinkedList<Packet>();
 
     public abstract void start();
 

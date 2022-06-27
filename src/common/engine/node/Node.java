@@ -80,4 +80,8 @@ public abstract class Node implements NodeI {
     public String getNodeTag() {
         return null;
     }
+
+    public ArrayList<NodeI> getChildsNodeList() {
+        return childNodes;
+    }
 }

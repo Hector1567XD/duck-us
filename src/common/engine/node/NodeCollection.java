@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NodeCollection {
-    private HashMap<String, ArrayList<Node>> nodesByTag;
-    private HashMap<Integer, Node> nodesByID;
-    private ArrayList<Node> nodes;
+    private HashMap<String, ArrayList<NodeI>> nodesByTag = new HashMap<String, ArrayList<NodeI>>();
+    private HashMap<Integer, NodeI> nodesByID = new HashMap<Integer, NodeI>();
+    private ArrayList<NodeI> nodes = new ArrayList<NodeI>();
     private int nodeCounter = 0;
 
-    public void add(Node node) {
+    public void add(NodeI node) {
         nodeCounter++;
         node.setNodeId(nodeCounter);
         
@@ -22,21 +22,21 @@ public class NodeCollection {
         }
     }
 
-    private void addNodeToTag(Node node, String tag) {
-        ArrayList<Node> nodesTaggeds;
+    private void addNodeToTag(NodeI node, String tag) {
+        ArrayList<NodeI> nodesTaggeds;
         if (nodesByTag.containsKey(tag)) {
             // Si ya existe la lista de etiquetas, añade el nodo
             nodesTaggeds = nodesByTag.get(tag);
             nodesTaggeds.add(node);
         }else{
             // Si no existe la lista de etiquetas, creala y añade al nodo
-            nodesTaggeds = new ArrayList<Node>();
+            nodesTaggeds = new ArrayList<NodeI>();
             nodesTaggeds.add(node);
             nodesByTag.put(tag, nodesTaggeds);
         }
     }
 
-    public void remove(Node node) {
+    public void remove(NodeI node) {
         int nodeId = node.getNodeId();
         
         // Elimina el nodo de las distintas listas
@@ -48,9 +48,9 @@ public class NodeCollection {
         }
     }
 
-    private void removeNodeFromTag(Node node, String tag) {
+    private void removeNodeFromTag(NodeI node, String tag) {
         if (nodesByTag.containsKey(tag)) {
-            ArrayList<Node> nodesTaggeds = nodesByTag.get(tag);
+            ArrayList<NodeI> nodesTaggeds = nodesByTag.get(tag);
             nodesTaggeds.remove(node);
         }
     }
@@ -59,7 +59,11 @@ public class NodeCollection {
         return nodes.size();
     }
 
-    public Node getByIndex(int index) {
+    public NodeI getByIndex(int index) {
         return nodes.get(index);
+    }
+
+    public ArrayList<NodeI> getNodeList() {
+        return nodes;
     }
 }

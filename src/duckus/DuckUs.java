@@ -1,12 +1,20 @@
 package duckus;
 
+import common.engine.Scale;
+import duckus.engine.*;
+
 public class DuckUs {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        GameController controller = new GameController();
+        GameNetwork network = new GameNetwork();
+        Scale scale = new Scale(32, 2);
+        GameContainer container = new GameContainer(scale, network, controller);
+
+        /*Player player = new Player();
+        game.addNode(player);*/
+
+        container.start();
     }
     
 }
