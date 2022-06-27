@@ -2,6 +2,7 @@ package duckus;
 
 import common.engine.Scale;
 import duckus.engine.*;
+import duckus.game.Player;
 
 public class DuckUs {
 
@@ -11,8 +12,8 @@ public class DuckUs {
         Scale scale = new Scale(32, 2);
         GameContainer container = new GameContainer(scale, network, controller);
 
-        /*Player player = new Player();
-        game.addNode(player);*/
+        Player player = new Player();
+        controller.addNode(player);
 
         container.start();
     }
