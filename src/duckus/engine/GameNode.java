@@ -1,15 +1,28 @@
 package duckus.engine;
 
-import common.engine.node.*;
 import common.engine.Container;
+import common.engine.node.*;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 public abstract class GameNode extends Node {
 
-    public abstract void draw(Container container, Graphics2D g2);
+    @Override
+    public void created(Container container) {
+        GameContainer gameContainer = (GameContainer) container;
+        created(gameContainer);
+    }
 
-    public void _draw(Container container, Graphics2D g2) {
+    @Override
+    public void update(Container container) {
+        GameContainer gameContainer = (GameContainer) container;
+        update(gameContainer);
+    }
+
+    public abstract void created(GameContainer container);
+    public abstract void update(GameContainer container);
+
+    public void _draw(GameContainer container, Graphics2D g2) {
        draw(container, g2);
 
        ArrayList<NodeI> childNodes = getChildsNodeList();
@@ -19,4 +32,6 @@ public abstract class GameNode extends Node {
            gameNode._draw(container, g2);
        }
     }
+
+    public abstract void draw(GameContainer container, Graphics2D g2);
 }

@@ -8,15 +8,15 @@ import java.util.ArrayList;
 public abstract class Controller {
     private NodeCollection nodes = new NodeCollection();
 
-    public void update(Container gc) {
+    public void update(Container container) {
         for (int i = 0; i < nodes.size(); i ++) {
             NodeI node = nodes.getByIndex(i);
 
             // Si el nodo no ha ejecutado su creacion, la ejecuta
-            if (!node.isCreated()) { node._created(gc); }
+            if (!node.isCreated()) { node._created(container); }
 
             // Ejecuta el actualizador del nodo
-            node._update(gc);
+            node._update(container);
 
             // Si el nodo hijo fue eliminado, lo elimina de la lista
             if (node.isRemoved()) {

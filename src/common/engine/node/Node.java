@@ -44,6 +44,11 @@ public abstract class Node implements NodeI {
             }
         }
     }
+    
+    
+    // EVENTOS EXTERNOS
+    public abstract void created(Container container);
+    public abstract void update(Container container);
 
     // GETTERS
     public int getX() {

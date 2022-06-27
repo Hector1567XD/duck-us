@@ -7,12 +7,8 @@ public interface NodeI {
     public void addNode(NodeI node);
 
     // EVENTOS INTERNOS
-    public void _created(Container gc);
-    public void _update(Container gc);
-
-    // EVENTOS EXTERNOS
-    public void created(Container gc);
-    public void update(Container gc);
+    public void _created(Container container);
+    public void _update(Container container);
 
     // PROPIEDADES
         // COORDENADAS
