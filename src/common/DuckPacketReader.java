@@ -3,11 +3,11 @@ package common;
 import static common.PacketTypes.*;
 import common.packets.*;
 import common.engine.networking.Packet;
-import common.engine.networking.PacketDecoderInterface;
+import common.engine.networking.PacketReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-public class PacketDecoder implements PacketDecoderInterface {
+public class DuckPacketReader extends PacketReader {
     @Override
     public Packet decode(int packageType, DataInputStream bufferInput) throws IOException {
         Packet packageReaded = null;
