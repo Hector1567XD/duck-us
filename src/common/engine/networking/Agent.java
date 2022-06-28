@@ -2,11 +2,11 @@ package common.engine.networking;
 
 import java.net.InetAddress;
 
-public abstract class Receptor {
+public class Agent {
     private InetAddress ipAddress;
     private int port;
 
-    public Receptor(InetAddress ipAddress, int port) {
+    public Agent(InetAddress ipAddress, int port) {
         this.ipAddress = ipAddress;
         this.port = port;
     }

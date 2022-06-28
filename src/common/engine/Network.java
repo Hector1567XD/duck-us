@@ -20,7 +20,5 @@ public abstract class Network {
         }
     }
 
-    public abstract void sendPacket(Packet packet);
-
     public abstract void packetArrived(Container container, Packet packet);
 }
