@@ -11,7 +11,7 @@ public class DuckUsServer {
 
     public static void main(String[] args) {
         ServerController controller = new ServerController();
-        ServerNetwork network = new ServerNetwork(new DuckPacketReader());
+        ServerNetwork network = new ServerNetwork(new DuckPacketReader(), 1331);
         Scale scale = new Scale(32, 1);
         ServerContainer container = new ServerContainer(scale, network, controller);
 

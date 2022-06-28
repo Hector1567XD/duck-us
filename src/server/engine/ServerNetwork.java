@@ -10,14 +10,15 @@ import server.engine.networking.Server;
 
 public class ServerNetwork extends Network {
     private Server server;
+    private int port;
 
-    public ServerNetwork(PacketReader reader) {
+    public ServerNetwork(PacketReader reader, int port) {
         this.server = new Server(this, reader);
     }
- 
+
     @Override
     public void start() {
-        server.start();
+        server.start(port);
     }
 
     public void sendPacket(Packet packet, Agent agent) {

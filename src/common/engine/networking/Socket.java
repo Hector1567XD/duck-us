@@ -17,25 +17,9 @@ public abstract class Socket extends Thread {
         this.reader = reader;
         this.network = network;
     }
-
-    // Para el servidor, cuando usas un puerto especifico
-    public void start(int port) {
-        try {
-            this.socket = new DatagramSocket(port);
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-        super.start();
-    }
-
-    // Para el cliente, cuando no usas un puerto especifico
-    public void start() {
-        try {
-            this.socket = new DatagramSocket();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        }
-        super.start();
+    
+    public void setSocket(DatagramSocket socket) {
+        this.socket = socket;
     }
 
     @Override
@@ -43,7 +27,7 @@ public abstract class Socket extends Thread {
         while (true) {
             byte[] data = new byte[256];
             DatagramPacket datagramPacket = new DatagramPacket(data, data.length);
-
+            
             try {
                 socket.receive(datagramPacket);
             } catch (IOException e) {
@@ -66,7 +50,7 @@ public abstract class Socket extends Thread {
         packet.setReceiver(receiver);
         DatagramPacket datagramPacket = this.writer.write(packet, receiver);
 
-        System.out.println("Enviando paquete tipo " + packet.getPackageType() + " (" + datagramPacket.getLength() + " bytes).");
+        System.out.println("Enviando paquete tipo " + packet.getPackageType() + " (" + datagramPacket.getLength() + " bytes). hacia " + receiver.getIpAddress().getHostAddress() + ":" + receiver.getPort());
 
         socket.send(datagramPacket);
     }

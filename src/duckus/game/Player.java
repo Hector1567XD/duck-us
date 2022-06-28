@@ -1,5 +1,6 @@
 package duckus.game;
 
+import common.packets.PlayerLoginPacket;
 import duckus.engine.GameContainer;
 import duckus.engine.GameNode;
 import duckus.engine.core.Input;
@@ -11,7 +12,7 @@ public class Player extends GameNode {
 
     @Override
     public void created(GameContainer container) {
-        
+        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
     @Override

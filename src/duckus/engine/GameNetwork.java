@@ -9,14 +9,18 @@ import java.io.IOException;
 
 public class GameNetwork extends Network {
     private Client client;
+    private String ipAddress;
+    private int port;
 
-    public GameNetwork(PacketReader reader) {
+    public GameNetwork(PacketReader reader, String ipAddress, int port) {
+        this.ipAddress = ipAddress;
+        this.port = port;
         this.client = new Client(this, reader);
     }
  
     @Override
     public void start() {
-        client.start();
+        client.start(ipAddress, port);
     }
 
     public void sendPacket(Packet packet) {

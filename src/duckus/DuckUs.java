@@ -9,7 +9,7 @@ public class DuckUs {
 
     public static void main(String[] args) {
         GameController controller = new GameController();
-        GameNetwork network = new GameNetwork(new DuckPacketReader());
+        GameNetwork network = new GameNetwork(new DuckPacketReader(), "localhost", 1331);
         Scale scale = new Scale(32, 2);
         GameContainer container = new GameContainer(scale, network, controller);
 

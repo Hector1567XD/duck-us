@@ -7,7 +7,9 @@ import common.engine.networking.PacketReader;
 import common.engine.networking.PacketWriter;
 import common.engine.networking.Socket;
 import java.io.IOException;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class Client extends Socket {
@@ -21,14 +23,19 @@ public class Client extends Socket {
         super(network, reader);
     }
 
+    public void start() {
+        throw new UnsupportedOperationException("Im not a Server."); 
+    }
+
     public void start(String ipAddress, int serverPort) {
         try {
-            InetAddress inetIpAddress = InetAddress.getByName(ipAddress);
-            this.server = new Agent(inetIpAddress, serverPort);
+            this.server = new Agent(InetAddress.getByName(ipAddress), serverPort);
+            this.setSocket(new DatagramSocket());
+        } catch (SocketException e) {
+            e.printStackTrace();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-
         super.start();
     }
 
