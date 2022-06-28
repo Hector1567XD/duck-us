@@ -6,8 +6,6 @@ import common.engine.networking.Packet;
 import common.engine.networking.PacketReader;
 import duckus.engine.networking.Client;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class GameNetwork extends Network {
     private Client client;
