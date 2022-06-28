@@ -1,10 +1,13 @@
 package server.engine;
 
+import common.PacketTypes;
 import common.engine.Container;
 import common.engine.Network;
 import common.engine.networking.Agent;
 import common.engine.networking.Packet;
 import common.engine.networking.PacketReader;
+import common.packets.PlayerJoinedPacket;
+import common.packets.PlayerLoginPacket;
 import java.io.IOException;
 import server.engine.networking.Server;
 
@@ -13,6 +16,7 @@ public class ServerNetwork extends Network {
     private int port;
 
     public ServerNetwork(PacketReader reader, int port) {
+        this.port = port;
         this.server = new Server(this, reader);
     }
 
@@ -33,6 +37,15 @@ public class ServerNetwork extends Network {
     @Override
     public void packetArrived(Container container, Packet packet) {
         ServerContainer serverContainer = (ServerContainer) container;
-        // TODO: Recibir Paquetes :)
+        packetArrived(serverContainer, packet);
+    }
+
+    public void packetArrived(ServerContainer container, Packet packet) {
+        ServerNetwork network = (ServerNetwork) container.getNetwork(); // TODO, hacer un casteo dentro de los containers
+
+        if (packet.getPackageType() == PacketTypes.PLAYER_LOGIN) {
+            PlayerLoginPacket playerLogin = (PlayerLoginPacket) packet;
+            network.sendPacket(new PlayerJoinedPacket(25, playerLogin.getPlayerName()), packet.getSender());
+        }
     }
 }

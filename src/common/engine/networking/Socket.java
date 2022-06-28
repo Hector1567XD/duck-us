@@ -26,6 +26,7 @@ public abstract class Socket extends Thread {
     public void run() {
         while (true) {
             byte[] data = new byte[256];
+            System.out.println("Running socket on " + socket.getLocalAddress() + ":" + socket.getLocalPort());
             DatagramPacket datagramPacket = new DatagramPacket(data, data.length);
             
             try {

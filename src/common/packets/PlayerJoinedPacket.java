@@ -16,12 +16,14 @@ public class PlayerJoinedPacket extends Packet {
 
     public PlayerJoinedPacket(DataInputStream bufferInput) throws IOException {
         this.playerId = bufferInput.readShort();
+        this.playerName = bufferInput.readUTF();
     }
 
     @Override
     public void write(DataOutputStream bufferOutput) throws IOException {
         super.write(bufferOutput);
         bufferOutput.writeShort(playerId);
+        bufferOutput.writeUTF(playerName);
     }
 
     @Override

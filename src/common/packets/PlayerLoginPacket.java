@@ -26,4 +26,8 @@ public class PlayerLoginPacket extends Packet {
     public int getPackageType() {
         return PacketTypes.PLAYER_LOGIN;
     }
+
+    public String getPlayerName() {
+        return playerName;
+    }
 }
