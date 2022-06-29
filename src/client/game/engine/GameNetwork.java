@@ -1,9 +1,9 @@
-package duckus.game.engine;
+package client.game.engine;
 
-import common.engine.Container;
-import common.engine.Network;
+import common.game.engine.Container;
+import common.game.engine.Network;
 import common.networking.Packet;
-import duckus.networking.Client;
+import client.networking.Client;
 import java.io.IOException;
 
 public class GameNetwork extends Network {

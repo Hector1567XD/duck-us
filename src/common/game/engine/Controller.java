@@ -1,8 +1,8 @@
-package common.engine;
+package common.game.engine;
 
-import common.engine.node.Node;
-import common.engine.node.NodeCollection;
-import common.engine.node.NodeI;
+import common.game.engine.node.Node;
+import common.game.engine.node.NodeCollection;
+import common.game.engine.node.NodeI;
 
 public abstract class Controller {
     private NodeCollection nodes = new NodeCollection();

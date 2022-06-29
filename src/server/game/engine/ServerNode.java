@@ -1,7 +1,7 @@
 package server.game.engine;
 
-import common.engine.Container;
-import common.engine.node.*;
+import common.game.engine.node.Node;
+import common.game.engine.Container;
 
 public abstract class ServerNode extends Node {
 

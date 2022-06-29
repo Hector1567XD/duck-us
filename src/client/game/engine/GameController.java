@@ -1,6 +1,6 @@
-package duckus.game.engine;
+package client.game.engine;
 
-import common.engine.Controller;
+import common.game.engine.Controller;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 

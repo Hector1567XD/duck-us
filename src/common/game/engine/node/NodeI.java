@@ -1,6 +1,6 @@
-package common.engine.node;
+package common.game.engine.node;
 
-import common.engine.Container;
+import common.game.engine.Container;
 
 public interface NodeI {
     // GESTION DE NODOS HIJOS

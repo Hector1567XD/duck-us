@@ -1,4 +1,4 @@
-package common.engine;
+package common.game.engine;
 
 public class Scale {
     private int originalTileSize = 32;

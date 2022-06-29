@@ -1,7 +1,7 @@
 package server.game.engine;
 
-import common.engine.Container;
-import common.engine.Scale;
+import common.game.engine.Container;
+import common.game.engine.Scale;
 
 public class ServerContainer extends Container {
 

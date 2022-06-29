@@ -1,9 +1,9 @@
-package duckus.game.nodes;
+package client.game.nodes;
 
 import common.packets.PlayerLoginPacket;
-import duckus.game.engine.GameContainer;
-import duckus.game.engine.GameNode;
-import duckus.game.engine.core.Input;
+import client.game.engine.GameContainer;
+import client.game.engine.GameNode;
+import client.game.engine.core.Input;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 

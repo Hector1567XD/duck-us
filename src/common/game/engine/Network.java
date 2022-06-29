@@ -1,4 +1,4 @@
-package common.engine;
+package common.game.engine;
 
 import common.networking.Agent;
 import common.networking.Packet;

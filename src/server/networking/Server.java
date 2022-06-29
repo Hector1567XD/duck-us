@@ -13,11 +13,12 @@ public class Server extends Socket {
 
     // Para el servidor, cuando usas un puerto especifico
     public void start(int port) {
+        DatagramSocket socket = null;
         try {
-            this.setSocket(new DatagramSocket(port));
+            socket = new DatagramSocket(port);
         } catch (SocketException e) {
             e.printStackTrace();
         }
-        super.start();
+        super.start(socket);
     }
 }

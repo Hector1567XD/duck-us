@@ -14,8 +14,8 @@ public class DuckPacketReader extends PacketReader {
         switch(packageType) {
             case PLAYER_LOGIN -> packageReaded = new PlayerLoginPacket(bufferInput);
             case PLAYER_JOINED_PACKET -> packageReaded = new PlayerJoinedPacket(bufferInput);
-            case MOVE_PACKET -> packageReaded = new KillPacket(bufferInput);
-            case KILL_PACKET -> packageReaded = new MovePacket(bufferInput);
+            case MOVE_PACKET -> packageReaded = new MovePacket(bufferInput);
+            case KILL_PACKET -> packageReaded = new KillPacket(bufferInput);
         }
         return packageReaded;
     }

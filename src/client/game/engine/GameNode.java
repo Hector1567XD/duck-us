@@ -1,7 +1,8 @@
-package duckus.game.engine;
+package client.game.engine;
 
-import common.engine.Container;
-import common.engine.node.*;
+import common.game.engine.node.NodeI;
+import common.game.engine.node.Node;
+import common.game.engine.Container;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 

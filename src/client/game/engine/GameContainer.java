@@ -1,9 +1,9 @@
-package duckus.game.engine;
+package client.game.engine;
 
-import common.engine.Container;
-import common.engine.Scale;
-import duckus.game.engine.core.Input;
-import duckus.game.engine.core.Window;
+import common.game.engine.Container;
+import common.game.engine.Scale;
+import client.game.engine.core.Input;
+import client.game.engine.core.Window;
 import java.awt.Graphics2D;
 
 public class GameContainer extends Container {
@@ -12,7 +12,6 @@ public class GameContainer extends Container {
     // INSTANCIAS
     private Window window;
     private Input input;
-    private float currentDeltaTime = 1;
 
     public GameContainer(Scale scale, GameNetwork network, GameController controller) {
         super(scale, network, controller);
@@ -20,16 +19,19 @@ public class GameContainer extends Container {
         this.input = new Input(this);
     }
 
+    @Override
     public void start() {
         super.start();
         window.open();
     }
 
+    @Override
     public void update() {
         super.update();
         input.update();
     }
 
+    @Override
     public void render() {
         window.getPanel().repaint();
     }

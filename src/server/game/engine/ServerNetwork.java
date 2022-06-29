@@ -1,8 +1,8 @@
 package server.game.engine;
 
 import common.PacketTypes;
-import common.engine.Container;
-import common.engine.Network;
+import common.game.engine.Container;
+import common.game.engine.Network;
 import common.networking.Agent;
 import common.networking.Packet;
 import common.networking.PacketReader;

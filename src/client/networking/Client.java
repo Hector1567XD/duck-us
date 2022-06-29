@@ -1,6 +1,6 @@
-package duckus.networking;
+package client.networking;
 
-import common.engine.Network;
+import common.game.engine.Network;
 import common.networking.Agent;
 import common.networking.Packet;
 import common.networking.PacketReader;
@@ -15,9 +15,6 @@ import java.net.UnknownHostException;
 
 public class Client extends Socket {
     private Agent server;
-    private InetAddress ipAddress;
-    private PacketWriter writer;
-    private PacketReader reader;
 
     public Client(SocketPublisher publisher, PacketReader reader) {
         super(publisher, reader);
@@ -27,16 +24,22 @@ public class Client extends Socket {
         throw new UnsupportedOperationException("Im not a Server."); 
     }
 
-    public void start(String ipAddress, int serverPort) {
+    private DatagramSocket createSocket(String ipAddress, int serverPort) {
         try {
             this.server = new Agent(InetAddress.getByName(ipAddress), serverPort);
-            this.setSocket(new DatagramSocket());
+            DatagramSocket socket = new DatagramSocket();
+            return socket;
         } catch (SocketException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        super.start();
+        return null;
+    }
+
+    public void start(String ipAddress, int serverPort) {
+        DatagramSocket socket = createSocket(ipAddress, serverPort);
+        super.start(socket);
     }
 
     public void sendPacket(Packet packet) throws IOException {

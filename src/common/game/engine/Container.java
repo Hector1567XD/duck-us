@@ -1,6 +1,6 @@
-package common.engine;
+package common.game.engine;
 
-import common.engine.core.Runner;
+import common.game.engine.core.Runner;
 
 public abstract class Container {
     private Runner runner;
