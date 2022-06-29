@@ -47,11 +47,13 @@ public class GameContainer extends Container {
     public Input getInput() {
         return input;
     }
-    
+
+    @Override
     public GameController getController() {
         return (GameController) super.getController(); 
     }
 
+    @Override
     public GameNetwork getNetwork() {
         return (GameNetwork) super.getNetwork(); 
     }
