@@ -25,10 +25,15 @@ public abstract class Socket extends Thread {
     }
 
     @Override
+    public void start() {
+        super.start();
+        System.out.println("Running socket on " + socket.getLocalAddress() + ":" + socket.getLocalPort());
+    }
+    
+    @Override
     public void run() {
         while (true) {
             byte[] data = new byte[256];
-            System.out.println("Running socket on " + socket.getLocalAddress() + ":" + socket.getLocalPort());
             DatagramPacket datagramPacket = new DatagramPacket(data, data.length);
 
             try {

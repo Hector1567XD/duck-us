@@ -1,4 +1,4 @@
-package duckus.engine;
+package duckus.game.engine;
 
 import common.engine.Controller;
 import java.awt.Graphics2D;

@@ -1,5 +1,5 @@
-package duckus.engine.core;
-import duckus.engine.GameContainer;
+package duckus.game.engine.core;
+import duckus.game.engine.GameContainer;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;

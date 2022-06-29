@@ -1,9 +1,9 @@
-package duckus.engine;
+package duckus.game.engine;
 
 import common.engine.Container;
 import common.engine.Scale;
-import duckus.engine.core.Input;
-import duckus.engine.core.Window;
+import duckus.game.engine.core.Input;
+import duckus.game.engine.core.Window;
 import java.awt.Graphics2D;
 
 public class GameContainer extends Container {

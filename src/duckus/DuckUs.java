@@ -1,11 +1,13 @@
 package duckus;
 
+import duckus.game.engine.GameContainer;
+import duckus.game.engine.GameNetwork;
+import duckus.game.engine.GameController;
 import common.DuckPacketReader;
 import common.engine.Scale;
 import common.networking.socket.SocketPublisher;
-import duckus.engine.*;
 import duckus.networking.Client;
-import duckus.game.Player;
+import duckus.game.nodes.Player;
 
 public class DuckUs {
     public static void main(String[] args) {

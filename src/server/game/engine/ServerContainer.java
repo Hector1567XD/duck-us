@@ -1,4 +1,4 @@
-package server.engine;
+package server.game.engine;
 
 import common.engine.Container;
 import common.engine.Scale;

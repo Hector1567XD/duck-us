@@ -1,5 +1,5 @@
-package duckus.engine.core;
-import duckus.engine.GameContainer;
+package duckus.game.engine.core;
+import duckus.game.engine.GameContainer;
 import javax.swing.JFrame;
 
 public class Window {

@@ -3,11 +3,11 @@ package server;
 import common.DuckPacketReader;
 import common.engine.Scale;
 import common.networking.socket.SocketPublisher;
-import server.engine.ServerContainer;
-import server.engine.ServerController;
-import server.engine.ServerNetwork;
+import server.game.engine.ServerContainer;
+import server.game.engine.ServerController;
+import server.game.engine.ServerNetwork;
 import server.networking.Server;
-import server.game.SPlayer;
+import server.game.nodes.SPlayer;
 
 public class DuckUsServer {
 

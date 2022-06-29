@@ -1,4 +1,4 @@
-package duckus.engine;
+package duckus.game.engine;
 
 import common.engine.Container;
 import common.engine.Network;
