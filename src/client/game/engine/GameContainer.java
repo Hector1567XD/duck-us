@@ -4,6 +4,7 @@ import common.game.engine.Container;
 import common.game.engine.Scale;
 import client.game.engine.core.Input;
 import client.game.engine.core.Window;
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class GameContainer extends Container {
@@ -37,6 +38,7 @@ public class GameContainer extends Container {
     }
 
     public void draw(Graphics2D g2) {
+        g2.setColor(Color.red);
         getController().draw(this, g2);
     }
 
