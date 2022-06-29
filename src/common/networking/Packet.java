@@ -2,17 +2,17 @@ package common.networking;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.DatagramPacket;
 
 public abstract class Packet {
     private Agent sender = null;
     private Agent receiver = null;
+    private DatagramPacket datagramPacket = null;
 
     public void write(DataOutputStream bufferOutput) throws IOException {
         bufferOutput.writeByte(this.getPackageType());
     }
     public abstract int getPackageType();
-
-    // Sender & Receiver Control
 
     public Agent getSender() {
         return sender;
@@ -28,5 +28,13 @@ public abstract class Packet {
 
     public void setReceiver(Agent receiver) {
         this.receiver = receiver;
+    }
+
+    public DatagramPacket getDatagramPacket() {
+        return datagramPacket;
+    }
+
+    public void setDatagramPacket(DatagramPacket datagramPacket) {
+        this.datagramPacket = datagramPacket;
     }
 }

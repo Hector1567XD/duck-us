@@ -3,24 +3,14 @@ package duckus.engine;
 import common.engine.Container;
 import common.engine.Network;
 import common.networking.Packet;
-import common.networking.PacketReader;
-import duckus.engine.networking.Client;
+import duckus.networking.Client;
 import java.io.IOException;
 
 public class GameNetwork extends Network {
-    private Client client;
-    private String ipAddress;
-    private int port;
+    private final Client client;
 
-    public GameNetwork(PacketReader reader, String ipAddress, int port) {
-        this.ipAddress = ipAddress;
-        this.port = port;
-        this.client = new Client(this, reader);
-    }
- 
-    @Override
-    public void start() {
-        client.start(ipAddress, port);
+    public GameNetwork(Client client) {
+        this.client = client;
     }
 
     public void sendPacket(Packet packet) {

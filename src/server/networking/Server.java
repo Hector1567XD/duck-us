@@ -1,14 +1,14 @@
-package server.engine.networking;
+package server.networking;
 
-import common.engine.Network;
 import common.networking.PacketReader;
-import common.networking.Socket;
+import common.networking.socket.Socket;
+import common.networking.socket.SocketPublisher;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 
 public class Server extends Socket {
-    public Server(Network network, PacketReader reader) {
-        super(network, reader);
+    public Server(SocketPublisher publisher, PacketReader reader) {
+        super(publisher, reader);
     }
 
     // Para el servidor, cuando usas un puerto especifico

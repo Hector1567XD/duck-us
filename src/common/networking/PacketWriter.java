@@ -9,9 +9,13 @@ public class PacketWriter {
     // Crea un DatagramPacket en base a un Packet (Nuestro propio Packet)
     public DatagramPacket write(Packet packet, Agent receptor) throws IOException {
         byte[] byteData = writePacketInsideBytes(packet);
-        return new DatagramPacket(
+        DatagramPacket datagramPacket = new DatagramPacket(
             byteData, byteData.length, receptor.getIpAddress(), receptor.getPort()
         );
+
+        packet.setReceiver(receptor);
+        packet.setDatagramPacket(datagramPacket);
+        return datagramPacket;
     }
 
     // Convierte un ByteArrayOutputStream en un arreglo de bytes

@@ -3,8 +3,8 @@ package common.networking;
 import java.net.InetAddress;
 
 public class Agent {
-    private InetAddress ipAddress;
-    private int port;
+    private final InetAddress ipAddress;
+    private final int port;
 
     public Agent(InetAddress ipAddress, int port) {
         this.ipAddress = ipAddress;

@@ -17,7 +17,6 @@ public abstract class Container {
 
     public void start() {
         runner.start();
-        network.start();
     }
 
     public void update() {

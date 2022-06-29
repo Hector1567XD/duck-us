@@ -9,20 +9,13 @@ import common.networking.PacketReader;
 import common.packets.PlayerJoinedPacket;
 import common.packets.PlayerLoginPacket;
 import java.io.IOException;
-import server.engine.networking.Server;
+import server.networking.Server;
 
 public class ServerNetwork extends Network {
-    private Server server;
-    private int port;
+    private final Server server;
 
-    public ServerNetwork(PacketReader reader, int port) {
-        this.port = port;
-        this.server = new Server(this, reader);
-    }
-
-    @Override
-    public void start() {
-        server.start(port);
+    public ServerNetwork(Server server) {
+        this.server = server;
     }
 
     public void sendPacket(Packet packet, Agent agent) {

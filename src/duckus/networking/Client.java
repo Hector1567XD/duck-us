@@ -1,11 +1,12 @@
-package duckus.engine.networking;
+package duckus.networking;
 
 import common.engine.Network;
 import common.networking.Agent;
 import common.networking.Packet;
 import common.networking.PacketReader;
 import common.networking.PacketWriter;
-import common.networking.Socket;
+import common.networking.socket.Socket;
+import common.networking.socket.SocketPublisher;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -17,10 +18,9 @@ public class Client extends Socket {
     private InetAddress ipAddress;
     private PacketWriter writer;
     private PacketReader reader;
-    private Network network;
 
-    public Client(Network network, PacketReader reader) {
-        super(network, reader);
+    public Client(SocketPublisher publisher, PacketReader reader) {
+        super(publisher, reader);
     }
 
     public void start() {

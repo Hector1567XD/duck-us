@@ -1,22 +1,25 @@
-package common.networking;
+package common.networking.socket;
 
-import common.engine.Network;
+import common.networking.Agent;
+import common.networking.Packet;
+import common.networking.PacketReader;
+import common.networking.PacketWriter;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
 public abstract class Socket extends Thread {
     private DatagramSocket socket;
-    private PacketWriter writer;
-    private PacketReader reader;
-    private Network network;
+    private final PacketWriter writer;
+    private final PacketReader reader;
+    private SocketPublisher publisher;
 
-    public Socket(Network network, PacketReader reader) {
+    public Socket(SocketPublisher publisher, PacketReader reader) {
         this.writer = new PacketWriter();
         this.reader = reader;
-        this.network = network;
+        this.publisher = publisher;
     }
-    
+
     public void setSocket(DatagramSocket socket) {
         this.socket = socket;
     }
@@ -27,7 +30,7 @@ public abstract class Socket extends Thread {
             byte[] data = new byte[256];
             System.out.println("Running socket on " + socket.getLocalAddress() + ":" + socket.getLocalPort());
             DatagramPacket datagramPacket = new DatagramPacket(data, data.length);
-            
+
             try {
                 socket.receive(datagramPacket);
             } catch (IOException e) {
@@ -35,23 +38,17 @@ public abstract class Socket extends Thread {
                 e.printStackTrace();
             }
 
-            System.out.println("Recibiendo paquete de (" + datagramPacket.getLength() + " bytes).");
-
             Packet packet = this.reader.read(datagramPacket);
-
-            Agent agent = new Agent(datagramPacket.getAddress(), datagramPacket.getPort());
-            packet.setSender(agent);
-
-            network.appendPacket(packet);
+            publisher.notify(SocketEvents.PACKET_RECEIVED_EVENT, packet);
         }
     }
 
     public void sendPacket(Packet packet, Agent receiver) throws IOException {
-        packet.setReceiver(receiver);
+        
         DatagramPacket datagramPacket = this.writer.write(packet, receiver);
 
-        System.out.println("Enviando paquete tipo " + packet.getPackageType() + " (" + datagramPacket.getLength() + " bytes). hacia " + receiver.getIpAddress().getHostAddress() + ":" + receiver.getPort());
-
         socket.send(datagramPacket);
+        publisher.notify(SocketEvents.PACKET_SENDED_EVENT, packet);
     }
 }
+
