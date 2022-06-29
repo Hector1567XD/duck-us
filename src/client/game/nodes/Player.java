@@ -12,13 +12,12 @@ public class Player extends GameNode {
 
     @Override
     public void created(GameContainer container) {
-        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+        //container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
     @Override
     public void update(GameContainer container) {
         Input input = container.getInput();
-        //int scale = container.getScale().getScale();
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
 
         if (isWalking) {
@@ -40,7 +39,7 @@ public class Player extends GameNode {
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
         int scale = container.getScale().getScale();
-        int tileSize = container.getScale().getTileSize();
-        g2.fillRect(x * scale, y * scale, tileSize, tileSize);
+        int tileSize = container.getScale().getOriginalTileSize();
+        g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale);
     }
 }
