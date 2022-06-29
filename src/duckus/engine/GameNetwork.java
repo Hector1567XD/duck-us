@@ -2,8 +2,8 @@ package duckus.engine;
 
 import common.engine.Container;
 import common.engine.Network;
-import common.engine.networking.Packet;
-import common.engine.networking.PacketReader;
+import common.networking.Packet;
+import common.networking.PacketReader;
 import duckus.engine.networking.Client;
 import java.io.IOException;
 

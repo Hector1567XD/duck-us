@@ -1,6 +1,6 @@
 package common.engine;
 
-import common.engine.networking.Packet;
+import common.networking.Packet;
 import java.util.LinkedList;
 import java.util.Queue;
 

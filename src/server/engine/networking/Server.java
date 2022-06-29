@@ -1,8 +1,8 @@
 package server.engine.networking;
 
 import common.engine.Network;
-import common.engine.networking.PacketReader;
-import common.engine.networking.Socket;
+import common.networking.PacketReader;
+import common.networking.Socket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 

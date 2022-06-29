@@ -2,8 +2,8 @@ package common;
 
 import static common.PacketTypes.*;
 import common.packets.*;
-import common.engine.networking.Packet;
-import common.engine.networking.PacketReader;
+import common.networking.Packet;
+import common.networking.PacketReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 

@@ -1,10 +1,9 @@
-package common.engine.networking;
+package common.networking;
 
 import common.engine.Network;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 
 public abstract class Socket extends Thread {
     private DatagramSocket socket;

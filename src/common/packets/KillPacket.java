@@ -1,7 +1,7 @@
 package common.packets;
 
 import common.PacketTypes;
-import common.engine.networking.Packet;
+import common.networking.Packet;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

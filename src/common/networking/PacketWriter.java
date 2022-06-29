@@ -1,4 +1,4 @@
-package common.engine.networking;
+package common.networking;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;

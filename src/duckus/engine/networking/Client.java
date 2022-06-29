@@ -1,11 +1,11 @@
 package duckus.engine.networking;
 
 import common.engine.Network;
-import common.engine.networking.Agent;
-import common.engine.networking.Packet;
-import common.engine.networking.PacketReader;
-import common.engine.networking.PacketWriter;
-import common.engine.networking.Socket;
+import common.networking.Agent;
+import common.networking.Packet;
+import common.networking.PacketReader;
+import common.networking.PacketWriter;
+import common.networking.Socket;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
