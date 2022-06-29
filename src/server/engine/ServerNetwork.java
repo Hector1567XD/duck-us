@@ -36,8 +36,7 @@ public class ServerNetwork extends Network {
 
     @Override
     public void packetArrived(Container container, Packet packet) {
-        ServerContainer serverContainer = (ServerContainer) container;
-        packetArrived(serverContainer, packet);
+        packetArrived((ServerContainer) container, packet);
     }
 
     public void packetArrived(ServerContainer container, Packet packet) {

@@ -9,14 +9,12 @@ public abstract class GameNode extends Node {
 
     @Override
     public void created(Container container) {
-        GameContainer gameContainer = (GameContainer) container;
-        created(gameContainer);
+        created((GameContainer) container);
     }
 
     @Override
     public void update(Container container) {
-        GameContainer gameContainer = (GameContainer) container;
-        update(gameContainer);
+        update((GameContainer) container);
     }
 
     public abstract void created(GameContainer container);

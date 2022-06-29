@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NodeCollection {
-    private HashMap<String, ArrayList<NodeI>> nodesByTag = new HashMap<String, ArrayList<NodeI>>();
-    private HashMap<Integer, NodeI> nodesByID = new HashMap<Integer, NodeI>();
-    private ArrayList<NodeI> nodes = new ArrayList<NodeI>();
+    private HashMap<String, ArrayList<NodeI>> nodesByTag;
+    private HashMap<Integer, NodeI> nodesByID;
+    private ArrayList<NodeI> nodes;
     private int nodeCounter = 0;
+
+    public NodeCollection() {
+        this.nodesByTag = new HashMap<>();
+        this.nodesByID = new HashMap<>();
+        this.nodes = new ArrayList<>();
+    }
 
     public void add(NodeI node) {
         nodeCounter++;
@@ -30,7 +36,7 @@ public class NodeCollection {
             nodesTaggeds.add(node);
         }else{
             // Si no existe la lista de etiquetas, creala y añade al nodo
-            nodesTaggeds = new ArrayList<NodeI>();
+            nodesTaggeds = new ArrayList<>();
             nodesTaggeds.add(node);
             nodesByTag.put(tag, nodesTaggeds);
         }
@@ -59,11 +65,23 @@ public class NodeCollection {
         return nodes.size();
     }
 
-    public NodeI getByIndex(int index) {
-        return nodes.get(index);
+    public <T extends NodeI> ArrayList<T> getList() {
+        return (ArrayList<T>) nodes;
     }
 
-    public ArrayList<NodeI> getNodeList() {
-        return nodes;
+    public <T extends NodeI> T get(int index) {
+        return (T) nodes.get(index);
+    }
+
+    public <T extends NodeI> T find(int id) {
+        return (T) nodesByID.get(id);
+    }
+
+    public <T extends NodeI> ArrayList<T> getListByTag(String nodeTag) {
+        if (nodesByTag.containsKey(nodeTag)) {
+            return (ArrayList<T>) nodesByTag.get(nodeTag);
+        }
+
+        return new ArrayList<>();
     }
 }

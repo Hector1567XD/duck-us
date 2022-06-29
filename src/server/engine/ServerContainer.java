@@ -13,4 +13,12 @@ public class ServerContainer extends Container {
     public void render() {
         // Do nothing, im the server xP
     }
+    
+    public ServerController getController() {
+        return (ServerController) super.getController(); 
+    }
+
+    public ServerNetwork getNetwork() {
+        return (ServerNetwork) super.getNetwork(); 
+    }
 }

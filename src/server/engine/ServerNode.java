@@ -7,14 +7,12 @@ public abstract class ServerNode extends Node {
 
     @Override
     public void created(Container container) {
-        ServerContainer serverContainer = (ServerContainer) container;
-        created(serverContainer);
+        created((ServerContainer) container);
     }
 
     @Override
     public void update(Container container) {
-        ServerContainer serverContainer = (ServerContainer) container;
-        update(serverContainer);
+        update((ServerContainer) container);
     }
 
     public abstract void created(ServerContainer container);

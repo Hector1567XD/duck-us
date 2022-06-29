@@ -34,7 +34,10 @@ public class GameNetwork extends Network {
 
     @Override
     public void packetArrived(Container container, Packet packet) {
-        GameContainer gameContainer = (GameContainer) container;
+        packetArrived((GameContainer) container, packet);
+    }
+
+    public void packetArrived(GameContainer container, Packet packet) {
         // TODO: Recibir Paquetes :)
     }
 }

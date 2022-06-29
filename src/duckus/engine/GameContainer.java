@@ -1,8 +1,6 @@
 package duckus.engine;
 
 import common.engine.Container;
-import common.engine.Controller;
-import common.engine.Network;
 import common.engine.Scale;
 import duckus.engine.core.Input;
 import duckus.engine.core.Window;
@@ -51,12 +49,10 @@ public class GameContainer extends Container {
     }
     
     public GameController getController() {
-        GameController gameController = (GameController) super.getController(); 
-        return gameController;
+        return (GameController) super.getController(); 
     }
 
     public GameNetwork getNetwork() {
-        GameNetwork gameNetwork = (GameNetwork) super.getNetwork(); 
-        return gameNetwork;
+        return (GameNetwork) super.getNetwork(); 
     }
 }
