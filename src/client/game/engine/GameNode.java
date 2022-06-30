@@ -3,6 +3,7 @@ package client.game.engine;
 import common.game.engine.node.NodeI;
 import common.game.engine.node.Node;
 import common.game.engine.Container;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -22,6 +23,7 @@ public abstract class GameNode extends Node {
     public abstract void update(GameContainer container);
 
     public void _draw(GameContainer container, Graphics2D g2) {
+       g2.setColor(Color.red);
        draw(container, g2);
 
        ArrayList<NodeI> childNodes = getChildsNodeList();
