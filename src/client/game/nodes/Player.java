@@ -38,7 +38,7 @@ public class Player extends GameNode {
         
         if (input.isKey(KeyEvent.VK_P)) {
             GameController controller = container.getController();
-            controller.addNode(new Bullet());
+            controller.addNode(new Bullet(this)); //Le pasamos como atributo a bullet la misma clase donde nos ubicamos osea player
         }
     }
 
