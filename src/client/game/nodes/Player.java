@@ -36,9 +36,15 @@ public class Player extends GameNode {
             }
         }
         
-        if (input.isKey(KeyEvent.VK_P)) {
+        if (input.isKeyDown(KeyEvent.VK_P)) {
+            int x1 = this.x;
+            int y1 = this.y;
+            int x2 = container.getInput().getMouseX();
+            int y2 = container.getInput().getMouseY();
+            int angulo = (int)(Math.atan((y2-y1)/(x2-x1)));
             GameController controller = container.getController();
-            controller.addNode(new Bullet(this)); //Le pasamos como atributo a bullet la misma clase donde nos ubicamos osea player
+            container.getController();
+            controller.addNode(new Bullet(this,angulo)); //Le pasamos como atributo a bullet la misma clase donde nos ubicamos osea player
         }
     }
 

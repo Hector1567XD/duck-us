@@ -7,13 +7,16 @@ import java.awt.Graphics2D;
 
 public class Bullet extends GameNode {
     Player jugador; //almacenador de la inyeccion
+    int angulo;
     
-    public Bullet(Player jugador) { //inyeccion de depedencia se usa para que la bala que fue creada por el jugador 
+    public Bullet(Player jugador, int angulo) { //inyeccion de depedencia se usa para que la bala que fue creada por el jugador 
         this.jugador = jugador;
         this.x = jugador.getX();
-        this.y = jugador.getY();     //obtengamos los metodos del jugador para utilizarlos :3
-    }
-    
+        this.y = jugador.getY();
+        this.angulo = angulo      ;
+        System.out.println("resultado "+ (int)(5*Math.cos(angulo)));        //obtengamos los metodos del jugador para utilizarlos :3
+      }
+            
     @Override
     public void created(GameContainer container) {
         //
@@ -21,7 +24,8 @@ public class Bullet extends GameNode {
 
     @Override
     public void update(GameContainer container) {
-        //
+        this.x = (this.x) +  (int)(5*Math.cos(angulo));
+        this.y = (this.y) -  (int)(5*Math.sin(angulo));
     }
 
     @Override
