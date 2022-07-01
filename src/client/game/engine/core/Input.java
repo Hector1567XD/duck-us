@@ -22,16 +22,16 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
     private int mouseX, mouseY;
     private int scroll;
 
-    public Input(GameContainer container) {
+    public Input(GameContainer container, Window window) {
         this.container = container;
         mouseX = 0;
         mouseY = 0;
         scroll = 0;
 
-        container.getWindow().getWindow().addKeyListener(this);
-        container.getWindow().getWindow().addMouseMotionListener(this);
-        container.getWindow().getWindow().addMouseListener(this);
-        container.getWindow().getWindow().addMouseWheelListener(this);
+        window.getWindow().addKeyListener(this);
+        window.getWindow().addMouseMotionListener(this);
+        window.getWindow().addMouseListener(this);
+        window.getWindow().addMouseWheelListener(this);
     }
 
     public void update() {

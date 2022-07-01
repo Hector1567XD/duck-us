@@ -16,7 +16,7 @@ public class GameContainer extends Container {
     public GameContainer(Scale scale, GameNetwork network, GameController controller) {
         super(scale, network, controller);
         this.window = new Window(this);
-        this.input = new Input(this);
+        this.input = new Input(this, this.window);
     }
 
     @Override

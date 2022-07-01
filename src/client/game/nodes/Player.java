@@ -43,7 +43,7 @@ public class Player extends GameNode {
 
     private void disparar(GameContainer container) {
         GameController controller = container.getController();
-        controller.addNode(new Bullet());
+        controller.addNode(new Bullet(this));
     }
 
     @Override
