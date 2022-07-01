@@ -14,8 +14,8 @@ public class GameContainer extends Container {
     private Window window;
     private Input input;
 
-    public GameContainer(Scale scale, GameNetwork network, GameController controller) {
-        super(scale, network, controller);
+    public GameContainer(int scaleSize, GameNetwork network, GameController controller) {
+        super(scaleSize, network, controller);
         this.window = new Window(this);
         this.input = new Input(this);
     }
