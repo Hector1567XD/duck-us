@@ -35,11 +35,15 @@ public class Player extends GameNode {
                 x += velocity;
             }
         }
-        
+
         if (input.isKey(KeyEvent.VK_P)) {
-            GameController controller = container.getController();
-            controller.addNode(new Bullet());
+            disparar(container);
         }
+    }
+
+    private void disparar(GameContainer container) {
+        GameController controller = container.getController();
+        controller.addNode(new Bullet());
     }
 
     @Override
