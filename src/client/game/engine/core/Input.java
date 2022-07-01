@@ -34,6 +34,17 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
         window.getWindow().addMouseWheelListener(this);
     }
 
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
+    }
+    
+    
+    
+    
     public void update() {
         for(int i = 0; i< NUM_KEYS; i++) {
             keysLast[i] = keys[i];
