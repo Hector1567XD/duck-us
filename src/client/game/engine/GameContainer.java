@@ -38,7 +38,6 @@ public class GameContainer extends Container {
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(Color.red);
         getController().draw(this, g2);
     }
 
