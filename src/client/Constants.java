@@ -1,5 +1,7 @@
 package client;
 
-public class Constants {
+import common.CommonConstants;
+
+public class Constants extends CommonConstants {
     final public static int SCALE = 2;
 }

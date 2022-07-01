@@ -1,6 +1,6 @@
 package common.game.engine;
 
-import common.Constants;
+import common.CommonConstants;
 import common.game.engine.core.Runner;
 
 public abstract class Container {
@@ -13,7 +13,7 @@ public abstract class Container {
         this.runner = new Runner(this);
         this.network = network;
         this.controller = controller;
-        this.scale = new Scale(Constants.TILE_SIZE, scaleSize);
+        this.scale = new Scale(CommonConstants.TILE_SIZE, scaleSize);
     }
 
     public void start() {
