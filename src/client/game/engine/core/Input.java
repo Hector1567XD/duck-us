@@ -125,4 +125,18 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
     public void mouseWheelMoved(MouseWheelEvent e) {
         scroll = e.getWheelRotation();
     }
+
+    // Getters of Mouse
+    
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
+    }
+
+    public int getScroll() {
+        return scroll;
+    }
 }
