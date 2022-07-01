@@ -2,6 +2,7 @@ package client.game.nodes;
 
 import common.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
+import client.game.engine.GameController;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import java.awt.Graphics2D;
@@ -33,6 +34,11 @@ public class Player extends GameNode {
             if (input.isKey(KeyEvent.VK_D)) {
                 x += velocity;
             }
+        }
+        
+        if (input.isKey(KeyEvent.VK_P)) {
+            GameController controller = container.getController();
+            controller.addNode(new Bullet());
         }
     }
 

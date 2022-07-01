@@ -37,7 +37,8 @@ public class GameContainer extends Container {
     }
 
     public void draw(Graphics2D g2) {
-        getController().draw(this, g2);
+        GameController controller = getController();
+        controller.draw(this, g2);
     }
 
     // Getters
