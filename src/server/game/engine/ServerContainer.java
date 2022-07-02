@@ -5,8 +5,8 @@ import common.game.engine.Scale;
 
 public class ServerContainer extends Container {
 
-    public ServerContainer(int scaleSize, ServerNetwork network, ServerController controller) {
-        super(scaleSize, network, controller);
+    public ServerContainer(Scale scale, ServerNetwork network, ServerController controller) {
+        super(scale, network, controller);
     }
 
     @Override

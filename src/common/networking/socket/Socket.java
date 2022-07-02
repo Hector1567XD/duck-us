@@ -1,6 +1,5 @@
 package common.networking.socket;
 
-import common.CommonConstants;
 import common.networking.Agent;
 import common.networking.Packet;
 import common.networking.PacketReader;
@@ -24,9 +23,7 @@ public abstract class Socket extends Thread {
     public void start(DatagramSocket socket) {
         this.socket = socket;
         super.start();
-        if (CommonConstants.DEBUG_MODE && CommonConstants.SOCKET_DEBUG) {
-            System.out.println("Running socket on " + socket.getLocalAddress() + ":" + socket.getLocalPort());
-        }
+        System.out.println("Running socket on " + socket.getLocalAddress() + ":" + socket.getLocalPort());
     }
 
     @Override

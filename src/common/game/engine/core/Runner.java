@@ -1,6 +1,5 @@
 package common.game.engine.core;
 
-import common.CommonConstants;
 import common.game.engine.Container;
 
 public class Runner extends Thread {
@@ -44,9 +43,7 @@ public class Runner extends Thread {
                     frameTime = 0;
                     fps = frames;
                     frames = 0;
-                    if (CommonConstants.DEBUG_MODE && CommonConstants.RUNNER_DEBUG) {
-                        System.out.println("FPS " + fps);   
-                    }
+                    System.out.println("FPS " + fps);
                 }
             }
 
