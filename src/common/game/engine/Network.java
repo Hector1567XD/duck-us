@@ -1,6 +1,5 @@
 package common.game.engine;
 
-import common.CommonConstants;
 import common.networking.Agent;
 import common.networking.Packet;
 import common.networking.socket.SocketEventSuscriber;
@@ -19,9 +18,7 @@ public abstract class Network implements SocketEventSuscriber {
 
     @Override
     public void packetReceived(Packet packet) {
-        if (CommonConstants.DEBUG_MODE && CommonConstants.NETWORK_DEBUG) {
-            System.out.println("Recibiendo paquete tipo " + packet.getPackageType() + " (" + packet.getDatagramPacket().getLength() + " bytes). hacia " + packet.getSender().getIpAddress().getHostAddress() + ":" + packet.getSender().getPort());
-        }
+        System.out.println("Recibiendo paquete tipo " + packet.getPackageType() + " (" + packet.getDatagramPacket().getLength() + " bytes). hacia " + packet.getSender().getIpAddress().getHostAddress() + ":" + packet.getSender().getPort());
         appendPacket(packet);
     }
 
@@ -31,9 +28,7 @@ public abstract class Network implements SocketEventSuscriber {
 
     @Override
     public void packetSended(Packet packet, Agent receiver) {
-        if (CommonConstants.DEBUG_MODE && CommonConstants.NETWORK_DEBUG) {
-            System.out.println("Enviando paquete tipo " + packet.getPackageType() + " (" + packet.getDatagramPacket().getLength() + " bytes). hacia " + packet.getReceiver().getIpAddress().getHostAddress() + ":" + packet.getReceiver().getPort());
-        }
+        System.out.println("Enviando paquete tipo " + packet.getPackageType() + " (" + packet.getDatagramPacket().getLength() + " bytes). hacia " + packet.getReceiver().getIpAddress().getHostAddress() + ":" + packet.getReceiver().getPort());
         // Las "Network" no necesitan saber de los paquetes enviados :)
     }
 

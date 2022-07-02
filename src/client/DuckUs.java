@@ -4,6 +4,7 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameController;
 import common.DuckPacketReader;
+import common.game.engine.Scale;
 import common.networking.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.Player;
@@ -19,7 +20,8 @@ public class DuckUs {
 
         GameNetwork network = new GameNetwork(client);
 
-        GameContainer container = new GameContainer(Constants.SCALE, network, controller);
+        Scale scale = new Scale(32, 2);
+        GameContainer container = new GameContainer(scale, network, controller);
 
         // GAME
 
