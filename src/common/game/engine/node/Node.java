@@ -44,8 +44,7 @@ public abstract class Node implements NodeI {
             }
         }
     }
-    
-    
+
     // EVENTOS EXTERNOS
     public abstract void created(Container container);
     public abstract void update(Container container);
@@ -88,5 +87,10 @@ public abstract class Node implements NodeI {
 
     public ArrayList<NodeI> getChildsNodeList() {
         return childNodes;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" + "id=" + nodeId + ", x=" + x + ", y=" + y + ", tag=" + getNodeTag() + ", removed=" + removed + ", childs=" + childNodes + '}';
     }
 }

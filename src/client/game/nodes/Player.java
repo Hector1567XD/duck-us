@@ -12,6 +12,7 @@ public class Player extends GameNode {
 
     @Override
     public void created(GameContainer container) {
+        this.addNode(new PlayerChildExample());
         //container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
@@ -41,5 +42,10 @@ public class Player extends GameNode {
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
         g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale);
+    }
+    
+    @Override
+    public String getNodeTag() {
+        return "Player";
     }
 }
