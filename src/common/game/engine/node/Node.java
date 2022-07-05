@@ -100,6 +100,6 @@ public abstract class Node implements NodeI {
 
     @Override
     public String toString() {
-        return "Node{" + "id=" + nodeId + ", x=" + x + ", y=" + y + ", tag=" + getNodeTag() + ", removed=" + removed + ", childs=" + childNodes + '}';
+        return "Node{" + "id=" + nodeId + ", x=" + x + ", y=" + y + ", tag=" + getNodeTag() + ", name=" + getNodeName() + ", removed=" + removed + ", childs=" + childNodes + '}';
     }
 }
