@@ -29,8 +29,7 @@ public class Jugador extends GameNode {
 
         if (contador == 30) {
             Cuadrado cuadrado1 = new Cuadrado(contador-120);
-            cuadrado1.setNodeName("cuadrado-1");
-            container.getController().addNode(cuadrado1);
+            container.getController().addNode(cuadrado1, "cuadrado-1");
         }
 
         if (contador == 100) {
@@ -44,11 +43,11 @@ public class Jugador extends GameNode {
         if (contador == 170) {
             NodeCollectionUtils.print(container.getController().getNodes());
         }
-        
+
         Input input = container.getInput();
-        Cuadrado cuadradito = container.getController().getNodes().findByName("cuadrado-1");
-        if (cuadradito != null) {
-            if (input.isKeyDown(KeyEvent.VK_A)) {
+        if (input.isKeyDown(KeyEvent.VK_A)) {
+            Cuadrado cuadradito = container.getController().getNodes().findByName("cuadrado-1");
+            if (cuadradito != null) {
                 cuadradito.eliminarCuadradito();
             }
         }

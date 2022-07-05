@@ -6,23 +6,29 @@ import java.util.HashMap;
 public class NodeCollection {
     private HashMap<String, ArrayList<NodeI>> nodesByTag;
     private HashMap<Integer, NodeI> nodesByID;
+    private HashMap<String, NodeI> nodesByName;
     private ArrayList<NodeI> nodes;
     private int nodeCounter = 0;
 
     public NodeCollection() {
         this.nodesByTag = new HashMap<>();
         this.nodesByID = new HashMap<>();
+        this.nodesByName = new HashMap<>();
         this.nodes = new ArrayList<>();
     }
 
     public void add(NodeI node) {
         nodeCounter++;
         node.setNodeId(nodeCounter);
-        
+
         // Añade el nodo a las distintas listas
         nodes.add(node);
         nodesByID.put(node.getNodeId(), node);
 
+        if (node.getNodeName() != null) {
+            this.nodesByName.put(node.getNodeName(), node);
+        }
+        
         if (node.getNodeTag() != null) {
             this.addNodeToTag(node, node.getNodeTag());
         }
@@ -44,10 +50,14 @@ public class NodeCollection {
 
     public void remove(NodeI node) {
         int nodeId = node.getNodeId();
-        
+
         // Elimina el nodo de las distintas listas
         nodes.remove(node);
         nodesByID.remove(nodeId);
+
+        if (node.getNodeName() != null) {
+            this.nodesByName.remove(node.getNodeName());
+        }
 
         if (node.getNodeTag() != null) {
             this.removeNodeFromTag(node, node.getNodeTag());
@@ -78,16 +88,7 @@ public class NodeCollection {
     }
 
     public <T extends NodeI> T findByName(String name) {
-        ArrayList<NodeI> listaNodos = this.getList();
-        for (NodeI node: listaNodos) {
-            String searchNodeName = node.getNodeName();
-            if (searchNodeName != null) {
-                if (searchNodeName.equals(name)) {
-                    return (T) node;
-                }
-            }
-        }
-        return null;
+        return (T) nodesByName.get(name);
     }
 
     public <T extends NodeI> ArrayList<T> getListByTag(String nodeTag) {
