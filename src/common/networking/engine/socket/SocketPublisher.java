@@ -1,6 +1,7 @@
-package common.networking.socket;
+package common.networking.engine.socket;
 
-import common.networking.Packet;
+import common.networking.engine.Packet;
+import common.networking.engine.Packet;
 import java.util.ArrayList;
 
 public class SocketPublisher {

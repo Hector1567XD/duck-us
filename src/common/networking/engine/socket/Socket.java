@@ -1,9 +1,13 @@
-package common.networking.socket;
+package common.networking.engine.socket;
 
-import common.networking.Agent;
-import common.networking.Packet;
-import common.networking.PacketReader;
-import common.networking.PacketWriter;
+import common.networking.engine.Agent;
+import common.networking.engine.Agent;
+import common.networking.engine.Packet;
+import common.networking.engine.Packet;
+import common.networking.engine.PacketReader;
+import common.networking.engine.PacketReader;
+import common.networking.engine.PacketWriter;
+import common.networking.engine.PacketWriter;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

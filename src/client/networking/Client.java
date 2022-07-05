@@ -1,12 +1,12 @@
 package client.networking;
 
 import common.game.engine.Network;
-import common.networking.Agent;
-import common.networking.Packet;
-import common.networking.PacketReader;
-import common.networking.PacketWriter;
-import common.networking.socket.Socket;
-import common.networking.socket.SocketPublisher;
+import common.networking.engine.Agent;
+import common.networking.engine.Packet;
+import common.networking.engine.PacketReader;
+import common.networking.engine.PacketWriter;
+import common.networking.engine.socket.Socket;
+import common.networking.engine.socket.SocketPublisher;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;

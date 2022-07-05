@@ -1,4 +1,4 @@
-package common;
+package common.networking;
 
 public class PacketTypes  {
     // ENVIADOS POR EL CLIENTE [0 - 60]

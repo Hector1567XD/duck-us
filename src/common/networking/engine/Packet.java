@@ -1,4 +1,4 @@
-package common.networking;
+package common.networking.engine;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
