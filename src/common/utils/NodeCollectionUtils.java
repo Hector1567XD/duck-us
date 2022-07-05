@@ -31,8 +31,8 @@ public class NodeCollectionUtils {
     * Recibe una ArrayList e <em>imprime</em> todos los nodos de la misma, cumple fines de DEBUG.
     * @param nodeList el ArrayList de Nodos que se busca imprimir.
     */
-    public static void print(ArrayList<Node> nodeList) {
-        for (Node node: nodeList) {
+    public static <T extends Node> void print(ArrayList<T> nodeList) {
+        for (T node: nodeList) {
             System.out.println(node);
         }
     }
