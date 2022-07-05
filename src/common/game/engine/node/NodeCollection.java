@@ -77,6 +77,19 @@ public class NodeCollection {
         return (T) nodesByID.get(id);
     }
 
+    public <T extends NodeI> T findByName(String name) {
+        ArrayList<NodeI> listaNodos = this.getList();
+        for (NodeI node: listaNodos) {
+            String searchNodeName = node.getNodeName();
+            if (searchNodeName != null) {
+                if (searchNodeName.equals(name)) {
+                    return (T) node;
+                }
+            }
+        }
+        return null;
+    }
+
     public <T extends NodeI> ArrayList<T> getListByTag(String nodeTag) {
         if (nodesByTag.containsKey(nodeTag)) {
             return (ArrayList<T>) nodesByTag.get(nodeTag);

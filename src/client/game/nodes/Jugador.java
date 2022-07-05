@@ -28,7 +28,9 @@ public class Jugador extends GameNode {
         contador++;
 
         if (contador == 30) {
-            container.getController().addNode(new Cuadrado(contador-120));
+            Cuadrado cuadrado1 = new Cuadrado(contador-120);
+            cuadrado1.setNodeName("cuadrado-1");
+            container.getController().addNode(cuadrado1);
         }
 
         if (contador == 100) {
@@ -42,14 +44,22 @@ public class Jugador extends GameNode {
         if (contador == 170) {
             NodeCollectionUtils.print(container.getController().getNodes());
         }
-
+        
         Input input = container.getInput();
-        Cuadrado cuadradito = container.getController().getNodes().find(3);
+        Cuadrado cuadradito = container.getController().getNodes().findByName("cuadrado-1");
         if (cuadradito != null) {
             if (input.isKeyDown(KeyEvent.VK_A)) {
                 cuadradito.eliminarCuadradito();
             }
         }
+
+        /*Input input = container.getInput();
+        Cuadrado cuadradito = container.getController().getNodes().find(3);
+        if (cuadradito != null) {
+            if (input.isKeyDown(KeyEvent.VK_A)) {
+                cuadradito.eliminarCuadradito();
+            }
+        }*/
         
         /*if (contador == 200) {
             ArrayList<Jugador> jugadorNodes = container.getController().getNodes().getListByTag("Jugador");
@@ -61,7 +71,7 @@ public class Jugador extends GameNode {
             }
         }*/
         
-        if (contador == 200) {
+        /*if (contador == 200) {
             GameController controller = container.getController();
             NodeCollection nodeCollection = controller.getNodes();
             ArrayList<Cuadrado> cuadrados = nodeCollection.getListByTag("Cuadrado");
@@ -71,7 +81,7 @@ public class Jugador extends GameNode {
                     cuadrado.remove();
                 }
             }
-        }
+        }*/
     }
     
     public int getPlayerId() {

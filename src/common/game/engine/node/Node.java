@@ -10,7 +10,8 @@ public abstract class Node implements NodeI {
     private boolean created = false;
     private ArrayList<NodeI> childNodes = new ArrayList();
     private int nodeId = 0;
-
+    private String nodeName;
+    
     @Override
     public void addNode(NodeI node) {
         childNodes.add(node);
@@ -83,6 +84,14 @@ public abstract class Node implements NodeI {
 
     public String getNodeTag() {
         return null;
+    }
+
+    public void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
+    }
+    
+    public String getNodeName() {
+        return nodeName;
     }
 
     public ArrayList<NodeI> getChildsNodeList() {
