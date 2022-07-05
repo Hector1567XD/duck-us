@@ -12,7 +12,6 @@ public class Player extends GameNode {
 
     @Override
     public void created(GameContainer container) {
-        this.addNode(new PlayerChildExample());
         //container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
