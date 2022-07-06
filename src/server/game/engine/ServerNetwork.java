@@ -33,7 +33,7 @@ public class ServerNetwork extends Network {
     }
 
     public void packetArrived(ServerContainer container, Packet packet) {
-        ServerNetwork network = (ServerNetwork) container.getNetwork(); // TODO, hacer un casteo dentro de los containers
+        ServerNetwork network = container.getNetwork(); // TODO, hacer un casteo dentro de los containers
 
         if (packet.getPackageType() == PacketTypes.PLAYER_LOGIN) {
             PlayerLoginPacket playerLogin = (PlayerLoginPacket) packet;
