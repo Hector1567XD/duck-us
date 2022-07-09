@@ -16,6 +16,10 @@ public class PlayerLoginPacket extends Packet {
         this.playerName = bufferInput.readUTF();
     }
 
+    public PlayerLoginPacket() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     @Override
     public void write(DataOutputStream bufferOutput) throws IOException {
         super.write(bufferOutput);

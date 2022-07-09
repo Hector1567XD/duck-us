@@ -8,6 +8,11 @@ import common.game.engine.Scale;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.Player;
+import common.networking.engine.Agent;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DuckUs {
     public static void main(String[] args) {
@@ -20,14 +25,14 @@ public class DuckUs {
 
         GameNetwork network = new GameNetwork(client);
 
-        Scale scale = new Scale(32, 2);
+        Scale scale = new Scale(32, 1);
         GameContainer container = new GameContainer(scale, network, controller);
 
         // GAME
 
         Player player = new Player();
         controller.addNode(player);
-        
+
         // BEGIN
         publisher.subscribe(network);
         container.start();

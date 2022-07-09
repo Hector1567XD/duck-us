@@ -25,9 +25,6 @@ public class DuckUsServer {
         ServerContainer container = new ServerContainer(scale, network, controller);
 
         // GAME
-  
-        SPlayer splayer = new SPlayer();
-        controller.addNode(splayer);
 
         // BEGIN
         publisher.subscribe(network);
