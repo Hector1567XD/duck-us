@@ -24,7 +24,7 @@ public class PlayerLoginPacket extends Packet {
 
     @Override
     public int getPackageType() {
-        return PacketTypes.PLAYER_LOGIN;
+        return PacketTypes.PLAYER_LOGIN_PACKET;
     }
 
     public String getPlayerName() {
