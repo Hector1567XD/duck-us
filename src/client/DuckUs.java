@@ -3,6 +3,7 @@ package client;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameController;
+import client.game.nodes.PingNode;
 import common.networking.DuckPacketReader;
 import common.game.engine.Scale;
 import common.networking.engine.socket.SocketPublisher;
@@ -32,7 +33,10 @@ public class DuckUs {
 
         Player player = new Player();
         controller.addNode(player);
-
+        PingNode pingNode = new PingNode();
+        controller.addNode(pingNode);
+        network.setPingNode(pingNode);
+        
         // BEGIN
         publisher.subscribe(network);
         container.start();

@@ -1,6 +1,7 @@
 package client.game.engine;
 
 import client.game.nodes.OPlayer;
+import client.game.nodes.PingNode;
 import common.game.engine.Container;
 import common.game.engine.Network;
 import common.networking.engine.Packet;
@@ -14,10 +15,15 @@ import java.util.ArrayList;
 public class GameNetwork extends Network {
     private final Client client;
     private final ArrayList<OPlayer> players;
-    
+    private PingNode pingNode;
+
     public GameNetwork(Client client) {
         this.client = client;
         this.players = new ArrayList<OPlayer>();
+    }
+
+    public void setPingNode(PingNode pingNode) {
+        this.pingNode = pingNode;
     }
 
     public void sendPacket(Packet packet) {

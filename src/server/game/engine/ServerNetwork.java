@@ -10,6 +10,7 @@ import common.networking.packets.*;
 import common.networking.packets.classes.PlayerJoined;
 import java.io.IOException;
 import java.util.ArrayList;
+import server.game.nodes.PongNode;
 import server.game.nodes.SPlayer;
 import server.networking.Server;
 
@@ -18,7 +19,8 @@ public class ServerNetwork extends Network {
     private final ArrayList<Agent> clients;
     private final ArrayList<SPlayer> players;
     private int lastPlayerId = 0; // <- ID del ukltimo jugador []
-
+    private PongNode pongNode;
+        
     public ServerNetwork(Server server) {
         this.server = server;
         this.clients = new ArrayList<Agent>();
@@ -68,7 +70,8 @@ public class ServerNetwork extends Network {
 
             // LUEGO de enviar la informacion de los jugadores anteriores añadimos al jugador al arraylist de jugadores
             this.players.add(newSPlayer);
-
+            this.pongNode.addPlayer(newSPlayer);
+            
             // Notificamos al resto de jugadores que entro X jugador
             this.sendPacketToAllWithout(
                 new PlayerJoinedPacket(newSPlayer.getPlayerId(), newSPlayer.getName()),
@@ -114,6 +117,10 @@ public class ServerNetwork extends Network {
                 this.sendPacket(packet, client);
             }
         }
+    }
+
+    public void setPongNode(PongNode pongNode) {
+        this.pongNode = pongNode;
     }
 }
 /*

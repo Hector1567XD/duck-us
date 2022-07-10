@@ -6,8 +6,8 @@ import common.networking.engine.socket.SocketPublisher;
 import server.game.engine.ServerContainer;
 import server.game.engine.ServerController;
 import server.game.engine.ServerNetwork;
+import server.game.nodes.PongNode;
 import server.networking.Server;
-import server.game.nodes.SPlayer;
 
 public class DuckUsServer {
 
@@ -25,7 +25,10 @@ public class DuckUsServer {
         ServerContainer container = new ServerContainer(scale, network, controller);
 
         // GAME
-
+        PongNode pongNode = new PongNode();
+        controller.addNode(pongNode);
+        network.setPongNode(pongNode);
+        
         // BEGIN
         publisher.subscribe(network);
         container.start();
