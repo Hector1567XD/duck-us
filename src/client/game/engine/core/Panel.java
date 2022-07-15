@@ -17,10 +17,10 @@ public class Panel extends JPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) { //le pasamos por parametro una variable de tipo graphics
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g; //Convertimos el graphics a 2D
         container.draw(g2);
 
         g2.dispose();
