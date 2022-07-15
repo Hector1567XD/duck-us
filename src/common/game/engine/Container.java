@@ -19,7 +19,7 @@ public abstract class Container {
         runner.start();
     }
 
-    public void update() {
+    public void update() {   //procedimiento que se pasa a si mismo al metodo network update y controller update
         network.update(this);
         controller.update(this);
     }

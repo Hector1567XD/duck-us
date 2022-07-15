@@ -37,7 +37,7 @@ public class Runner extends Thread {
             while (unprocessedTime >= UPDATE_CAP) {
                 unprocessedTime -= UPDATE_CAP;
                 render = true;
-                container.update();
+                container.update(); //Llama al metodo update del container
 
                 if (frameTime >= 1.0) {
                     frameTime = 0;
@@ -48,7 +48,7 @@ public class Runner extends Thread {
             }
 
             if (render) {
-                container.render();
+                container.render();  //Llama al metodo render del container
                 frames++;
             }else{
                 try {
