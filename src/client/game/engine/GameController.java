@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GameController extends Controller {
     public void draw(GameContainer container, Graphics2D g2) {
-        ArrayList<GameNode> nodes = this.getNodes().getList();
+        ArrayList<GameNode> nodes = this.getNodes().getList();//Obtiene la lista de nodo
 
         for (GameNode node: nodes) {
             node._draw(container, g2);

@@ -33,11 +33,11 @@ public class GameContainer extends Container {
     }
 
     @Override
-    public void render() {
+    public void render() { //Llama al metodo get panel de la clase window y obtiene el panel y lo repinta
         window.getPanel().repaint();
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) {  //Llama al metodo draw del getController
         getController().draw(this, g2);
     }
 

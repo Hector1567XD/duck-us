@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NodeCollection {
-    private HashMap<String, ArrayList<NodeI>> nodesByTag;
-    private HashMap<Integer, NodeI> nodesByID;
-    private ArrayList<NodeI> nodes;
+    private HashMap<String, ArrayList<NodeI>> nodesByTag; //Lista de nodos
+    private HashMap<Integer, NodeI> nodesByID; //Lista de nodos
+    private ArrayList<NodeI> nodes; //Lista de nodos
     private int nodeCounter = 0;
 
     public NodeCollection() {
