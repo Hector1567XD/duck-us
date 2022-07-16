@@ -5,15 +5,9 @@ import client.game.engine.GameNetwork;
 import client.game.engine.GameController;
 import client.game.nodes.PingNode;
 import common.networking.DuckPacketReader;
-import common.game.engine.Scale;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.Player;
-import common.networking.engine.Agent;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DuckUs {
     public static void main(String[] args) {
@@ -26,8 +20,7 @@ public class DuckUs {
 
         GameNetwork network = new GameNetwork(client);
 
-        Scale scale = new Scale(32, 1);
-        GameContainer container = new GameContainer(scale, network, controller);
+        GameContainer container = new GameContainer(Constants.SCALE, network, controller);
 
         // GAME
 
