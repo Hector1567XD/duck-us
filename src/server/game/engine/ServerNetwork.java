@@ -20,7 +20,7 @@ public class ServerNetwork extends Network {
     private final ArrayList<SPlayer> players;
     private int lastPlayerId = 0; // <- ID del ukltimo jugador []
     private PongNode pongNode;
-        
+
     public ServerNetwork(Server server) {
         this.server = server;
         this.clients = new ArrayList<Agent>();
@@ -70,8 +70,8 @@ public class ServerNetwork extends Network {
 
             // LUEGO de enviar la informacion de los jugadores anteriores añadimos al jugador al arraylist de jugadores
             this.players.add(newSPlayer);
-            this.pongNode.addPlayer(newSPlayer);
-            
+            this.pongNode.addPlayer(newSPlayer, container);
+
             // Notificamos al resto de jugadores que entro X jugador
             this.sendPacketToAllWithout(
                 new PlayerJoinedPacket(newSPlayer.getPlayerId(), newSPlayer.getName()),
@@ -102,6 +102,23 @@ public class ServerNetwork extends Network {
                 currentPlayer.getY()
             );
             this.sendPacketToAllWithout(movedPacket, client);
+        }else if (packet.getPackageType() == PacketTypes.PLAYER_PING) {
+            PingPacket pingPacket = (PingPacket) packet;
+            Agent client = packet.getSender();
+
+            SPlayer currentPlayer = null;
+            for (SPlayer sOPlayer: this.players) {
+                if (sOPlayer.getAgent().equals(client)) {
+                    currentPlayer = sOPlayer;
+                }
+            }
+
+            if (currentPlayer == null) {
+                // :) No se encontro al jugador
+                return;
+            }
+
+            this.pongNode.onPlayerPing(currentPlayer, container);
         }
     }
 

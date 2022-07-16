@@ -74,6 +74,9 @@ public class GameNetwork extends Network {
                     oPlayer.setY(movedPacket.getY());
                 }
             }
+        }else if (packet.getPackageType() == PacketTypes.SERVER_PONG) {
+            PongPacket pongPacket = (PongPacket) packet;
+            this.pingNode.onServerPong(container);
         }
     }
 }
