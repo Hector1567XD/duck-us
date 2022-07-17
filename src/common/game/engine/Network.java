@@ -54,7 +54,7 @@ public abstract class Network implements SocketEventSuscriber {
         if (CommonConstants.DEBUG_MODE && CommonConstants.NETWORK_DEBUG) {
             System.out.println("Enviando paquete tipo " + packet.getPackageType() + " (" + packet.getDatagramPacket().getLength() + " bytes). hacia " + packet.getReceiver().getIpAddress().getHostAddress() + ":" + packet.getReceiver().getPort());
         }
-        // Las "Network" no necesitan saber de los paquetes enviados :)
+        // Las clases de tipo "Network" no necesitan hacer nada con los paquetes enviados :), por lo que ignoramos este packetSended, si acaso lo logueamos con System.out.println
     }
 
     public abstract void packetArrived(Container container, Packet packet);
