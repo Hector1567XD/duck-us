@@ -29,6 +29,11 @@ public abstract class Controller {
     public void addNode(Node node) {
         nodes.add(node);
     }
+    
+    public void addNode(Node node, String name) {
+        node.setNodeName(name);
+        this.addNode(node);
+    }
 
     public NodeCollection getNodes() {
         return nodes;

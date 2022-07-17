@@ -48,4 +48,9 @@ public class Player extends GameNode {
         int tileSize = container.getScale().getOriginalTileSize();
         g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale);
     }
+    
+    @Override
+    public String getNodeTag() {
+        return "Player";
+    }
 }

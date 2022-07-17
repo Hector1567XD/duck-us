@@ -26,4 +26,6 @@ public interface NodeI {
         public void setNodeId(int nodeId);
         public int getNodeId();
         public String getNodeTag();
+        public void setNodeName(String nodeName);
+        public String getNodeName();
 }
