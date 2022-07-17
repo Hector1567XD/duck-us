@@ -1,8 +1,8 @@
 package common.game.engine;
 
-import common.networking.Agent;
-import common.networking.Packet;
-import common.networking.socket.SocketEventSuscriber;
+import common.networking.engine.Agent;
+import common.networking.engine.Packet;
+import common.networking.engine.socket.SocketEventSuscriber;
 import java.util.LinkedList;
 import java.util.Queue;
 

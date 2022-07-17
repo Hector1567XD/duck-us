@@ -1,6 +1,6 @@
 package client.game.nodes;
 
-import common.packets.PlayerLoginPacket;
+import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
@@ -12,7 +12,7 @@ public class Player extends GameNode {
 
     @Override
     public void created(GameContainer container) {
-        //container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
     @Override
