@@ -12,24 +12,23 @@ public class DuckUsServer {
 
     public static void main(String[] args) {
         // APP BUILDING
-        SocketPublisher publisher = new SocketPublisher();
-        ServerController controller = new ServerController();
-
-        Server server = new Server(publisher, new DuckPacketReader());
-        server.start(1331);
-
-        ServerNetwork network = new ServerNetwork(server);
-
-        ServerContainer container = new ServerContainer(Constants.SCALE, network, controller);
-
+            // SOCKET Y EL SOCKET PUBLISHER
+            SocketPublisher publisher = new SocketPublisher();
+            Server server = new Server(publisher, new DuckPacketReader());
+            // GAME CONTEXT
+            ServerController controller = new ServerController();
+            ServerNetwork network = new ServerNetwork(server);
+            ServerContainer container = new ServerContainer(Constants.SCALE, network, controller);
+            
         // GAME
-        PongNode pongNode = new PongNode();
-        controller.addNode(pongNode);
-        network.setPongNode(pongNode);
-        
+            PongNode pongNode = new PongNode();
+            controller.addNode(pongNode);
+            network.setPongNode(pongNode);
+            
         // BEGIN
-        publisher.subscribe(network);
-        container.start();
+            server.start(1331);
+            publisher.subscribe(network);
+            container.start();
     }
 
 }
