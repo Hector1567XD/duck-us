@@ -18,8 +18,16 @@ public abstract class GameNode extends Node {
         update((GameContainer) container);
     }
 
+    @Override
+    public void removed(Container container) {
+        removed((GameContainer) container);
+    }
+
     public abstract void created(GameContainer container);
     public abstract void update(GameContainer container);
+    public void removed(GameContainer container) {
+        // optional
+    }
 
     public void _draw(GameContainer container, Graphics2D g2) {
        draw(container, g2);

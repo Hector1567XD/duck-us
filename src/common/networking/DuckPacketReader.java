@@ -15,6 +15,7 @@ public class DuckPacketReader extends PacketReader {
             // Player Join
             case PLAYER_LOGIN_PACKET -> packageReaded = new PlayerLoginPacket(bufferInput);
             case PLAYER_JOINED_PACKET -> packageReaded = new PlayerJoinedPacket(bufferInput);
+            case PLAYER_DISCONNECTED -> packageReaded = new PlayerDisconnectedPacket(bufferInput);
             // Player Ping / Server Pong
             case PLAYER_PING -> packageReaded = new PingPacket(bufferInput);
             case SERVER_PONG -> packageReaded = new PongPacket(bufferInput);

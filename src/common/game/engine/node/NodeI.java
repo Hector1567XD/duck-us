@@ -9,6 +9,7 @@ public interface NodeI {
     // EVENTOS INTERNOS
     public void _created(Container container);
     public void _update(Container container);
+    public void _removed(Container container);
 
     // PROPIEDADES
         // COORDENADAS

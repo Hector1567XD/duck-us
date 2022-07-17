@@ -8,12 +8,25 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public abstract class Network implements SocketEventSuscriber {
-    protected Queue<Packet> pendingPackages = new LinkedList<Packet>();
+    protected final Queue<Packet> pendingPackages = new LinkedList<Packet>();
 
     public void update(Container container) {
-        while (!pendingPackages.isEmpty()) {
-            Packet packet = pendingPackages.poll();
-            packetArrived(container, packet);
+        /**
+          * Este synchronized es para protegernos del caso borde en que se
+          * agrega al a pila de paquetes un paquete al mismo tiempo que se estan sacando
+          * paquetes de la pila
+          */
+        synchronized (pendingPackages) {
+            while (!pendingPackages.isEmpty()) {
+                Packet packet = pendingPackages.poll();
+                if (packet == null) {
+                    if (CommonConstants.DEBUG_MODE && CommonConstants.EDGE_CASES_LOG) {
+                        System.out.println("Se ha detectado la recepcion para procesar de un paquete nulo. ignoraremos el error.");
+                    }
+                    //return;
+                }
+                packetArrived(container, packet);
+            }
         }
     }
 
@@ -26,7 +39,14 @@ public abstract class Network implements SocketEventSuscriber {
     }
 
     private void appendPacket(Packet packet) {
-        pendingPackages.add(packet);
+        /**
+          * Este synchronized es para protegernos del caso borde en que se
+          * agrega al a pila de paquetes un paquete al mismo tiempo que se estan sacando
+          * paquetes de la pila
+          */
+        synchronized (pendingPackages) {
+            pendingPackages.add(packet);
+        }
     }
 
     @Override
@@ -39,3 +59,7 @@ public abstract class Network implements SocketEventSuscriber {
 
     public abstract void packetArrived(Container container, Packet packet);
 }
+/*
+    Sobre syncronized:
+    https://youtu.be/ik-QXq0L0Qc
+*/

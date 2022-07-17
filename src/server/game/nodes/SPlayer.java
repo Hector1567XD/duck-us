@@ -25,6 +25,11 @@ public class SPlayer extends ServerNode {
     public void update(ServerContainer container) {
         
     }
+    
+    @Override
+    public void removed(ServerContainer container) {
+        container.getNetwork().disconnectPlayer(container, this);
+    }
 
     public int getPlayerId() {
         return playerId;

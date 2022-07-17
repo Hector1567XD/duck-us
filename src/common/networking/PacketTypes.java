@@ -11,6 +11,7 @@ public class PacketTypes  {
     // ENVIADOS POR EL SERVIDOR [60 - 119]
     public static final short PLAYER_JOINED_PACKET = 60;
     public static final short SERVER_PONG = 61;
+    public static final short PLAYER_DISCONNECTED = 62;
     public static final short PLAYER_MOVED = 80;
     //public static final short PLAYER_KILLED = 100;
     //public static final short CRITICAL_PACKET_RECEIVED = 110;

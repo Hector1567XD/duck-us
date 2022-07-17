@@ -5,7 +5,7 @@ import common.game.engine.Container;
 
 public class Runner extends Thread {
     private boolean running = false;
-    private final double UPDATE_CAP = 1.0/60.0;
+    private final double UPDATE_CAP = 1.0/CommonConstants.FRAMES_PER_SECOND;
     private Container container;
 
     public Runner(Container container) {

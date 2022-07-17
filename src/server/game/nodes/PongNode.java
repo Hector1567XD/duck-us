@@ -1,15 +1,18 @@
 package server.game.nodes;
 
+import common.CommonConstants;
+import common.networking.packets.PlayerDisconnectedPacket;
 import common.networking.packets.PongPacket;
 import java.util.ArrayList;
+import server.Constants;
 import server.game.engine.ServerContainer;
 import server.game.engine.ServerNetwork;
 import server.game.engine.ServerNode;
 import server.game.nodes.classes.PlayerPong;
 
 public class PongNode extends ServerNode {
-    private ArrayList<PlayerPong> players = new ArrayList<PlayerPong>();
-    
+    private final ArrayList<PlayerPong> players = new ArrayList<PlayerPong>();
+
     @Override
     public void created(ServerContainer container) {
        
@@ -17,8 +20,21 @@ public class PongNode extends ServerNode {
 
     @Override
     public void update(ServerContainer container) {
+        ArrayList<PlayerPong> playersToBeDisconnected = new ArrayList<PlayerPong>();
         for (PlayerPong playerPong: this.players) {
             playerPong.addFrameFromLastPing();
+            if (playerPong.getFramesFromLastPing() > CommonConstants.FRAMES_PER_SECOND*Constants.PING_EXPECTED_TIMEOUT) {
+                playersToBeDisconnected.add(playerPong);
+            }
+        }
+        this.disconnectPlayersPong(container, playersToBeDisconnected);
+    }
+ 
+    private void disconnectPlayersPong(ServerContainer container, ArrayList<PlayerPong> playersToBeDisconnected) {
+        ServerNetwork network = container.getNetwork();
+        for (PlayerPong playerPong: playersToBeDisconnected) {
+            this.players.remove(playerPong);
+            playerPong.getPlayer().remove();
         }
     }
 
@@ -49,7 +65,7 @@ public class PongNode extends ServerNode {
         // Enviamos pong
         network.sendPacket(new PongPacket(), currentPlayerPong.getPlayer().getAgent());
     }
-    
+
     // Eliminar jugador de PongNode
 
 }

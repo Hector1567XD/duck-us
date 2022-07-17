@@ -1,21 +1,27 @@
 package client.game.nodes;
 
+import client.Constants;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
+import client.utils.ErrorHelper;
 import common.networking.packets.PingPacket;
 import java.awt.Graphics2D;
 
 public class PingNode extends GameNode {  
-    
+
     int framesFromLastPong = 0;
-    
+
     @Override
     public void created(GameContainer container) {}
 
     @Override
     public void update(GameContainer container) {
         framesFromLastPong++;
+        if (framesFromLastPong >= Constants.PONG_EXPECTED_TIMEOUT * 60) {
+            System.out.println("5 segundos sin pong :c");
+            ErrorHelper.showServerDisconnectError();
+        }
     }
 
     @Override

@@ -6,6 +6,7 @@ import common.game.engine.Container;
 import common.game.engine.Network;
 import common.networking.engine.Packet;
 import client.networking.Client;
+import client.utils.ErrorHelper;
 import common.networking.PacketTypes;
 import common.networking.packets.*;
 import common.networking.packets.classes.PlayerJoined;
@@ -14,12 +15,11 @@ import java.util.ArrayList;
 
 public class GameNetwork extends Network {
     private final Client client;
-    private final ArrayList<OPlayer> players;
+    private final ArrayList<OPlayer> players = new ArrayList<>();
     private PingNode pingNode;
 
     public GameNetwork(Client client) {
         this.client = client;
-        this.players = new ArrayList<OPlayer>();
     }
 
     public void setPingNode(PingNode pingNode) {
@@ -77,6 +77,21 @@ public class GameNetwork extends Network {
         }else if (packet.getPackageType() == PacketTypes.SERVER_PONG) {
             PongPacket pongPacket = (PongPacket) packet;
             this.pingNode.onServerPong(container);
+        }else if (packet.getPackageType() == PacketTypes.PLAYER_DISCONNECTED) {
+            PlayerDisconnectedPacket playerDisconnected = (PlayerDisconnectedPacket) packet;
+            this.pingNode.onServerPong(container);
+
+            for (int i=0; i < players.size(); i++) {
+                OPlayer oPlayer = players.get(i);
+                if (oPlayer.getPlayerId() == playerDisconnected.getPlayerId()) {
+                    this.players.remove(i);
+                    oPlayer.remove();
+                    i--;
+                }else if (oPlayer.getPlayerId() == 0) {
+                    // Si el player ID es 0, entonces soy yo el desconectado
+                    ErrorHelper.showServerForceDisconnectError();
+                }
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ import common.game.engine.Container;
 import common.game.engine.Network;
 import common.networking.engine.Agent;
 import common.networking.engine.Packet;
-import common.networking.engine.PacketReader;
 import common.networking.packets.*;
 import common.networking.packets.classes.PlayerJoined;
 import java.io.IOException;
@@ -120,6 +119,16 @@ public class ServerNetwork extends Network {
 
             this.pongNode.onPlayerPing(currentPlayer, container);
         }
+    }
+
+    public void disconnectPlayer(ServerContainer container, SPlayer player) {
+        ServerNetwork network = container.getNetwork();
+        // Le enviamos un paquete de desconexion a todos menos al jugador
+        network.sendPacketToAllWithout(new PlayerDisconnectedPacket(player.getPlayerId()), player.getAgent());
+        // Al jugador le enviamos un paquete de deconexion tambien pero con id = 0, cuando id = 0 entonces significa que eres tu el desconectado
+        network.sendPacket(new PlayerDisconnectedPacket(0), player.getAgent());
+        this.players.remove(player);
+        this.clients.remove(player.getAgent());
     }
 
     public void sendPacketToAll(Packet packet) {
