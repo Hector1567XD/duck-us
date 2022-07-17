@@ -25,7 +25,7 @@ public class DuckUs {
 
         Player player = new Player();
         controller.addNode(player);
-        
+
         // BEGIN
         publisher.subscribe(network);
         container.start();
