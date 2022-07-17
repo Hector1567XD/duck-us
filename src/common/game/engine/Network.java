@@ -23,7 +23,7 @@ public abstract class Network implements SocketEventSuscriber {
                     if (CommonConstants.DEBUG_MODE && CommonConstants.EDGE_CASES_LOG) {
                         System.out.println("Se ha detectado la recepcion para procesar de un paquete nulo. ignoraremos el error.");
                     }
-                    //return;
+                    return;
                 }
                 packetArrived(container, packet);
             }
