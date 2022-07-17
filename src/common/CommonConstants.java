@@ -10,4 +10,5 @@ public class CommonConstants {
     final public static boolean RUNNER_DEBUG = true;
     final public static boolean NETWORK_DEBUG = true;
     final public static boolean SOCKET_DEBUG = true;
+    final public static boolean EDGE_CASES_LOG = true;
 }
