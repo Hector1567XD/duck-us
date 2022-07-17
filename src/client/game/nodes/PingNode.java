@@ -34,4 +34,9 @@ public class PingNode extends GameNode {
         // Enviamos pong
         network.sendPacket(new PingPacket());
     }
+    
+    @Override
+    public String getNodeTag() {
+        return "PingNode";
+    }
 }

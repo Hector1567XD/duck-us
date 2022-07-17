@@ -33,9 +33,14 @@ public class PongNode extends ServerNode {
     private void disconnectPlayersPong(ServerContainer container, ArrayList<PlayerPong> playersToBeDisconnected) {
         ServerNetwork network = container.getNetwork();
         for (PlayerPong playerPong: playersToBeDisconnected) {
-            this.players.remove(playerPong);
-            playerPong.getPlayer().remove();
+            this.disconnectPlayer(playerPong);
         }
+    }
+    
+    // Eliminar jugador de PongNode
+    private void disconnectPlayer(PlayerPong playerPong) {
+        this.players.remove(playerPong);
+        playerPong.getPlayer().remove();
     }
 
     // Agregar jugador a PongNode
@@ -66,6 +71,9 @@ public class PongNode extends ServerNode {
         network.sendPacket(new PongPacket(), currentPlayerPong.getPlayer().getAgent());
     }
 
-    // Eliminar jugador de PongNode
-
+    
+    @Override
+    public String getNodeTag() {
+        return "PongNode";
+    }
 }
