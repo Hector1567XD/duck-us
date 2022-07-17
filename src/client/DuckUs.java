@@ -20,16 +20,17 @@ public class DuckUs {
 
         GameNetwork network = new GameNetwork(client);
 
-        Scale scale = new Scale(32, 2);
+        Scale scale = new Scale(32, 1);
         GameContainer container = new GameContainer(scale, network, controller);
 
         // GAME
 
-        Player player = new Player();
-        controller.addNode(player);
+        Player player = new Player(); //Creamos un jugador
+        controller.addNode(player); //Añadimos el jugador al metodo addNode de controller
         
         // BEGIN
         publisher.subscribe(network);
         container.start();
+        System.out.println("Juego iniciado");
     }
 }

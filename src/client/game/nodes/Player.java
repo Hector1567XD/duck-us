@@ -12,6 +12,7 @@ public class Player extends GameNode {
 
     @Override
     public void created(GameContainer container) {
+        System.out.println("Nodo creado");
         //container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
@@ -37,9 +38,9 @@ public class Player extends GameNode {
     }
 
     @Override
-    public void draw(GameContainer container, Graphics2D g2) {
+    public void draw(GameContainer container, Graphics2D g2) { 
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-        g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale);
+        g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale); //Siempre cuando se quiera dibujar multiplicarlo por la escala
     }
 }

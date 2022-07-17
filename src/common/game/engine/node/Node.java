@@ -82,7 +82,7 @@ public abstract class Node implements NodeI {
         return nodeId;
     }
 
-    public String getNodeTag() {
+    public String getNodeTag() { 
         return null;
     }
 
