@@ -23,11 +23,7 @@ public abstract class Network implements SocketEventSuscriber {
                     if (CommonConstants.DEBUG_MODE && CommonConstants.EDGE_CASES_LOG) {
                         System.out.println("Se ha detectado la recepcion para procesar de un paquete nulo. ignoraremos el error.");
                     }
-<<<<<<< HEAD
-                    //return;
-=======
                     return;
->>>>>>> improvement/create-launch-file-vscode
                 }
                 packetArrived(container, packet);
             }
@@ -66,8 +62,4 @@ public abstract class Network implements SocketEventSuscriber {
 /*
     Sobre syncronized:
     https://youtu.be/ik-QXq0L0Qc
-<<<<<<< HEAD
 */
-=======
-*/
->>>>>>> improvement/create-launch-file-vscode
