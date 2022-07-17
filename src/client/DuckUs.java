@@ -3,8 +3,8 @@ package client;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameController;
-import common.DuckPacketReader;
-import common.networking.socket.SocketPublisher;
+import common.networking.DuckPacketReader;
+import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.Player;
 

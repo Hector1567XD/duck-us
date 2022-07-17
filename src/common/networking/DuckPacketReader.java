@@ -1,9 +1,12 @@
-package common;
+package common.networking;
 
-import static common.PacketTypes.*;
-import common.packets.*;
-import common.networking.Packet;
-import common.networking.PacketReader;
+import common.networking.packets.KillPacket;
+import common.networking.packets.PlayerJoinedPacket;
+import common.networking.packets.PlayerLoginPacket;
+import common.networking.packets.MovePacket;
+import static common.networking.PacketTypes.*;
+import common.networking.engine.Packet;
+import common.networking.engine.PacketReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 

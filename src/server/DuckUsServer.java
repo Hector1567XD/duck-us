@@ -1,7 +1,7 @@
 package server;
 
-import common.DuckPacketReader;
-import common.networking.socket.SocketPublisher;
+import common.networking.DuckPacketReader;
+import common.networking.engine.socket.SocketPublisher;
 import server.game.engine.ServerContainer;
 import server.game.engine.ServerController;
 import server.game.engine.ServerNetwork;

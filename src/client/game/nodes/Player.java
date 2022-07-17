@@ -1,6 +1,6 @@
 package client.game.nodes;
 
-import common.packets.PlayerLoginPacket;
+import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
@@ -12,7 +12,7 @@ public class Player extends GameNode {
 
     @Override
     public void created(GameContainer container) {
-        //container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
     @Override
@@ -41,5 +41,10 @@ public class Player extends GameNode {
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
         g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale);
+    }
+    
+    @Override
+    public String getNodeTag() {
+        return "Player";
     }
 }
