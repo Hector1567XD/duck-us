@@ -1,6 +1,6 @@
-package common.packets;
-import common.PacketTypes;
-import common.networking.Packet;
+package common.networking.packets;
+import common.networking.PacketTypes;
+import common.networking.engine.Packet;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

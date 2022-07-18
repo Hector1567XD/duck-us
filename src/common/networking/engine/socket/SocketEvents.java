@@ -1,4 +1,4 @@
-package common.networking.socket;
+package common.networking.engine.socket;
 
 public class SocketEvents {
     public static final short PACKET_RECEIVED_EVENT = 0;
