@@ -5,11 +5,13 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
+import client.game.engine.nodos.NodeColladable;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
-public class Player extends GameNode implements NodeCenterable {
+public class Player extends GameNode implements NodeCenterable, NodeColladable {
     private int velocity = 4;
 
     @Override
@@ -51,8 +53,26 @@ public class Player extends GameNode implements NodeCenterable {
         g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
         g2.setColor(Color.red);
         g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
+
+        ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
+        //
+        Bloque bloqusito = bloquesitos.get(0);
+        if (bloqusito != null) {
+            if (this.isCollaiding(bloqusito)) {
+                g2.setColor(Color.blue);
+                g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
+            }
+        }
+
     }
-    
+
+    public boolean isCollaiding(NodeColladable otherNode) {
+        if (this.x + this.getRigthCenter() >= otherNode.getX() - otherNode.getLeftCenter())
+            return true;
+        
+        return false;
+    }
+
     @Override
     public String getNodeTag() {
         return "Player";
@@ -63,6 +83,22 @@ public class Player extends GameNode implements NodeCenterable {
     }
 
     public int getOffsetY() {
+        return 16;
+    }
+    
+    public int getTopCenter() {
+        return 16;
+    }
+
+    public int getLeftCenter() {
+        return 16;
+    }
+
+    public int getRigthCenter() {
+        return 16;
+    }
+
+    public int getBottomCenter() {
         return 16;
     }
 }
