@@ -10,7 +10,8 @@ public abstract class Node implements NodeI {
     private boolean created = false;
     private ArrayList<NodeI> childNodes = new ArrayList();
     private int nodeId = 0;
-
+    private String nodeName;
+    
     @Override
     public void addNode(NodeI node) {
         childNodes.add(node);
@@ -44,8 +45,7 @@ public abstract class Node implements NodeI {
             }
         }
     }
-    
-    
+
     // EVENTOS EXTERNOS
     public abstract void created(Container container);
     public abstract void update(Container container);
@@ -86,7 +86,20 @@ public abstract class Node implements NodeI {
         return null;
     }
 
+    public void setNodeName(String nodeName) {
+        this.nodeName = nodeName;
+    }
+    
+    public String getNodeName() {
+        return nodeName;
+    }
+
     public ArrayList<NodeI> getChildsNodeList() {
         return childNodes;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" + "id=" + nodeId + ", x=" + x + ", y=" + y + ", tag=" + getNodeTag() + ", name=" + getNodeName() + ", removed=" + removed + ", childs=" + childNodes + '}';
     }
 }

@@ -1,7 +1,7 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -12,17 +12,24 @@
         },
         {
             "type": "java",
-            "name": "Launch DuckUs",
+            "name": "Launch DuckUs Client",
             "request": "launch",
             "mainClass": "client.DuckUs",
-            "projectName": "duck-us_d1cb8706"
+            "projectName": "DuckUs_bdb4c33d"
         },
         {
             "type": "java",
-            "name": "Launch DuckUsServer",
+            "name": "Launch DuckUs Server",
             "request": "launch",
             "mainClass": "server.DuckUsServer",
-            "projectName": "duck-us_d1cb8706"
+            "projectName": "DuckUs_bdb4c33d"
         }
+    ],
+    "compounds": [
+      {
+        "name": "Launch Server + Client",
+        "configurations": ["Launch DuckUs Server", "Launch DuckUs Client"],
+        "stopAll": true
+      }
     ]
 }
