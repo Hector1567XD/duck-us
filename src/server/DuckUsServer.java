@@ -1,8 +1,7 @@
 package server;
 
-import common.DuckPacketReader;
-import common.game.engine.Scale;
-import common.networking.socket.SocketPublisher;
+import common.networking.DuckPacketReader;
+import common.networking.engine.socket.SocketPublisher;
 import server.game.engine.ServerContainer;
 import server.game.engine.ServerController;
 import server.game.engine.ServerNetwork;
@@ -21,8 +20,7 @@ public class DuckUsServer {
 
         ServerNetwork network = new ServerNetwork(server);
 
-        Scale scale = new Scale(32, 1);
-        ServerContainer container = new ServerContainer(scale, network, controller);
+        ServerContainer container = new ServerContainer(Constants.SCALE, network, controller);
 
         // GAME
   

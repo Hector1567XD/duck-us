@@ -1,13 +1,13 @@
 package server.game.engine;
 
-import common.PacketTypes;
+import common.networking.PacketTypes;
 import common.game.engine.Container;
 import common.game.engine.Network;
-import common.networking.Agent;
-import common.networking.Packet;
-import common.networking.PacketReader;
-import common.packets.PlayerJoinedPacket;
-import common.packets.PlayerLoginPacket;
+import common.networking.engine.Agent;
+import common.networking.engine.Packet;
+import common.networking.engine.PacketReader;
+import common.networking.packets.PlayerJoinedPacket;
+import common.networking.packets.PlayerLoginPacket;
 import java.io.IOException;
 import server.networking.Server;
 

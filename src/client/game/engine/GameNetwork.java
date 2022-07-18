@@ -2,7 +2,7 @@ package client.game.engine;
 
 import common.game.engine.Container;
 import common.game.engine.Network;
-import common.networking.Packet;
+import common.networking.engine.Packet;
 import client.networking.Client;
 import java.io.IOException;
 
