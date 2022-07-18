@@ -3,6 +3,7 @@ package client;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameController;
+import client.game.nodes.Bloque;
 import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
@@ -24,7 +25,9 @@ public class DuckUs {
         // GAME
 
         Player player = new Player();
+
         controller.addNode(player);
+        controller.addNode(new Bloque());
 
         // BEGIN
         publisher.subscribe(network);
