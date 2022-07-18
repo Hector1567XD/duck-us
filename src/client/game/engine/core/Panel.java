@@ -1,5 +1,6 @@
 package client.game.engine.core;
 import client.game.engine.GameContainer;
+import client.game.tiles.MapTilesManager;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -8,7 +9,8 @@ import java.awt.Graphics2D;
 
 public class Panel extends JPanel {
     GameContainer container;
-
+    MapTilesManager tileM;
+    
     public Panel(GameContainer container, Window window) {
         this.container = container;
         this.setPreferredSize(new Dimension(window.getScreenWidth(), window.getScreenHeight()));

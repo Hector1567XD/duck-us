@@ -78,7 +78,7 @@ public class Player extends GameNode implements NodeCenterable {
         g2.setColor(Color.red);
         g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
     }
-    
+
     @Override
     public String getNodeTag() {
         return "Player";
