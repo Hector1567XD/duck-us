@@ -33,13 +33,13 @@ public class MapTilesManager {
     public void getTileImagen() {
         try{
            tile[0] = new Tiles();
-           tile[0].image = ImageIO.read(getClass().getResourceAsStream("/client.resources.game.tiles/grass.png"));
+           tile[0].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/grass.png"));
 
            tile[1] = new Tiles();
-           tile[1].image = ImageIO.read(getClass().getResourceAsStream("/client.resources.game.tiles/wall.png"));
+           tile[1].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/wall.png"));
 
            tile[2] = new Tiles();
-           tile[2].image = ImageIO.read(getClass().getResourceAsStream("/client.resources.game.tiles/water.png"));
+           tile[2].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/water.png"));
 
         } catch(IOException e){
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class MapTilesManager {
 
     public void loadMap() { 
        try {
-           InputStream is = getClass().getResourceAsStream("/Mapa/mapa.txt");
+           InputStream is = getClass().getResourceAsStream("/client/game/maps/map1");
            BufferedReader br = new BufferedReader(new InputStreamReader(is)); //lector almacenado de buffer
            int col = 0;
            int row = 0;

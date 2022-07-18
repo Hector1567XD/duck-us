@@ -6,6 +6,7 @@ import client.game.engine.GameController;
 import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
+import client.game.nodes.MapNode;
 import client.game.nodes.Player;
 
 public class DuckUs {
@@ -13,6 +14,7 @@ public class DuckUs {
         // APP BUILDING
         SocketPublisher publisher = new SocketPublisher();
         GameController controller = new GameController();
+        
 
         Client client = new Client(publisher, new DuckPacketReader());
         client.start("localhost", 1331);
@@ -24,7 +26,10 @@ public class DuckUs {
         // GAME
 
         Player player = new Player();
+        MapNode mapa = new MapNode(container);
+        controller.addNode(mapa);
         controller.addNode(player);
+        
 
         // BEGIN
         publisher.subscribe(network);
