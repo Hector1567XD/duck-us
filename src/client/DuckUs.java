@@ -28,8 +28,11 @@ public class DuckUs {
 
         Player player = new Player();
         MapNode mapa = new MapNode(container);
-        controller.addNode(mapa);
+        player.setNodeName("Player");
         controller.addNode(player);
+        
+        controller.addNode(mapa);
+        
         
 
         // BEGIN

@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 import client.game.engine.core.Window;
+import client.game.nodes.Player;
 
 /**
  *
@@ -19,13 +20,21 @@ public class MapTilesManager {
     int size;
     Tiles[] tile;
     int mapTileNum[][];
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWitdh;
+    public final int worldHeight;
+    
 
     public MapTilesManager(GameContainer container) {
         this.container = container;
         this.size =  container.getScale().getTileSize();
+        
+        worldWitdh = size * maxWorldCol ;
+        worldHeight = size * maxWorldRow;
 
         tile = new Tiles[10]; //10 mosaicos
-        mapTileNum = new int[container.getMaxMapCol()][container.getMaxMapRow()];
+        mapTileNum = new int[maxWorldCol][maxWorldRow];
         getTileImagen();
         loadMap();
     }
@@ -53,15 +62,15 @@ public class MapTilesManager {
            int col = 0;
            int row = 0;
            
-           while(col < container.getMaxMapCol() && row < container.getMaxMapRow()){
+           while(col < maxWorldCol && row < maxWorldRow){
                String line  = br.readLine(); //esto leera una linea 
-               while (col < container.getMaxMapCol()) {
+               while (col < maxWorldCol) {
                    String numbers[] = line.split(" "); //esto parte la linea asi obteniendo los numeros del mapa 1 por 1
                    int num = Integer.parseInt(numbers[col]);
                    mapTileNum[col][row] = num;
                    col++;
                }
-             if (col == container.getMaxMapCol()){
+             if (col == maxWorldCol){
                  col = 0;
                  row++;
              }  
@@ -72,21 +81,31 @@ public class MapTilesManager {
     }
     
     public void draw(Graphics2D g2){
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-        while(col < container.getMaxMapCol() && row < container.getMaxMapRow())   {
-            int tileNum = mapTileNum[col][row];
-            g2.drawImage(tile[tileNum].image, x, y, size,size,null);
-            col++;
-            x+= size;
+        int worldCol = 0;
+        int worldRow = 0;
+    
+        
+        while(worldCol < maxWorldCol && worldRow < maxWorldRow)   {
+            int tileNum = mapTileNum[worldCol][worldRow];
             
-            if (col == container.getMaxMapCol()) {
-                col = 0;
-                x = 0;
-                row++;
-                y += size;
+            
+            int worldX = worldCol * size;
+            int worldY = worldCol * size;
+            Player nodo = container.getController().getNodes().findByName("Player");
+            int screenX = worldX - nodo.getX() + nodo.getScreenX();
+            int screenY = worldY - nodo.getY() + nodo.getScreenY();
+            
+            
+            
+            g2.drawImage(tile[tileNum].image, screenX,screenY , size,size,null);
+            worldCol++;
+        
+            
+            if (worldCol == maxWorldCol) {
+                worldCol = 0;
+  
+                worldRow++;
+ 
             }
         }
         //container.draw(g2);

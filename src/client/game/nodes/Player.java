@@ -18,8 +18,7 @@ public class Player extends GameNode implements NodeCenterable {
 
     @Override
     public void created(GameContainer container) {
-        int random;
-                
+        int random;      
         Random rand = new Random();
         random = rand.nextInt(1); 
         if (random==1 || random==0) {
@@ -66,7 +65,8 @@ public class Player extends GameNode implements NodeCenterable {
        int screenX = worldX - container.getController().getNodes().findByName("Player").worldX+container.getController().getNodes().findByName("Player").screenX;
        int screenY = worldY - container.getController().getNodes().findByName("Player").worldY +container.getController().getNodes().findByName("Player").screenY;  
         */
-
+       
+      
 
         g2.setColor(Color.gray);
         int alto = tileSize * scale;
@@ -74,9 +74,9 @@ public class Player extends GameNode implements NodeCenterable {
         int offSetX = this.getOffsetX() * scale;
         int offSetY = this.getOffsetY() * scale;
         
-        g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
+        g2.fillRect((screenX) - offSetX, (screenY) - offSetY, alto, ancho);
         g2.setColor(Color.red);
-        g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
+        g2.fillRect(screenX, screenY, 2 * scale, 2 * scale);
     }
 
     @Override
@@ -84,6 +84,15 @@ public class Player extends GameNode implements NodeCenterable {
         return "Player";
     }
 
+    public int getScreenX() {
+        return screenX;
+    }
+    
+     public int getScreenY() {
+        return screenY;
+    }
+    
+    
     public int getOffsetX() {
         return 16;
     }

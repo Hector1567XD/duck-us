@@ -2,7 +2,7 @@ package common.game.engine;
 
 public class Scale {
     private int originalTileSize = 32;
-    private int scale = 2;
+    private int scale = 1;
     private int tileSize;
 
     public Scale(int originalTileSize, int scale) {
