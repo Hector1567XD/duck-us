@@ -1,10 +1,8 @@
 package client.game.engine;
 
 import common.game.engine.Container;
-import common.game.engine.Scale;
 import client.game.engine.core.Input;
 import client.game.engine.core.Window;
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class GameContainer extends Container {
