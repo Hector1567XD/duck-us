@@ -8,6 +8,8 @@ import common.game.engine.Scale;
 import common.networking.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.Player;
+import client.game.nodes.Prueba;
+
 
 public class DuckUs {
     public static void main(String[] args) {
@@ -27,7 +29,9 @@ public class DuckUs {
 
         Player player = new Player();
         controller.addNode(player);
-        
+
+        controller.addNode(new Prueba());
+
         // BEGIN
         publisher.subscribe(network);
         container.start();
