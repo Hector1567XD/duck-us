@@ -14,6 +14,10 @@ public class GameContainer extends Container {
     private Window window;
     private Input input;
 
+    // Tamaño del mapa
+    private int maxMapCol = 16;
+    private int maxMapRow = 12;
+    
     public GameContainer(int scaleSize, GameNetwork network, GameController controller) {
         super(scaleSize, network, controller);
         this.window = new Window(this);
@@ -59,5 +63,13 @@ public class GameContainer extends Container {
     @Override
     public GameNetwork getNetwork() {
         return (GameNetwork) super.getNetwork(); 
+    }
+
+    public int getMaxMapCol() {
+        return maxMapCol;
+    }
+
+    public int getMaxMapRow() {
+        return maxMapRow;
     }
 }
