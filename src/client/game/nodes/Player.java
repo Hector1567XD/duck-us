@@ -53,9 +53,9 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
         g2.setColor(Color.red);
         g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
-        
-        
+
         ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
+        //
         Bloque bloqusito = bloquesitos.get(0);
         if (bloqusito != null) {
             if (this.isCollaiding(bloqusito)) {
