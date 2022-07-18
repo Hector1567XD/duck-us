@@ -6,12 +6,30 @@ import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 public class Player extends GameNode {
     private int velocity = 4;
+    private boolean impostor = false;
+    private int screenX;
+    private int screenY;
 
     @Override
     public void created(GameContainer container) {
+        int random;
+        
+        Random rand = new Random();
+        random = rand.nextInt(1); 
+        if (random==1 || random==0) {
+          System.out.println("soy impostor :D");
+          impostor = true;
+        }
+          
+        screenX = container.getWindow().getScreenWidth()/2 - container.getScale().getTileSize()/2;
+        screenY = container.getWindow().getScreenHeight()/2 - container.getScale().getTileSize()/2; 
+        
+
+
         //container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
@@ -40,7 +58,15 @@ public class Player extends GameNode {
     public void draw(GameContainer container, Graphics2D g2) {
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-        g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale);
+        
+        // cosas que van en el tile set //
+      /* int  worldX = worldcol * scale;
+       int  worldY = worldrow * scale;
+       int screenX = worldX - container.getController().getNodes().findByName("Player").worldX+container.getController().getNodes().findByName("Player").screenX;
+       int screenY = worldY - container.getController().getNodes().findByName("Player").worldY +container.getController().getNodes().findByName("Player").screenY;  
+        */
+        
+        g2.fillRect(screenX,screenY , tileSize * scale, tileSize * scale);
     }
     
     @Override

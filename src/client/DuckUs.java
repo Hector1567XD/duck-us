@@ -9,6 +9,7 @@ import common.networking.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.Player;
 
+
 public class DuckUs {
     public static void main(String[] args) {
         // APP BUILDING
@@ -27,6 +28,7 @@ public class DuckUs {
 
         Player player = new Player();
         controller.addNode(player);
+        
         
         // BEGIN
         publisher.subscribe(network);
