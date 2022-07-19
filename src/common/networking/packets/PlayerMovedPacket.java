@@ -6,16 +6,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class MovePacket extends Packet {
+public class PlayerMovedPacket extends Packet {
+    private int playerId;
     private int x;
     private int y;
 
-    public MovePacket(int x, int y) {
+    public PlayerMovedPacket(int playerId, int x, int y) {
+        this.playerId = playerId;
         this.x = x;
         this.y = y;
     }
 
-    public MovePacket(DataInputStream bufferInput) throws IOException {
+    public PlayerMovedPacket(DataInputStream bufferInput) throws IOException {
+        this.playerId = bufferInput.readShort();
         this.x = bufferInput.readInt();
         this.y = bufferInput.readInt();
     }
@@ -23,12 +26,25 @@ public class MovePacket extends Packet {
     @Override
     public void write(DataOutputStream bufferOutput) throws IOException {
         super.write(bufferOutput);
+        bufferOutput.writeShort(playerId);
         bufferOutput.writeInt(x);
         bufferOutput.writeInt(y);
     }
 
     @Override
     public int getPackageType() {
-        return PacketTypes.MOVE_PACKET;
+        return PacketTypes.PLAYER_MOVED;
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }
