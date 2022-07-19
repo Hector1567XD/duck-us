@@ -5,11 +5,12 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
+import client.game.engine.nodos.NodeCenterable;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-public class OPlayer extends GameNode {
+public class OPlayer extends GameNode implements NodeCenterable {
     private int velocity = 4;
     private int playerId;
     private String name;
@@ -30,12 +31,22 @@ public class OPlayer extends GameNode {
         g2.setColor(Color.GRAY);
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-        g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale);
+        int offSetX = this.getOffsetX() * scale;
+        int offSetY = this.getOffsetY() * scale;
+        g2.fillRect(drawX - offSetX, drawY - offSetY, tileSize * scale, tileSize * scale);
         g2.setColor(Color.WHITE);
-        g2.drawString(this.name + "(" + this.playerId + ")", x * scale + 4*scale, y * scale + 40 * scale);
+        g2.drawString(this.name + "(" + this.playerId + ")", drawX + 4*scale - offSetX, drawY - offSetY + 40 * scale);
     }
 
     public int getPlayerId() {
         return playerId;
+    }
+    
+    public int getOffsetX() {
+        return 16;
+    }
+
+    public int getOffsetY() {
+        return 16;
     }
 }
