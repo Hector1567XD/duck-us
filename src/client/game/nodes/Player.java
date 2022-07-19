@@ -11,13 +11,11 @@ import java.awt.event.KeyEvent;
 
 public class Player extends GameNode implements NodeCenterable {
     private int velocity = 4;
-    private int screenX;
-    private int screenY;
+ 
 
     @Override
     public void created(GameContainer container) {
-        screenX = (container.getScale().getTileSize() * container.getMaxMapCol() )/2;
-        screenY = (container.getScale().getTileSize() * container.getMaxMapRow() )/2; 
+       
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
@@ -61,14 +59,6 @@ public class Player extends GameNode implements NodeCenterable {
     @Override
     public String getNodeTag() {
         return "Player";
-    }
-
-    public int getScreenX() {
-        return screenX;
-    }
-
-    public int getScreenY() {
-        return screenY;
     }
 
     public int getOffsetX() {
