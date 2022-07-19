@@ -4,7 +4,6 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
-import common.networking.packets.PlayerLoginPacket;
 import java.awt.Color;
 import java.awt.Graphics2D;
 /**
@@ -13,10 +12,13 @@ import java.awt.Graphics2D;
  */
 public class Bloque extends GameNode implements NodeCenterable, NodeColladable {
 
+    public Bloque(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     @Override
     public void created(GameContainer container) {
-        this.x = 128;
-        this.y = 128;
     }
 
     @Override
@@ -61,7 +63,7 @@ public class Bloque extends GameNode implements NodeCenterable, NodeColladable {
     }
 
     @Override
-    public int getRigthCenter() {
+    public int getRightCenter() {
         return 16;
     }
 

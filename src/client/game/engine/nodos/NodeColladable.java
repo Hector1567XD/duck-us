@@ -5,6 +5,6 @@ import common.game.engine.node.NodeI;
 public interface NodeColladable extends NodeI {
     public int getTopCenter();
     public int getLeftCenter();
-    public int getRigthCenter();
+    public int getRightCenter();
     public int getBottomCenter();
 }

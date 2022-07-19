@@ -22,7 +22,8 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     @Override
     public void update(GameContainer container) {
         Input input = container.getInput();
-        boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
+        boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A)
+                || input.isKey(KeyEvent.VK_D);
 
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
@@ -49,28 +50,46 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         int ancho = tileSize * scale;
         int offSetX = this.getOffsetX() * scale;
         int offSetY = this.getOffsetY() * scale;
-        
+
         g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
         g2.setColor(Color.red);
         g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
 
         ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
         //
-        Bloque bloqusito = bloquesitos.get(0);
-        if (bloqusito != null) {
-            if (this.isCollaiding(bloqusito)) {
-                g2.setColor(Color.blue);
-                g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
+        for (Bloque i : bloquesitos) {
+            if (i != null) {
+                if (this.isCollaiding(i)) {
+                    g2.setColor(Color.blue);
+                    g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
+                }
             }
         }
+    }
 
+    public boolean isPositionCollaiding(NodeColladable otherNode, int x, int y) {
+        if ((x + this.getRightCenter() >= otherNode.getX() - otherNode.getLeftCenter())
+                && (x - this.getRightCenter() <= otherNode.getX() + otherNode.getLeftCenter())
+                && (y + this.getBottomCenter() >= otherNode.getY() - otherNode.getTopCenter())
+                && (y - this.getBottomCenter() <= otherNode.getY() + otherNode.getBottomCenter()))
+            return true;
+
+        return false;
+    }
+    //to do (esto va en update)
+    public boolean isPositionBlockCOllading(container, int x, int y) {
+        ArrayList<Bloque> bloquesitos = container.getController()....
+        for (Bloque bloque: bloquesitos) {
+                if (isPositionColliding(bloque, x, y) {
+                    return true;
+                }
+        }
+        return false;
     }
 
     public boolean isCollaiding(NodeColladable otherNode) {
-        if (this.x + this.getRigthCenter() >= otherNode.getX() - otherNode.getLeftCenter())
-            return true;
-        
-        return false;
+
+        return isPositionCollaiding(otherNode, x, y);
     }
 
     @Override
@@ -85,7 +104,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     public int getOffsetY() {
         return 16;
     }
-    
+
     public int getTopCenter() {
         return 16;
     }
@@ -94,7 +113,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         return 16;
     }
 
-    public int getRigthCenter() {
+    public int getRightCenter() {
         return 16;
     }
 

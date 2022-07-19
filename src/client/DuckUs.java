@@ -32,7 +32,9 @@ public class DuckUs {
         MapNode mapa = new MapNode(container);
         controller.addNode(mapa);
         controller.addNode(player);
-        controller.addNode(new Bloque());
+        controller.addNode(new Bloque(100,300));
+        controller.addNode(new Bloque(50,50));
+        controller.addNode(new Bloque(300,300));
         
 
         controller.addNode(new Prueba());
