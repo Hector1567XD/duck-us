@@ -34,14 +34,15 @@ public abstract class GameNode extends Node {
     public abstract void update(GameContainer container);
 
     public void _draw(GameContainer container, Graphics2D g2) {
+       int scale = container.getScale().getScale();
        // Calculamos la posicion mapX y mapY respecto a la camara
-       this.drawX = this.x;
-       this.drawY = this.y;
+       this.drawX = this.x * scale;
+       this.drawY = this.y * scale;
        // Obtenemos la camera (si es que existe)
        AbstractCamera camera = container.getController().getCamera();
        if (camera != null) {
-            this.drawX = this.x + camera.getDeltaCameraX();
-            this.drawY = this.y + camera.getDeltaCameraY();
+            this.drawX = this.x * scale + camera.getDeltaCameraX();
+            this.drawY = this.y * scale + camera.getDeltaCameraY();
        }
        // Ejecutamos mi propio DRAW
        draw(container, g2);

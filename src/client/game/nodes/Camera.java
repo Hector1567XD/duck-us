@@ -5,10 +5,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Camera extends AbstractCamera {
+
+    public Camera(GameContainer container) {
+        super(container, 0, 0);
+    }
+
     @Override
     public void created(GameContainer container) {
         screenX = (container.getScale().getTileSize() * container.getMaxMapCol() )/2;
-        screenY = (container.getScale().getTileSize() * container.getMaxMapRow() )/2; 
+        screenY = (container.getScale().getTileSize() * container.getMaxMapRow() )/2;
     }
 
     @Override

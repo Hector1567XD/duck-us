@@ -34,7 +34,7 @@ public class DuckUs {
         
         controller.addNode(player, "Player");
         // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
-        //controller.setCamera(new Camera());
+        controller.setCamera(new Camera(container));
         
         
         
