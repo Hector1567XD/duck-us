@@ -21,7 +21,7 @@ public class Window {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle(container.gameName);
-
+        
         this.panel = new Panel(container, this);
         window.add(this.panel);
         window.pack();

@@ -4,19 +4,79 @@
  */
 package client.forms;
 
+import client.game.engine.GameContainer;
+import client.game.engine.core.Panel;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 /**
  *
  * @author hecto
  */
-public class MenuForm extends javax.swing.JFrame {
-
+public class MenuForm extends javax.swing.JFrame implements ActionListener {
+    private GameContainer container;
+    private SeleccionDeOpciones panel;
+    
     /**
      * Creates new form MenuForm
      */
-    public MenuForm() {
+    //Screen config
+    int maxScreenCol = 16;
+    int maxScreenRow = 12;
+    int screenWidth; // 1024 pixels
+    int screenHeight; // 768 pixels
+    
+    
+    public MenuForm(GameContainer container) {
         initComponents();
+        this.container = container;
+        this.screenWidth = container.getScale().getTileSize() * this.maxScreenCol;
+        this.screenHeight = container.getScale().getTileSize() * this.maxScreenRow;
+        this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jButton2.addActionListener(this);
+        
+        this.panel = new SeleccionDeOpciones(container,this);
+        
+        
+        
     }
 
+    public int getMaxScreenCol() {
+        return maxScreenCol;
+    }
+
+    public int getMaxScreenRow() {
+        return maxScreenRow;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+    
+    public void open() {
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+
+    public JFrame getWindow() {
+        return this;
+    }
+
+    public JPanel getContenedor() {
+        return contenedor;
+    }
+
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,32 +86,63 @@ public class MenuForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        contenedor = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/resources/forms/header.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
 
+        jButton2.setBackground(new java.awt.Color(255, 51, 51));
+        jButton2.setText("INICIO");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
+        contenedor.setLayout(contenedorLayout);
+        contenedorLayout.setHorizontalGroup(
+            contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(223, 223, 223))
+        );
+        contenedorLayout.setVerticalGroup(
+            contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(29, 29, 29)
+                .addComponent(jButton2)
+                .addGap(0, 34, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+            .addComponent(contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -81,14 +172,23 @@ public class MenuForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuForm().setVisible(true);
-            }
-        });
-    }
+        
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel contenedor;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object evt = e.getSource();
+        
+         if (evt.equals(jButton2)) {
+             this.add(this.panel);
+             this.pack();
+             this.setFocusable(true);
+         }
+    }
 }
