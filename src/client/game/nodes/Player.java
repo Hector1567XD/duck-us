@@ -2,9 +2,11 @@ package client.game.nodes;
 
 import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
+import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
+import common.networking.packets.PlayerMovePacket;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -18,7 +20,8 @@ public class Player extends GameNode implements NodeCenterable {
     public void created(GameContainer container) {
         screenX = (container.getScale().getTileSize() * container.getMaxMapCol() )/2;
         screenY = (container.getScale().getTileSize() * container.getMaxMapRow() )/2; 
-        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+        GameNetwork network = container.getNetwork();
+        network.sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
     @Override
@@ -39,11 +42,13 @@ public class Player extends GameNode implements NodeCenterable {
             if (input.isKey(KeyEvent.VK_D)) {
                 x += velocity;
             }
+            container.getNetwork().sendPacket(new PlayerMovePacket(this.x, this.y));
         }
     }
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
+        g2.setColor(Color.GRAY);
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
       

@@ -13,7 +13,7 @@ public abstract class Socket extends Thread {
     private DatagramSocket socket; // Socket UDP de Java
     private final PacketWriter writer; // Escritor de paquetes
     private final PacketReader reader; // Lector de paquetes
-    private SocketPublisher publisher; // Notificador
+    private final SocketPublisher publisher; // Notificador
 
     public Socket(SocketPublisher publisher, PacketReader reader) {
         this.writer = new PacketWriter();
@@ -48,7 +48,6 @@ public abstract class Socket extends Thread {
     }
 
     public void sendPacket(Packet packet, Agent receiver) throws IOException {
-        
         DatagramPacket datagramPacket = this.writer.write(packet, receiver);
 
         socket.send(datagramPacket);
