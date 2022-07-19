@@ -33,4 +33,12 @@ public class Agent {
 
         return otherAgent.port == this.port && this.ipAddress.equals(otherAgent.ipAddress);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + Objects.hashCode(this.ipAddress);
+        hash = 31 * hash + this.port;
+        return hash;
+    }
 }
