@@ -7,25 +7,30 @@ import client.game.nodes.PingNode;
 import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
+import client.game.nodes.MapNode;
 import client.game.nodes.Player;
 
 public class DuckUs {
     public static void main(String[] args) {
         // APP BUILDING
             // SOCKET Y EL SOCKET PUBLISHER
-            SocketPublisher publisher = new SocketPublisher();
-            Client client = new Client(publisher, new DuckPacketReader());
+                SocketPublisher publisher = new SocketPublisher();
+                Client client = new Client(publisher, new DuckPacketReader());
             // GAME CONTEXT
-            GameController controller = new GameController();
-            GameNetwork network = new GameNetwork(client);
-            GameContainer container = new GameContainer(Constants.SCALE, network, controller);
+                GameController controller = new GameController();
+                GameNetwork network = new GameNetwork(client);
+                GameContainer container = new GameContainer(Constants.SCALE, network, controller);
 
         // AGREGANDO NODOS AL JUEGO
-            Player player = new Player();
-            controller.addNode(player);
-            PingNode pingNode = new PingNode();
-            controller.addNode(pingNode);
-            network.setPingNode(pingNode);
+            //Creando Nodos
+                Player player = new Player();
+                MapNode mapa = new MapNode(container);
+                PingNode pingNode = new PingNode();
+            // Agregando Nodos
+                controller.addNode(mapa);
+                controller.addNode(player);
+                controller.addNode(pingNode);
+                network.setPingNode(pingNode);
 
         // EJECUSION
             client.start("localhost", 1331); //<-- Conectandose al servidor
