@@ -10,18 +10,27 @@ import common.networking.packets.PlayerMovePacket;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Player extends GameNode implements NodeCenterable {
     private int velocity = 4;
     private int screenX;
     private int screenY;
-
+    private boolean impostor;
+    
+    
     @Override
     public void created(GameContainer container) {
         screenX = (container.getScale().getTileSize() * container.getMaxMapCol() )/2;
         screenY = (container.getScale().getTileSize() * container.getMaxMapRow() )/2; 
         GameNetwork network = container.getNetwork();
         network.sendPacket(new PlayerLoginPacket("Feredev"));
+        
+        impostor = true;
+        if (impostor) {
+            System.out.println("soy impostor :D");
+        }
+        
     }
 
     @Override
@@ -29,6 +38,29 @@ public class Player extends GameNode implements NodeCenterable {
         Input input = container.getInput();
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
 
+        
+        if (impostor) {
+          // if (timer==0)
+            if (input.isKey(KeyEvent.VK_E)) {
+                 System.out.println("Matando...");
+                 ArrayList<Player> listPlayers = container.getController().getNodes().getListByTag("Player");
+                 for (Player hola : listPlayers){
+                   System.out.println(hola.getDrawX());
+                   System.out.println(drawX);
+                   
+                   
+                   double killD = ((Math.pow(hola.getDrawX()-drawX,2)) + (Math.pow(hola.getDrawY()-drawY,2)));
+                   System.out.println(killD);
+                   if (Math.sqrt(killD)<120) {
+                      System.out.println("Muerto");
+                   }
+                   
+                 }
+            }
+        }
+        
+        
+        
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
                 y -= velocity;
