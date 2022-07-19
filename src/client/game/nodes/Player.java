@@ -38,11 +38,12 @@ public class Player extends GameNode implements NodeCenterable {
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
         
         if (impostor) {
+          // if (timer==0)
             if (input.isKey(KeyEvent.VK_E)) {
                  System.out.println("Matando...");
-                 ArrayList<Node> listPlayers = container.getController().getNodes().getList();
-                 for (Node hola : listPlayers){
-                     
+                 ArrayList<OPlayer> listPlayers = container.getController().getNodes().getListByTag("Oplayer");
+                 for (OPlayer hola : listPlayers){
+                  //  int killD = (hola.getDrawX()-)
                  }
             }
         }

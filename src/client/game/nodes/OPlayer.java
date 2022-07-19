@@ -30,11 +30,16 @@ public class OPlayer extends GameNode {
         g2.setColor(Color.GRAY);
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-        g2.fillRect(x * scale, y * scale, tileSize * scale, tileSize * scale);
+        g2.fillRect(drawX, drawY, tileSize * scale, tileSize * scale);
         g2.setColor(Color.WHITE);
         g2.drawString(this.name + "(" + this.playerId + ")", x * scale + 4*scale, y * scale + 40 * scale);
     }
 
+    public String getNodeTag() {
+        return "Oplayer";
+    }
+    
+    
     public int getPlayerId() {
         return playerId;
     }

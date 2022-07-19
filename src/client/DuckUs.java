@@ -47,11 +47,10 @@ public class DuckUs {
         
         
         // BEGIN
-        publisher.subscribe(network);
+        client.start("localhost", 1331); //<-- Conectandose al servidor
+        publisher.subscribe(network); // <-- Subscribiendo el NETWORK a los paquetes del socket
         container.start();
-        // EJECUSION
-            client.start("localhost", 1331); //<-- Conectandose al servidor
-            publisher.subscribe(network); // <-- Subscribiendo el NETWORK a los paquetes del socket
-            container.start(); // <-- Ejecutando el juego en si
+      
+       
     }
 }
