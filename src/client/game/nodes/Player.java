@@ -6,15 +6,18 @@ import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
+import common.game.engine.node.Node;
 import common.networking.packets.PlayerMovePacket;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Player extends GameNode implements NodeCenterable {
     private int velocity = 4;
     private int screenX;
     private int screenY;
+    private boolean impostor = false;
 
     @Override
     public void created(GameContainer container) {
@@ -23,13 +26,28 @@ public class Player extends GameNode implements NodeCenterable {
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
         GameNetwork network = container.getNetwork();
         network.sendPacket(new PlayerLoginPacket("Feredev"));
+        impostor = true;
+        if (impostor==true) {
+            System.out.println("Soy impostor :D");
+        }
     }
 
     @Override
     public void update(GameContainer container) {
         Input input = container.getInput();
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
-
+        
+        if (impostor) {
+            if (input.isKey(KeyEvent.VK_E)) {
+                 System.out.println("Matando...");
+                 ArrayList<Node> listPlayers = container.getController().getNodes().getList();
+                 for (Node hola : listPlayers){
+                     
+                 }
+            }
+        }
+                
+                
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
                 y -= velocity;

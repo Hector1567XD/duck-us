@@ -31,12 +31,7 @@ public class DuckUs {
             controller.addNode(pingNode);
             network.setPingNode(pingNode);
 
-        GameNetwork network = new GameNetwork(client);
-
-        GameContainer container = new GameContainer(Constants.SCALE, network, controller);
-
         // GAME
-        Player player = new Player();
         MapNode mapa = new MapNode(container);
 
         controller.addNode(mapa);
