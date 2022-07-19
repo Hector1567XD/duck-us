@@ -34,6 +34,11 @@ public class Agent {
         return otherAgent.port == this.port && this.ipAddress.equals(otherAgent.ipAddress);
     }
 
+    /* 
+        Esto es para poder hacer a los Agents compatibles con los HashMap
+        aunque no se traten de la misma referencia, para relacionar Agents y Players
+        en el servidor
+    */
     @Override
     public int hashCode() {
         int hash = 5;
