@@ -33,6 +33,6 @@ public class MapNode extends GameNode {
     }
 
     public String getTagName() {
-        return "nodoMapa";    
+        return "MapNode";    
     }
 }
