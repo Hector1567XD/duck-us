@@ -28,23 +28,39 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
 
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
-                if (!canMove(container, this.x, this.y - velocity)) {
+                if (canMove(container, this.x, this.y - velocity)) {
                     y -= velocity;    
+                }else{
+                    while(canMove(container, this.x, this.y - 1)) {
+                        y-=1;
+                    }
                 }
             }
             if (input.isKey(KeyEvent.VK_S)) {
-                if (!canMove(container, this.x, this.y + velocity)) {
+                if (canMove(container, this.x, this.y + velocity)) {
                     y += velocity;    
+                }else{
+                    while(canMove(container, this.x, this.y + 1)) {
+                        y+=1;
+                    }
                 }
             }
             if (input.isKey(KeyEvent.VK_A)) {
-                if (!canMove(container, this.x - velocity, this.y)) {
+                if (canMove(container, this.x - velocity, this.y)) {
                     x -= velocity;    
+                }else{
+                    while(canMove(container, this.x - 1, this.y)) {
+                        x-=1;
+                    }
                 }
             }
             if (input.isKey(KeyEvent.VK_D)) {
-                if (!canMove(container, this.x + velocity, this.y)) {
+                if (canMove(container, this.x + velocity, this.y)) {
                     x += velocity;    
+                }else{
+                    while(canMove(container, this.x + 1, this.y)) {
+                        x+=1;
+                    }
                 }
             }
         }
@@ -91,10 +107,10 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
 
         for (Bloque i : bloquesitos) {
             if (isPositionCollaiding(i, x, y)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public boolean isCollaiding(NodeColladable otherNode) {
