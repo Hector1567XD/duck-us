@@ -19,17 +19,18 @@ public abstract class GameNode extends Node {
     }
 
     public abstract void created(GameContainer container);
+
     public abstract void update(GameContainer container);
 
     public void _draw(GameContainer container, Graphics2D g2) {
-       draw(container, g2);
+        draw(container, g2);
 
-       ArrayList<NodeI> childNodes = getChildsNodeList();
+        ArrayList<NodeI> childNodes = getChildsNodeList();
 
-       for (NodeI node: childNodes) {
-           GameNode gameNode = (GameNode) node;
-           gameNode._draw(container, g2);
-       }
+        for (NodeI node : childNodes) {
+            GameNode gameNode = (GameNode) node;
+            gameNode._draw(container, g2);
+        }
     }
 
     public abstract void draw(GameContainer container, Graphics2D g2);

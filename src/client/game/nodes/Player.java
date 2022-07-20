@@ -22,21 +22,28 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     @Override
     public void update(GameContainer container) {
         Input input = container.getInput();
-        boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A)
-                || input.isKey(KeyEvent.VK_D);
+        boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
 
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
-                y -= velocity;
+                if (!canMove(container, this.x, this.y - velocity)) {
+                    y -= velocity;    
+                }
             }
             if (input.isKey(KeyEvent.VK_S)) {
-                y += velocity;
+                if (!canMove(container, this.x, this.y + velocity)) {
+                    y += velocity;    
+                }
             }
             if (input.isKey(KeyEvent.VK_A)) {
-                x -= velocity;
+                if (!canMove(container, this.x - velocity, this.y)) {
+                    x -= velocity;    
+                }
             }
             if (input.isKey(KeyEvent.VK_D)) {
-                x += velocity;
+                if (!canMove(container, this.x + velocity, this.y)) {
+                    x += velocity;    
+                }
             }
         }
     }
@@ -56,7 +63,6 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
 
         ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
-        //
         for (Bloque i : bloquesitos) {
             if (i != null) {
                 if (this.isCollaiding(i)) {
@@ -76,19 +82,20 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
 
         return false;
     }
-    //to do (esto va en update)
-    public boolean isPositionBlockCOllading(container, int x, int y) {
-        ArrayList<Bloque> bloquesitos = container.getController()....
-        for (Bloque bloque: bloquesitos) {
-                if (isPositionColliding(bloque, x, y) {
-                    return true;
-                }
+
+    // to do (esto va en update)
+    public boolean canMove(GameContainer container, int x, int y) {
+        ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
+
+        for (Bloque i : bloquesitos) {
+            if (isPositionCollaiding(i, x, y)) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean isCollaiding(NodeColladable otherNode) {
-
         return isPositionCollaiding(otherNode, x, y);
     }
 
