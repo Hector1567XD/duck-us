@@ -20,6 +20,22 @@ public class MapTilesManager {
     Tiles[] tile;
     int mapTileNum[][];
 
+    public GameContainer getContainer() {
+        return container;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Tiles[] getTile() {
+        return tile;
+    }
+
+    public int[][] getMapTileNum() {
+        return mapTileNum;
+    }
+
     public MapTilesManager(GameContainer container) {
         this.container = container;
         this.size = container.getScale().getTileSize();
