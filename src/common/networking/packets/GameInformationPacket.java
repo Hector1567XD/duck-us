@@ -22,7 +22,8 @@ public class GameInformationPacket extends Packet {
             String playerName = bufferInput.readUTF();
             int posX = bufferInput.readInt();
             int posY = bufferInput.readInt();
-            PlayerJoined playerJoined = new PlayerJoined(playerId, playerName, posX, posY);
+            boolean isDead = bufferInput.readBoolean();
+            PlayerJoined playerJoined = new PlayerJoined(playerId, playerName, posX, posY, isDead);
             players.add(playerJoined);
         }
     }
@@ -37,6 +38,7 @@ public class GameInformationPacket extends Packet {
             bufferOutput.writeUTF(player.getPlayerName());
             bufferOutput.writeInt(player.getX());
             bufferOutput.writeInt(player.getY());
+            bufferOutput.writeBoolean(player.isDead());
         }
     }
 

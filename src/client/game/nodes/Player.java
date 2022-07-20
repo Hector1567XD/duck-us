@@ -6,8 +6,10 @@ import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
+import common.CommonConstants;
 import common.networking.packets.PlayerKillPacked;
 import common.networking.packets.PlayerMovePacket;
+import common.utils.NodeDistanceHelper;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -55,23 +57,20 @@ public class Player extends GameNode implements NodeCenterable {
           
             if (input.isKey(KeyEvent.VK_E)) {
                  ArrayList<OPlayer> listPlayers = container.getController().getNodes().getListByTag("Oplayer");
-                 for (OPlayer hola : listPlayers){
+                 for (OPlayer victima : listPlayers){
            
-                   double killD = Math.sqrt((Math.pow(hola.getX()-x,2)) + (Math.pow(hola.getY()-y,2)));
+                   double killD = NodeDistanceHelper.getDistance(this, victima);
                    System.out.println(killD);
-                   if (killD<75 && alredyKill==false) {
+                   if (killD<CommonConstants.DISTANCE_TO_KILL && alredyKill==false) {
                       alredyKill = true;
                       System.out.println("Muerto");
-                      container.getNetwork().sendPacket(new PlayerKillPacked(hola.getPlayerId()));
-                      
+                      container.getNetwork().sendPacket(new PlayerKillPacked(victima.getPlayerId()));
                    }
                    
                  }
             }
         }
    
-        
-        
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
                 y -= velocity;

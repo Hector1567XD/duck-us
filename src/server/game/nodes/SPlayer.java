@@ -9,6 +9,7 @@ public class SPlayer extends ServerNode {
     private int playerId;
     private Agent agent;
     private String name;
+    private boolean dead;
 
     public SPlayer(Agent agent, int playerId, String name) {
         this.agent = agent;
@@ -41,6 +42,20 @@ public class SPlayer extends ServerNode {
 
     public Agent getAgent() {
         return agent;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void kill(ServerContainer container) {
+        this.dead = true;
+        //container.getNetwork().sendPacketToAllWithout(/**/, agent);
+        //container.getNetwork().sendPacket(/**/, agent);
+    }
+
+    public void revive() {
+        this.dead = false;
     }
 }
 

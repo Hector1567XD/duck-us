@@ -62,6 +62,7 @@ public class GameNetwork extends Network {
                 OPlayer newOPlayer = new OPlayer(playerId, playerName);
                 newOPlayer.setX(previouslyPlayer.getX());
                 newOPlayer.setY(previouslyPlayer.getY());
+                newOPlayer.setIsDead(previouslyPlayer.isDead());
 
                 container.getController().addNode(newOPlayer);
                 players.add(newOPlayer);

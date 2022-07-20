@@ -14,6 +14,7 @@ public class OPlayer extends GameNode implements NodeCenterable {
     private int velocity = 4;
     private int playerId;
     private String name;
+    private boolean isDead;
 
     public OPlayer(int playerId, String name) {
         this.playerId = playerId;
@@ -54,4 +55,14 @@ public class OPlayer extends GameNode implements NodeCenterable {
     public int getOffsetY() {
         return 16;
     }
+
+    public boolean isIsDead() {
+        return isDead;
+    }
+
+    public void setIsDead(boolean isDead) {
+        this.isDead = isDead;
+    }
+    
+    
 }

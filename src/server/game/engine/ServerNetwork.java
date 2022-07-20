@@ -9,6 +9,7 @@ import common.networking.packets.*;
 import common.networking.packets.classes.PlayerJoined;
 import java.io.IOException;
 import java.util.ArrayList;
+import server.game.executors.KillExecutor;
 import server.game.nodes.PongNode;
 import server.game.nodes.SPlayer;
 import server.networking.Server;
@@ -61,7 +62,8 @@ public class ServerNetwork extends Network {
                         oSPlayer.getPlayerId(),
                         oSPlayer.getName(),
                         oSPlayer.getX(),
-                        oSPlayer.getY()
+                        oSPlayer.getY(),
+                        oSPlayer.isDead()
                     )
                 );
             }
@@ -94,7 +96,7 @@ public class ServerNetwork extends Network {
  
             currentPlayer.setX(movePacket.getX());
             currentPlayer.setY(movePacket.getY());
-            
+
             PlayerMovedPacket movedPacket = new PlayerMovedPacket(
                 currentPlayer.getPlayerId(),
                 currentPlayer.getX(),
@@ -118,6 +120,8 @@ public class ServerNetwork extends Network {
             }
 
             this.pongNode.onPlayerPing(currentPlayer, container);
+        }else if (packet.getPackageType() == PacketTypes.KILL_PACKET) {
+            KillExecutor.execute(container, packet.getSender(), (PlayerKillPacked) packet);
         }
     }
 
@@ -145,6 +149,10 @@ public class ServerNetwork extends Network {
         }
     }
 
+    public ArrayList<SPlayer> getPlayers() {
+        return players;
+    }
+    
     public void setPongNode(PongNode pongNode) {
         this.pongNode = pongNode;
     }

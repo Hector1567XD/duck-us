@@ -5,12 +5,14 @@ public class PlayerJoined {
     private String playerName;
     private int x;
     private int y;
+    private boolean dead;
     
-    public PlayerJoined(int playerId, String playerName, int x, int y) {
+    public PlayerJoined(int playerId, String playerName, int x, int y, boolean dead) {
         this.playerId = playerId;
         this.playerName = playerName;
         this.x = x;
         this.y = y;
+        this.dead = dead;
     }
 
     public int getPlayerId() {
@@ -27,5 +29,9 @@ public class PlayerJoined {
 
     public int getY() {
         return y;
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 }
