@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class Player extends GameNode implements NodeCenterable, NodeColladable {
     private int velocity = 4;
+    
+
 
     @Override
     public void created(GameContainer container) {
