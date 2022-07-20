@@ -1,6 +1,7 @@
 package client;
 
 import client.core.DuckGame;
+import client.core.DuckMenu;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameController;
@@ -12,19 +13,14 @@ import client.game.nodes.Player;
 
 public class DuckUs {
     public static void main(String[] args) {
-        // FORMULARIOS
-            
+        /*if (true) {
         
-        
-        // NETWORKING
-        SocketPublisher publisher = new SocketPublisher();
-        Client client = DuckUs.createClient(publisher, "localhost", 1331);
-        DuckGame.start(publisher, client);
-    }
-
-    private static Client createClient(SocketPublisher publisher, String ipAddress, int port) {
-        Client client = new Client(publisher, new DuckPacketReader());
-        client.start(ipAddress, port);
-        return client;
+        }*/
+        DuckOrquestador orquestator = new DuckOrquestador();
+        if (Constants.SKIP_MENU) {
+            orquestator.starGameWithoutMenu();
+        }else{
+            DuckMenu.start(orquestator);
+        }
     }
 }

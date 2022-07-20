@@ -12,14 +12,13 @@ public class MapNode extends GameNode {
     public MapNode(GameContainer container){
        this.mapa = new MapTilesManager(container);
     }
-
+    
     @Override
     public void created(GameContainer container) {
         
     }
     @Override
     public void update(GameContainer container) {
-        
     }
     @Override
     public void draw(GameContainer container, Graphics2D g2){

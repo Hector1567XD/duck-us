@@ -8,6 +8,7 @@ import client.game.engine.GameNetwork;
 import client.game.nodes.MapNode;
 import client.game.nodes.Player;
 import client.networking.Client;
+import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
 
 public class DuckGame {
