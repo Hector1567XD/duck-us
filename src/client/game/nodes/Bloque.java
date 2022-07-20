@@ -51,7 +51,7 @@ public class Bloque extends GameNode implements NodeCenterable, NodeColladable {
     public String getNodeTag() {
         return "Bloque";
     }
-    
+
     @Override
     public int getTopCenter() {
         return 16;
