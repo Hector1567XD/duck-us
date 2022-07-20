@@ -34,9 +34,9 @@ public class Bloque extends GameNode implements NodeCenterable, NodeColladable {
         int offSetX = this.getOffsetX() * scale;
         int offSetY = this.getOffsetY() * scale;
         
-        g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
+        g2.fillRect((drawX) - offSetX, (drawY) - offSetY, alto, ancho);
         g2.setColor(Color.red);
-        g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
+        g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
     }
 
     public int getOffsetX() {
