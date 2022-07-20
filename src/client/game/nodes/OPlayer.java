@@ -38,6 +38,11 @@ public class OPlayer extends GameNode implements NodeCenterable {
         g2.drawString(this.name + "(" + this.playerId + ")", drawX + 4*scale - offSetX, drawY - offSetY + 40 * scale);
     }
 
+    public String getNodeTag() {
+        return "Oplayer";
+    }
+
+    
     public int getPlayerId() {
         return playerId;
     }

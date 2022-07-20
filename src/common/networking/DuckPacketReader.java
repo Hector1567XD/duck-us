@@ -23,6 +23,7 @@ public class DuckPacketReader extends PacketReader {
             case PLAYER_MOVE -> packageReaded = new PlayerMovePacket(bufferInput);
             case PLAYER_MOVED -> packageReaded = new PlayerMovedPacket(bufferInput);
             case GAME_INFORMATION -> packageReaded = new GameInformationPacket(bufferInput);
+            case KILL_PACKET -> packageReaded = new PlayerKillPacked(bufferInput);
         }
         return packageReaded;
     }

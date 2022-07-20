@@ -9,6 +9,7 @@ import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.MapNode;
+import client.game.nodes.OPlayer;
 import client.game.nodes.Player;
 import client.game.nodes.Triangulito;
 
@@ -27,6 +28,7 @@ public class DuckUs {
         // AGREGANDO NODOS AL JUEGO
         // GAME
         Player player = new Player();
+        OPlayer oplayer = new OPlayer(2,"Oplayer");
         MapNode mapa = new MapNode(container);
 
         PingNode pingNode = new PingNode();
@@ -34,7 +36,7 @@ public class DuckUs {
         network.setPingNode(pingNode);
 
         controller.addNode(mapa);
-        
+        controller.addNode(oplayer);
         controller.addNode(player, "Player");
         // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
         controller.setCamera(new Camera(container));

@@ -6,6 +6,7 @@ import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
+import common.networking.packets.PlayerKillPacked;
 import common.networking.packets.PlayerMovePacket;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -17,7 +18,8 @@ public class Player extends GameNode implements NodeCenterable {
     private int screenX;
     private int screenY;
     private boolean impostor;
-    
+    private boolean alredyKill;
+    private int timer;
     
     @Override
     public void created(GameContainer container) {
@@ -25,6 +27,9 @@ public class Player extends GameNode implements NodeCenterable {
         screenY = (container.getScale().getTileSize() * container.getMaxMapRow() )/2; 
         GameNetwork network = container.getNetwork();
         network.sendPacket(new PlayerLoginPacket("Feredev"));
+        alredyKill = false;
+        timer = 10*60;
+        
         
         impostor = true;
         if (impostor) {
@@ -34,31 +39,37 @@ public class Player extends GameNode implements NodeCenterable {
     }
 
     @Override
-    public void update(GameContainer container) {
+    public void update(GameContainer container) {  
         Input input = container.getInput();
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
 
-        
         if (impostor) {
-          // if (timer==0)
+          if (alredyKill==true){
+           if (timer<=0) {
+                    alredyKill = false;
+                    timer = 10*60;
+             }else {
+                   timer--; 
+              }   
+          }
+          
             if (input.isKey(KeyEvent.VK_E)) {
-                 System.out.println("Matando...");
-                 ArrayList<Player> listPlayers = container.getController().getNodes().getListByTag("Player");
-                 for (Player hola : listPlayers){
-                   System.out.println(hola.getDrawX());
-                   System.out.println(drawX);
-                   
-                   
-                   double killD = ((Math.pow(hola.getDrawX()-drawX,2)) + (Math.pow(hola.getDrawY()-drawY,2)));
+                 ArrayList<OPlayer> listPlayers = container.getController().getNodes().getListByTag("Oplayer");
+                 for (OPlayer hola : listPlayers){
+           
+                   double killD = Math.sqrt((Math.pow(hola.getX()-x,2)) + (Math.pow(hola.getY()-y,2)));
                    System.out.println(killD);
-                   if (Math.sqrt(killD)<120) {
+                   if (killD<75 && alredyKill==false) {
+                      alredyKill = true;
                       System.out.println("Muerto");
+                      container.getNetwork().sendPacket(new PlayerKillPacked(hola.getPlayerId()));
+                      
                    }
                    
                  }
             }
         }
-        
+   
         
         
         if (isWalking) {
@@ -93,6 +104,10 @@ public class Player extends GameNode implements NodeCenterable {
         g2.fillRect(drawX - offSetX, drawY - offSetY, alto, ancho);
         g2.setColor(Color.red);
         g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
+        
+        g2.setColor(Color.WHITE);
+        g2.drawString(timer+":", drawX + 4*scale - offSetX, drawY - offSetY + 40 * scale);
+        
     }
 
     @Override
