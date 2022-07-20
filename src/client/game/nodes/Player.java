@@ -11,9 +11,11 @@ import java.awt.event.KeyEvent;
 
 public class Player extends GameNode implements NodeCenterable {
     private int velocity = 4;
+ 
 
     @Override
     public void created(GameContainer container) {
+       
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
@@ -42,15 +44,16 @@ public class Player extends GameNode implements NodeCenterable {
     public void draw(GameContainer container, Graphics2D g2) {
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
+      
         g2.setColor(Color.gray);
         int alto = tileSize * scale;
         int ancho = tileSize * scale;
         int offSetX = this.getOffsetX() * scale;
         int offSetY = this.getOffsetY() * scale;
         
-        g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
+        g2.fillRect(drawX - offSetX, drawY - offSetY, alto, ancho);
         g2.setColor(Color.red);
-        g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
+        g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
     }
 
     @Override
