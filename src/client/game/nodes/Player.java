@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Player extends GameNode implements NodeCenterable, NodeColladable {
 
     private int velocity = 4;
+ 
 
     @Override
     public void created(GameContainer container) {
@@ -73,26 +74,16 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     public void draw(GameContainer container, Graphics2D g2) {
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
+      
         g2.setColor(Color.gray);
         int alto = tileSize * scale;
         int ancho = tileSize * scale;
         int offSetX = this.getOffsetX() * scale;
         int offSetY = this.getOffsetY() * scale;
 
-        g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
+        g2.fillRect(drawX - offSetX, drawY - offSetY, alto, ancho);
         g2.setColor(Color.red);
-        g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
-
-        ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
-        for (Bloque i : bloquesitos) {
-            if (i != null) {
-                if (this.isCollaiding(i)) {
-                    g2.setColor(Color.blue);
-                    g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
-                }
-            }
-        }
-
+        g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
     }
 
     public boolean isPositionCollaiding(NodeColladable otherNode, int x, int y) {

@@ -8,9 +8,9 @@ import java.awt.Graphics2D;
 
 public class MapNode extends GameNode {
     MapTilesManager mapa;
-
-    public MapNode(GameContainer container) {
-        this.mapa = new MapTilesManager(container);
+    
+    public MapNode(GameContainer container){
+       this.mapa = new MapTilesManager(this, container);
     }
 
     @Override
