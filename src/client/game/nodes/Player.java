@@ -14,9 +14,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Player extends GameNode implements NodeCenterable, NodeColladable {
-
     private int velocity = 4;
- 
 
     @Override
     public void created(GameContainer container) {
@@ -28,42 +26,49 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     @Override
     public void update(GameContainer container) {
         Input input = container.getInput();
-        boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
+        boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A)
+                || input.isKey(KeyEvent.VK_D) || input.isKey(KeyEvent.VK_X);
 
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
-                if (canMove(container, this.x, this.y - velocity)) {
+                if (cantMove(container, this.x, this.y - velocity)) {
                     y -= velocity;
                 } else {
-                    while (canMove(container, this.x, this.y - 1)) {
+                    while (cantMove(container, this.x, this.y - 1)) {
                         y -= 1;
                     }
                 }
             }
             if (input.isKey(KeyEvent.VK_S)) {
-                if (canMove(container, this.x, this.y + velocity)) {
+                if (cantMove(container, this.x, this.y + velocity)) {
                     y += velocity;
                 } else {
-                    while (canMove(container, this.x, this.y + 1)) {
+                    while (cantMove(container, this.x, this.y + 1)) {
                         y += 1;
                     }
                 }
             }
             if (input.isKey(KeyEvent.VK_A)) {
-                if (canMove(container, this.x - velocity, this.y)) {
+                if (cantMove(container, this.x - velocity, this.y)) {
                     x -= velocity;
                 } else {
-                    while (canMove(container, this.x - 1, this.y)) {
+                    while (cantMove(container, this.x - 1, this.y)) {
                         x -= 1;
                     }
                 }
             }
             if (input.isKey(KeyEvent.VK_D)) {
-                if (canMove(container, this.x + velocity, this.y)) {
+                if (cantMove(container, this.x + velocity, this.y)) {
                     x += velocity;
-                } else {
-                    while (canMove(container, this.x + 1, this.y)) {
-                        x += 1;
+                }
+            }
+            if (input.isKey(KeyEvent.VK_X)) {
+                ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
+
+                for (TestNode i : missions) {
+                    if (isPositionCollaiding(i, x, y)) {
+                        //System.out.println("si :)");
+                        i.setMisionAbierta(true);
                     }
                 }
             }
@@ -74,7 +79,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     public void draw(GameContainer container, Graphics2D g2) {
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-      
+
         g2.setColor(Color.gray);
         int alto = tileSize * scale;
         int ancho = tileSize * scale;
@@ -93,15 +98,13 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                 && (y - this.getBottomCenter() <= otherNode.getY() + otherNode.getBottomCenter())) {
             return true;
         }
-
         return false;
     }
 
-    // to do (esto va en update)
-    public boolean canMove(GameContainer container, int x, int y) {
-        // COLISION CON BLOQUES
+    public boolean cantMove(GameContainer container, int x, int y) {
         ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
 
+        // COLISION CON BLOQUES
         for (Bloque i : bloquesitos) {
             if (isPositionCollaiding(i, x, y)) {
                 return false;
@@ -122,14 +125,15 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                 int tile = arregloTilesets[posX][posY];
                 if (tile == 1) {
                     int offsetBlock = CommonConstants.TILE_SIZE / 2;
-                    boolean isColliding = this.isPositionCollaidingManual(x, y, posX * CommonConstants.TILE_SIZE + offsetBlock, posY * CommonConstants.TILE_SIZE + offsetBlock, offsetBlock);
+                    boolean isColliding = this.isPositionCollaidingManual(x, y,
+                            posX * CommonConstants.TILE_SIZE + offsetBlock,
+                            posY * CommonConstants.TILE_SIZE + offsetBlock, offsetBlock);
                     if (isColliding) {
                         return false;
                     }
                 }
             }
         }
-
         return true;
     }
 
@@ -140,7 +144,6 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                 && (y - this.getBottomCenter() <= oY + distanceToCenter)) {
             return true;
         }
-
         return false;
     }
 
