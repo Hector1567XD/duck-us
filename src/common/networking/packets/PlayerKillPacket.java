@@ -6,14 +6,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class PlayerKillPacked extends Packet {
+public class PlayerKillPacket extends Packet {
     private int playerId;
 
-    public PlayerKillPacked(int playerId) {
+    public PlayerKillPacket(int playerId) {
         this.playerId = playerId;
     }
 
-    public PlayerKillPacked(DataInputStream bufferInput) throws IOException {
+    public PlayerKillPacket(DataInputStream bufferInput) throws IOException {
         this.playerId = bufferInput.readShort();
 
     }

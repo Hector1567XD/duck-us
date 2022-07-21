@@ -6,8 +6,9 @@ import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
+import client.game.engine.nodos.NodeKilleable;
 import common.CommonConstants;
-import common.networking.packets.PlayerKillPacked;
+import common.networking.packets.PlayerKillPacket;
 import common.networking.packets.PlayerMovePacket;
 import common.utils.NodeDistanceHelper;
 import java.awt.Color;
@@ -15,13 +16,14 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-public class Player extends GameNode implements NodeCenterable {
+public class Player extends GameNode implements NodeCenterable, NodeKilleable {
     private int velocity = 4;
     private int screenX;
     private int screenY;
     private boolean impostor;
     private boolean alredyKill;
     private int timer;
+    private boolean isDead;
     
     @Override
     public void created(GameContainer container) {
@@ -56,18 +58,7 @@ public class Player extends GameNode implements NodeCenterable {
           }
           
             if (input.isKey(KeyEvent.VK_E)) {
-                 ArrayList<OPlayer> listPlayers = container.getController().getNodes().getListByTag("Oplayer");
-                 for (OPlayer victima : listPlayers){
-           
-                   double killD = NodeDistanceHelper.getDistance(this, victima);
-                   System.out.println(killD);
-                   if (killD<CommonConstants.DISTANCE_TO_KILL && alredyKill==false) {
-                      alredyKill = true;
-                      System.out.println("Muerto");
-                      container.getNetwork().sendPacket(new PlayerKillPacked(victima.getPlayerId()));
-                   }
-                   
-                 }
+               this.Kill(container);
             }
         }
    
@@ -114,6 +105,23 @@ public class Player extends GameNode implements NodeCenterable {
         return "Player";
     }
 
+    public void setIsDead(boolean dead){
+        isDead = dead;
+    }
+    
+    public void Kill(GameContainer container) {
+         ArrayList<OPlayer> listPlayers = container.getController().getNodes().getListByTag("Oplayer");
+                 for (OPlayer victima : listPlayers){
+                   double killD = NodeDistanceHelper.getDistance(this, victima);
+                   if (NodeDistanceHelper.getDistance(this, victima)<CommonConstants.DISTANCE_TO_KILL && alredyKill==false) {
+                      alredyKill = true;
+                      System.out.println("Muerto");
+                      container.getNetwork().sendPacket(new PlayerKillPacket(victima.getPlayerId()));
+                    }
+
+                 }
+    }
+    
     public int getScreenX() {
         return screenX;
     }

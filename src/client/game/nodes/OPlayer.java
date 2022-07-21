@@ -6,11 +6,12 @@ import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
+import client.game.engine.nodos.NodeKilleable;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-public class OPlayer extends GameNode implements NodeCenterable {
+public class OPlayer extends GameNode implements NodeCenterable, NodeKilleable {
     private int velocity = 4;
     private int playerId;
     private String name;
@@ -37,13 +38,16 @@ public class OPlayer extends GameNode implements NodeCenterable {
         g2.fillRect(drawX - offSetX, drawY - offSetY, tileSize * scale, tileSize * scale);
         g2.setColor(Color.WHITE);
         g2.drawString(this.name + "(" + this.playerId + ")", drawX + 4*scale - offSetX, drawY - offSetY + 40 * scale);
+        if (isDead==true){
+            g2.setColor(Color.BLUE);
+            g2.fillOval(drawX - offSetX, drawY - offSetY, tileSize * scale, tileSize * scale);
+        }
     }
 
     public String getNodeTag() {
         return "Oplayer";
     }
-
-    
+ 
     public int getPlayerId() {
         return playerId;
     }
@@ -62,7 +66,10 @@ public class OPlayer extends GameNode implements NodeCenterable {
 
     public void setIsDead(boolean isDead) {
         this.isDead = isDead;
+        
+        
     }
+    
     
     
 }

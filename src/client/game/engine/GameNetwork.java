@@ -1,5 +1,6 @@
 package client.game.engine;
 
+import client.game.executors.KilledExecutor;
 import client.game.nodes.OPlayer;
 import client.game.nodes.PingNode;
 import common.game.engine.Container;
@@ -12,6 +13,7 @@ import common.networking.packets.*;
 import common.networking.packets.classes.PlayerJoined;
 import java.io.IOException;
 import java.util.ArrayList;
+import server.game.executors.KillExecutor;
 
 public class GameNetwork extends Network {
     private final Client client;
@@ -93,6 +95,8 @@ public class GameNetwork extends Network {
                     ErrorHelper.showServerForceDisconnectError();
                 }
             }
+        }else if (packet.getPackageType() == PacketTypes.PLAYER_KILLED) {
+            KilledExecutor.execute(container, (PlayerKilledPacket) packet);
         }
     }
 }

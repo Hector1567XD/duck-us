@@ -121,7 +121,7 @@ public class ServerNetwork extends Network {
 
             this.pongNode.onPlayerPing(currentPlayer, container);
         }else if (packet.getPackageType() == PacketTypes.KILL_PACKET) {
-            KillExecutor.execute(container, packet.getSender(), (PlayerKillPacked) packet);
+            KillExecutor.execute(container, packet.getSender(), (PlayerKillPacket) packet);
         }
     }
 

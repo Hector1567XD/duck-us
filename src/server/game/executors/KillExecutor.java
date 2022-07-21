@@ -2,22 +2,25 @@ package server.game.executors;
 
 import common.CommonConstants;
 import common.networking.engine.Agent;
-import common.networking.packets.PlayerKillPacked;
+import common.networking.packets.PlayerKillPacket;
+import common.networking.packets.PlayerKilledPacket;
 import common.utils.NodeDistanceHelper;
 import server.game.engine.ServerContainer;
 import server.game.engine.ServerNetwork;
 import server.game.nodes.SPlayer;
 
 public class KillExecutor {
-    public static void execute(ServerContainer container, Agent packetSender, PlayerKillPacked packet) {
+    public static void execute(ServerContainer container, Agent packetSender, PlayerKillPacket packet) {
         ServerNetwork network = container.getNetwork();
         // Buscando al perpertrador
         SPlayer asesino = KillExecutor.getJugadorByAgent(container, packetSender);
         if (asesino == null) { // :) No se encontro al jugador
             return;
         }
+        
         // Buscando a la victima
         SPlayer victima = KillExecutor.getJugadorById(container, packet.getPlayerId());
+        
         if (victima == null) { // :) No se encontro al jugador
             return;
         }
@@ -57,7 +60,18 @@ public class KillExecutor {
         return currentPlayer;
     }
     
-    /*public static private ejecutarMatar(ServerContainer container, playerKilled) {
+    public static void deadPlayer(ServerContainer container, PlayerKilledPacket packet ) {
+        ServerNetwork network = container.getNetwork();
+        
+        SPlayer victima = KillExecutor.getJugadorById(container, packet.getPlayerId());
+        
+        if (victima.isDead() == false) { // :) No se encontro al jugador
+            return;
+        }
+       
+        victima.killed(container);
+        
+        
     
-    }*/
+    }
 }

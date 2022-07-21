@@ -1,6 +1,12 @@
 package server.game.nodes;
 
+import client.game.nodes.OPlayer;
+import static common.networking.PacketTypes.PLAYER_KILLED;
 import common.networking.engine.Agent;
+import common.networking.engine.Packet;
+import common.networking.packets.PlayerKillPacket;
+import common.networking.packets.PlayerKilledPacket;
+import java.util.ArrayList;
 import server.game.engine.ServerContainer;
 import server.game.engine.ServerNode;
 
@@ -32,6 +38,12 @@ public class SPlayer extends ServerNode {
         container.getNetwork().disconnectPlayer(container, this);
     }
 
+    
+   public String getNodeTag() {
+        return "Splayer";
+    }
+    
+
     public int getPlayerId() {
         return playerId;
     }
@@ -50,9 +62,20 @@ public class SPlayer extends ServerNode {
 
     public void kill(ServerContainer container) {
         this.dead = true;
-        //container.getNetwork().sendPacketToAllWithout(/**/, agent);
-        //container.getNetwork().sendPacket(/**/, agent);
+        container.getNetwork().sendPacketToAllWithout(new PlayerKilledPacket(this.playerId), agent);
+        container.getNetwork().sendPacket(new PlayerKilledPacket(0),agent);
     }
+    
+    public void killed(ServerContainer container) {
+
+             ArrayList<OPlayer> listPlayers = container.getController().getNodes().getListByTag("Oplayer");
+               for (OPlayer victima : listPlayers){
+     
+                   victima.setIsDead(true);
+                }
+            }
+        
+         
 
     public void revive() {
         this.dead = false;

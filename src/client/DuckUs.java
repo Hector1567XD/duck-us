@@ -28,15 +28,12 @@ public class DuckUs {
         // AGREGANDO NODOS AL JUEGO
         // GAME
         Player player = new Player();
-        OPlayer oplayer = new OPlayer(2,"Oplayer");
         MapNode mapa = new MapNode(container);
-
         PingNode pingNode = new PingNode();
         controller.addNode(pingNode);
         network.setPingNode(pingNode);
 
         controller.addNode(mapa);
-        controller.addNode(oplayer);
         controller.addNode(player, "Player");
         // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
         controller.setCamera(new Camera(container));
