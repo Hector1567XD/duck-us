@@ -3,6 +3,7 @@ package client;
 import client.core.DuckConnect;
 import client.core.DuckGame;
 import client.forms.AcercaDe;
+import client.forms.Ayuda;
 import client.forms.Connect;
 import client.forms.MenuPrincipal;
 import client.forms.MenuWindow;
@@ -38,6 +39,12 @@ public class DuckOrquestador {
     public void openAcercaDe() {
         window.setPanel(new AcercaDe(this));
     }
+    
+    public void openAyuda() {
+        window.setPanel(new Ayuda(this));
+    }
+    
+    
     public void connectToServer(String ipAddress, int port) {
         this.client = DuckConnect.createClient(publisher, ipAddress, port);
     }

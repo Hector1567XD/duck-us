@@ -23,6 +23,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
     public MenuPrincipal(DuckOrquestador orquestator) {
         this.orquestator = orquestator;
         initComponents();
+        
     }
 
 
@@ -85,4 +86,5 @@ public class MenuPrincipal extends javax.swing.JPanel {
     private javax.swing.JButton inicio;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
 }
