@@ -52,6 +52,9 @@ public class TestNode extends GameNode implements NodeCenterable, NodeColladable
           this.misionActual.setAbrir(true);
           this.misionActual.draw(container, g2);
         }
+          if (getMisionAbierta() == false) {
+              this.misionActual.setAbrir(false);
+          }
     }
 
     public int getOffsetX() {
