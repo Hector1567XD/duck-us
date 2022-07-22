@@ -67,16 +67,20 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
 
                 for (TestNode i : missions) {
                     if (isPositionCollaiding(i, x, y)) {
-                        System.out.println("si :)");
+                        //System.out.println("si :)");
                         i.setMisionAbierta(true);
-                    }
+                        
+                        if (isCollaiding(i)) {
+
+                        }
+                    }    
                 }
             }
             if (input.isKey(KeyEvent.VK_X)) {
                 ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
                 for (TestNode i : missions) {
                     if (isPositionCollaiding(i, x, y)) {
-                        System.out.println("no :)");
+                        //System.out.println("no :)");
                         i.setMisionAbierta(false);
                     }
                 }
@@ -112,6 +116,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
 
     public boolean cantMove(GameContainer container, int x, int y) {
         ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
+        ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
 
         // COLISION CON BLOQUES
         for (Bloque i : bloquesitos) {
@@ -120,6 +125,12 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
             }
         }
 
+        for (TestNode i : missions) {
+            if (isPositionCollaiding(i, x, y)) {
+                return false;
+            }
+        }
+        
         // COLISION CON TILESETS
         MapNode mapNode = container.getController().getNodes().findByName("MapNode");
         if (mapNode == null) {
