@@ -14,7 +14,20 @@ import java.awt.Graphics2D;
  * @author david_000
  */
 public class Mision extends GameNode {
-    private boolean misionAbierta = false;
+    private boolean abrir = false;
+
+    
+    
+    public boolean isAbrir() {
+        return abrir;
+    }
+    
+    
+    
+    public void setAbrir(boolean abrir) {
+        this.abrir = abrir;
+    }
+    
     
     
     @Override
@@ -29,14 +42,17 @@ public class Mision extends GameNode {
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
+       if (isAbrir() == true) { 
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
         g2.setColor(Color.RED);
         int alto = tileSize * scale;
-        int ancho = tileSize * scale;
+        int ancho = tileSize * scale;   
         int offSetX = this.getOffsetX() * scale;
         int offSetY = this.getOffsetY() * scale;
-        g2.fillRect(x , y , alto, ancho);
+        g2.fillRect(drawX - offSetX, drawY - offSetY, alto, ancho);
+      
+      } 
         
     }
 

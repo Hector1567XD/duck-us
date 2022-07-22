@@ -15,6 +15,8 @@ public class TestNode extends GameNode implements NodeCenterable, NodeColladable
         this.x = x;
         this.y = y;
         this.misionActual = new Mision();
+        this.misionActual = misionActual;
+        this.addNode(misionActual);
     }
 
     public boolean getMisionAbierta() {
@@ -47,7 +49,7 @@ public class TestNode extends GameNode implements NodeCenterable, NodeColladable
         g2.fillOval((drawX) - offSetX, (drawY) - offSetY, alto, ancho);
        
         if(getMisionAbierta() == true) {
-          
+          this.misionActual.setAbrir(true);
           this.misionActual.draw(container, g2);
         }
     }
