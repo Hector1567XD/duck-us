@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class Player extends GameNode implements NodeCenterable, NodeColladable {
     private int velocity = 4;
+    private boolean misionOpen = false;
 
     @Override
     public void created(GameContainer container) {
@@ -29,7 +30,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A)
                 || input.isKey(KeyEvent.VK_D) || input.isKey(KeyEvent.VK_X) || input.isKey(KeyEvent.VK_P);
 
-        if (isWalking) {
+        if ((isWalking) && (!misionOpen)) {
             if (input.isKey(KeyEvent.VK_W)) {
                 if (cantMove(container, this.x, this.y - velocity)) {
                     y -= velocity;
@@ -62,17 +63,18 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                     x += velocity;
                 }
             }
-            if (input.isKey(KeyEvent.VK_P)) {
+            
+        }
+        
+        if (input.isKey(KeyEvent.VK_P)) {
                 ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
 
                 for (TestNode i : missions) {
                     if (isPositionCollaiding(i, x, y)) {
                         //System.out.println("si :)");
+                        misionOpen = true;
                         i.setMisionAbierta(true);
                         
-                        if (isCollaiding(i)) {
-
-                        }
                     }    
                 }
             }
@@ -81,11 +83,11 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                 for (TestNode i : missions) {
                     if (isPositionCollaiding(i, x, y)) {
                         //System.out.println("no :)");
+                        misionOpen = false;
                         i.setMisionAbierta(false);
                     }
                 }
             }
-        }
     }
 
     @Override
@@ -116,16 +118,9 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
 
     public boolean cantMove(GameContainer container, int x, int y) {
         ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
-        ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
-
+        
         // COLISION CON BLOQUES
         for (Bloque i : bloquesitos) {
-            if (isPositionCollaiding(i, x, y)) {
-                return false;
-            }
-        }
-
-        for (TestNode i : missions) {
             if (isPositionCollaiding(i, x, y)) {
                 return false;
             }

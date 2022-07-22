@@ -43,11 +43,6 @@ public class Mision extends GameNode {
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
        if (isAbrir() == true) { 
-        /*int scale = container.getScale().getScale();
-        int tileSize = container.getScale().getOriginalTileSize();
-        
-        g2.fillRect(235,200,container.getWindow().getScreenWidth()-300, container.getWindow().getScreenHeight()-200);
-       */
         int scale = container.getScale().getScale();
         int originalTileSize = container.getScale().getOriginalTileSize();
         int tileSize = scale * originalTileSize;
