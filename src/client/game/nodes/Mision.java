@@ -52,10 +52,12 @@ public class Mision extends GameNode {
         int originalTileSize = container.getScale().getOriginalTileSize();
         int tileSize = scale * originalTileSize;
         int maxScreenCol = container.getWindow().getMaxScreenCol();
-        int maxScreenRow = container.getWindow().getMaxScreenCol();
-        g2.setColor(Color.BLUE);
+        int maxScreenRow = container.getWindow().getMaxScreenRow();
+        g2.setColor(new Color(0,0,0,85));
+        g2.fillRect(0,0, maxScreenCol * tileSize, maxScreenRow * tileSize);
         
-        g2.fillRect(2 * tileSize,2 * tileSize, maxScreenCol * tileSize - (tileSize * 4), maxScreenRow * tileSize - (tileSize * 4));
+        g2.setColor(Color.WHITE);
+        g2.fillRect((int) (1.5 * tileSize),(int) (1.5 * tileSize),(int) (maxScreenCol - 2.5) * tileSize,(int) (maxScreenRow - 2.5) * tileSize);
       } 
         
     }
