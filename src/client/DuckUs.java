@@ -10,6 +10,7 @@ import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.MapNode;
+import client.game.nodes.Mision;
 import client.game.nodes.Player;
 import client.game.nodes.Triangulito;
 
@@ -29,10 +30,11 @@ public class DuckUs {
         // GAME
         Player player = new Player();
         MapNode mapa = new MapNode(container);
+        Mision mision1 = new Mision();
         controller.addNode(mapa, "MapNode");
         controller.addNode(new Bloque(100,300));
         controller.addNode(new Bloque(50,50));
-        controller.addNode(new TestNode(300,300));
+        controller.addNode(new TestNode(300,300,mision1));
         controller.addNode(player, "Player");
         // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
         controller.setCamera(new Camera(container));

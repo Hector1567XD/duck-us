@@ -27,7 +27,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     public void update(GameContainer container) {
         Input input = container.getInput();
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A)
-                || input.isKey(KeyEvent.VK_D) || input.isKey(KeyEvent.VK_X);
+                || input.isKey(KeyEvent.VK_D) || input.isKey(KeyEvent.VK_X) || input.isKey(KeyEvent.VK_P);
 
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
@@ -62,12 +62,12 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                     x += velocity;
                 }
             }
-            if (input.isKey(KeyEvent.VK_X)) {
+            if (input.isKey(KeyEvent.VK_P)) {
                 ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
 
                 for (TestNode i : missions) {
                     if (isPositionCollaiding(i, x, y)) {
-                        //System.out.println("si :)");
+                        System.out.println("si :)");
                         i.setMisionAbierta(true);
                     }
                 }
