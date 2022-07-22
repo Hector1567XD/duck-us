@@ -53,6 +53,7 @@ public class Mision extends GameNode {
         
         g2.setColor(Color.WHITE);
         g2.fillRect((int) (1.5 * tileSize),(int) (1.5 * tileSize),(int) (maxScreenCol - 2.5) * tileSize,(int) (maxScreenRow - 2.5) * tileSize);
+        
       } 
         
     }
