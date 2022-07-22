@@ -34,8 +34,9 @@ public class DuckUs {
         controller.addNode(mapa, "MapNode");
         controller.addNode(new Bloque(100,300));
         controller.addNode(new Bloque(50,50));
-        controller.addNode(new TestNode(300,300,mision1));
+        
         controller.addNode(player, "Player");
+        controller.addNode(new TestNode(300,300,mision1));
         // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
         controller.setCamera(new Camera(container));
 
