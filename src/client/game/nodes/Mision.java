@@ -6,9 +6,11 @@ package client.game.nodes;
 
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
+import client.game.engine.core.Input;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 /**
@@ -17,9 +19,22 @@ import java.util.Scanner;
  */
 public class Mision extends GameNode {
     private boolean abrir = false;
-    private String[] palabrasRestantes;
-    Scanner leer = new Scanner(System.in);
-    String acertar;
+    private String palabra;
+    private char[] letrasRestantes;
+    private int[] keyRestantes;
+    private int[] posicionesRestantes;
+    private int letrasEncontradas;
+    private int letrasTotalesAEncontrar;
+    private AbrirMision1 mision1;
+    
+    public Mision() {
+    }
+    
+    public Mision(AbrirMision1 mision1) {
+        this.mision1 = mision1;
+    }
+    
+    
     
     public boolean isAbrir() {
         return abrir;
@@ -37,20 +52,36 @@ public class Mision extends GameNode {
     public void created(GameContainer container) {
         this.x = 235;
         this.y = 200;
-        this.leer = leer;
-        this.palabrasRestantes = new String[4];
-        this.palabrasRestantes[0] = "o";
-        this.palabrasRestantes[1] = "a";
-        this.palabrasRestantes[2] = "u";
-        this.palabrasRestantes[3] = "n";
+        this.palabra = "H_l_Mundo";
+        this.keyRestantes = new int[3];
+        this.keyRestantes[0] = KeyEvent.VK_O;
+        this.keyRestantes[1] = KeyEvent.VK_A;
+        this.letrasEncontradas = 0;
+        this.letrasTotalesAEncontrar = 2;
+        this.letrasRestantes = new char[2];
+        this.letrasRestantes[0] = 'o';
+        this.letrasRestantes[1] = 'a';
+        this.posicionesRestantes = new int[2];
+        this.posicionesRestantes[0] = 1;
+        this.posicionesRestantes[1] = 3;
     }       
 
     @Override
     public void update(GameContainer container) {
-     if (isAbrir() == true) {   
-       acertar = leer.nextLine();
-       System.out.println(acertar);
-     }
+     if (isAbrir() == true) {  
+         Input input = container.getInput(); 
+            if (input.isKeyDown(keyRestantes[letrasEncontradas])) {
+                char[] palabraArreglo= palabra.toCharArray();
+                palabraArreglo[posicionesRestantes[letrasEncontradas]] = letrasRestantes[letrasEncontradas];
+               this.palabra = String.valueOf(palabraArreglo);
+               letrasEncontradas++;
+                if (letrasEncontradas >= letrasTotalesAEncontrar) {
+                    this.setAbrir(false);
+                    this.mision1.setMisionAbierta(false);
+                }
+          }
+            
+       }              
     }
 
     @Override
@@ -69,17 +100,9 @@ public class Mision extends GameNode {
         g2.setColor(Color.WHITE);
         g2.setFont(new Font( "Arial", Font.BOLD, 46 ));
         g2.drawString("JUEGO DEL AHORCADO", 250, 150);
-        g2.drawString("H_L_M__DO", 400, 300);
-        int i = 0;
+        g2.drawString(palabra, 400, 300);
         
-           for ( i = 0; i<4; i++) {
-               if (palabrasRestantes[i].equals(acertar)){
-                   System.out.println("Entre :)");
-                   g2.setFont(new Font( "Arial", Font.BOLD, 46 ));
-                   g2.drawString(acertar, 450, 500);
-                   palabrasRestantes[i] = "0";
-                }   
-           }    
+             
 
       } 
         

@@ -10,11 +10,11 @@ import java.awt.Graphics2D;
 public class AbrirMision1 extends GameNode implements NodeCenterable, NodeColladable {
     private boolean misionAbierta = false;
     Mision misionActual;
-
+    
     public AbrirMision1(int x, int y, Mision mision) {
         this.x = x;
         this.y = y;
-        this.misionActual = new Mision();
+        this.misionActual = new Mision(this);
         this.misionActual = misionActual;
         this.addNode(misionActual);
     }
@@ -33,6 +33,8 @@ public class AbrirMision1 extends GameNode implements NodeCenterable, NodeCollad
 
     @Override
     public void update(GameContainer container) {
+       
+           
     }
 
     @Override
