@@ -12,23 +12,23 @@ public class SocketPublisher {
     }
 
     public void subscribe(SocketEventSuscriber subscriber) {
-       subscribers.add(subscriber);
+        subscribers.add(subscriber);
     }
 
     public void unsubscribe(SocketEventSuscriber subscriber) {
-       if (subscribers.contains(subscriber))
-        subscribers.remove(subscriber);
+        if (subscribers.contains(subscriber))
+            subscribers.remove(subscriber);
     }
 
     public void notify(short event, Packet packet) {
         switch (event) {
             case SocketEvents.PACKET_RECEIVED_EVENT -> {
-                for (SocketEventSuscriber subscriber: subscribers) {
+                for (SocketEventSuscriber subscriber : subscribers) {
                     subscriber.packetReceived(packet);
                 }
             }
             case SocketEvents.PACKET_SENDED_EVENT -> {
-                for (SocketEventSuscriber subscriber: subscribers) {
+                for (SocketEventSuscriber subscriber : subscribers) {
                     subscriber.packetSended(packet, packet.getReceiver());
                 }
             }
@@ -37,6 +37,6 @@ public class SocketPublisher {
 }
 
 /*
-    Patron Observer:
-    https://refactoring.guru/es/design-patterns/observer
-*/
+ * Patron Observer:
+ * https://refactoring.guru/es/design-patterns/observer
+ */

@@ -72,15 +72,15 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                     }
                 }
             }
-            if (input.isKey(KeyEvent.VK_X)){
+            if (input.isKey(KeyEvent.VK_X)) {
                 ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
                 for (TestNode i : missions) {
                     if (isPositionCollaiding(i, x, y)) {
                         System.out.println("no :)");
                         i.setMisionAbierta(false);
                     }
-              }
-            }    
+                }
+            }
         }
     }
 

@@ -10,8 +10,8 @@ import java.awt.Graphics2D;
 public class TestNode extends GameNode implements NodeCenterable, NodeColladable {
     private boolean misionAbierta = false;
     Mision misionActual;
-    
-    public TestNode(int x, int y,Mision mision) {
+
+    public TestNode(int x, int y, Mision mision) {
         this.x = x;
         this.y = y;
         this.misionActual = new Mision();
@@ -37,7 +37,7 @@ public class TestNode extends GameNode implements NodeCenterable, NodeColladable
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
-        
+
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
         g2.setColor(Color.green);
@@ -45,16 +45,16 @@ public class TestNode extends GameNode implements NodeCenterable, NodeColladable
         int ancho = tileSize * scale;
         int offSetX = this.getOffsetX() * scale;
         int offSetY = this.getOffsetY() * scale;
-        
+
         g2.fillOval((drawX) - offSetX, (drawY) - offSetY, alto, ancho);
-       
-        if(getMisionAbierta() == true) {
-          this.misionActual.setAbrir(true);
-          this.misionActual.draw(container, g2);
+
+        if (getMisionAbierta() == true) {
+            this.misionActual.setAbrir(true);
+            this.misionActual.draw(container, g2);
         }
-          if (getMisionAbierta() == false) {
-              this.misionActual.setAbrir(false);
-          }
+        if (getMisionAbierta() == false) {
+            this.misionActual.setAbrir(false);
+        }
     }
 
     public int getOffsetX() {
