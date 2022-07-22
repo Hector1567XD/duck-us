@@ -4,7 +4,7 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameController;
 import client.game.nodes.Camera;
-import client.game.nodes.TestNode;
+import client.game.nodes.AbrirMision1;
 import client.game.nodes.Bloque;
 import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
@@ -36,7 +36,7 @@ public class DuckUs {
         controller.addNode(new Bloque(50,50));
         
         controller.addNode(player, "Player");
-        controller.addNode(new TestNode(300,300,mision1));
+        controller.addNode(new AbrirMision1(300,300,mision1));
         // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
         controller.setCamera(new Camera(container));
 

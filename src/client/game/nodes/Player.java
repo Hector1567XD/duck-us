@@ -67,9 +67,9 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         }
         
         if (input.isKey(KeyEvent.VK_P)) {
-                ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
+                ArrayList<AbrirMision1> missions = container.getController().getNodes().getListByTag("mission");
 
-                for (TestNode i : missions) {
+                for (AbrirMision1 i : missions) {
                     if (isPositionCollaiding(i, x, y)) {
                         //System.out.println("si :)");
                         misionOpen = true;
@@ -79,8 +79,8 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                 }
             }
             if (input.isKey(KeyEvent.VK_X)) {
-                ArrayList<TestNode> missions = container.getController().getNodes().getListByTag("mission");
-                for (TestNode i : missions) {
+                ArrayList<AbrirMision1> missions = container.getController().getNodes().getListByTag("mission");
+                for (AbrirMision1 i : missions) {
                     if (isPositionCollaiding(i, x, y)) {
                         //System.out.println("no :)");
                         misionOpen = false;
