@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NodeCollection {
-    private HashMap<String, ArrayList<NodeI>> nodesByTag;
-    private HashMap<Integer, NodeI> nodesByID;
-    private HashMap<String, NodeI> nodesByName;
-    private ArrayList<NodeI> nodes;
+    private final HashMap<String, ArrayList<NodeI>> nodesByTag;
+    private final HashMap<Integer, NodeI> nodesByID;
+    private final HashMap<String, NodeI> nodesByName;
+    private final ArrayList<NodeI> nodes;
     private int nodeCounter = 0;
 
     public NodeCollection() {
@@ -18,19 +18,21 @@ public class NodeCollection {
     }
 
     public void add(NodeI node) {
-        nodeCounter++;
-        node.setNodeId(nodeCounter);
+        synchronized (nodes) {
+            nodeCounter++;
+            node.setNodeId(nodeCounter);
 
-        // Añade el nodo a las distintas listas
-        nodes.add(node);
-        nodesByID.put(node.getNodeId(), node);
+            // Añade el nodo a las distintas listas
+            nodes.add(node);
+            nodesByID.put(node.getNodeId(), node);
 
-        if (node.getNodeName() != null) {
-            this.nodesByName.put(node.getNodeName(), node);
-        }
-        
-        if (node.getNodeTag() != null) {
-            this.addNodeToTag(node, node.getNodeTag());
+            if (node.getNodeName() != null) {
+                this.nodesByName.put(node.getNodeName(), node);
+            }
+
+            if (node.getNodeTag() != null) {
+                this.addNodeToTag(node, node.getNodeTag());
+            }
         }
     }
 
@@ -49,18 +51,20 @@ public class NodeCollection {
     }
 
     public void remove(NodeI node) {
-        int nodeId = node.getNodeId();
+        synchronized (nodes) {
+            int nodeId = node.getNodeId();
 
-        // Elimina el nodo de las distintas listas
-        nodes.remove(node);
-        nodesByID.remove(nodeId);
+            // Elimina el nodo de las distintas listas
+            nodes.remove(node);
+            nodesByID.remove(nodeId);
 
-        if (node.getNodeName() != null) {
-            this.nodesByName.remove(node.getNodeName());
-        }
+            if (node.getNodeName() != null) {
+                this.nodesByName.remove(node.getNodeName());
+            }
 
-        if (node.getNodeTag() != null) {
-            this.removeNodeFromTag(node, node.getNodeTag());
+            if (node.getNodeTag() != null) {
+                this.removeNodeFromTag(node, node.getNodeTag());
+            }
         }
     }
 

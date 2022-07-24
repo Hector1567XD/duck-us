@@ -24,7 +24,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     public void created(GameContainer container) {
         this.x = 235;
         this.y = 200;
-        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+        //container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
         GameNetwork network = container.getNetwork();
         network.sendPacket(new PlayerLoginPacket("Feredev"));
     }

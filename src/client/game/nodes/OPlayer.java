@@ -4,6 +4,7 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.nodos.NodeCenterable;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 public class OPlayer extends GameNode implements NodeCenterable {
@@ -29,7 +30,8 @@ public class OPlayer extends GameNode implements NodeCenterable {
         int tileSize = container.getScale().getOriginalTileSize();
         g2.fillRect(drawX - getOffsetX()*scale, drawY - getOffsetY()*scale, tileSize * scale, tileSize * scale);
         g2.setColor(Color.WHITE);
-        g2.drawString(this.name + "(" + this.playerId + ")", x * scale+ 4*scale, y * scale + 40 * scale);
+        g2.setFont(new Font( "Arial", Font.BOLD, 12*scale ));
+        g2.drawString(this.name + "(" + this.playerId + ")", drawX - 8*scale, drawY + 40 * scale);
     }
 
     public int getPlayerId() {
