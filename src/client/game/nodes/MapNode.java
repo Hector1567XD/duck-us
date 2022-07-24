@@ -12,7 +12,7 @@ public class MapNode extends GameNode {
     public MapNode(GameContainer container){
        this.mapa = new MapTilesManager(this, container);
     }
-
+    
     @Override
     public void created(GameContainer container) {
 
@@ -20,7 +20,6 @@ public class MapNode extends GameNode {
 
     @Override
     public void update(GameContainer container) {
-
     }
 
     @Override
