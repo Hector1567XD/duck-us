@@ -55,9 +55,15 @@ public class Bloque extends GameNode implements NodeCenterable, NodeColladable {
         return "Bloque";
     }
 
+       
+    @Override
+    public CenterBorders getCenterBorders() {
+        return new CenterBorders(16, 16, 16, 16);
+    }
+    
     @Override
     public CollideBox getCollideBox() {
-        CenterBorders centerBorders = new CenterBorders(16, 16, 16, 16);
+        CenterBorders centerBorders = this.getCenterBorders();
         return CollitionsUtils.createCenteredBox(x, y, centerBorders);
     }
 }
