@@ -1,8 +1,5 @@
 package server.game.engine;
-
 import common.game.engine.Container;
-import common.game.engine.Scale;
-
 public class ServerContainer extends Container {
 
     public ServerContainer(int scaleSize, ServerNetwork network, ServerController controller) {
