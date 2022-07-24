@@ -85,6 +85,31 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         g2.fillRect(drawX - offSetX, drawY - offSetY, alto, ancho);
         g2.setColor(Color.red);
         g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
+        
+        MapNode mapNode = container.getController().getNodes().findByName("MapNode");
+        if (mapNode == null) {
+            return;
+        }
+        MapTilesManager mapTilesManager = mapNode.getMapa();
+        int[][] arregloTilesets = mapTilesManager.getMapTileNum();
+
+        for (int posX = 0; posX < container.getMaxMapCol(); posX++) {
+            for (int posY = 0; posY < container.getMaxMapRow(); posY++) {
+                int tile = arregloTilesets[posX][posY];
+                if (tile == 1) {
+                    int offsetBlock = CommonConstants.TILE_SIZE / 2;
+                    int x1 = posX * CommonConstants.TILE_SIZE;
+                    int y1 = posY * CommonConstants.TILE_SIZE;
+                    int x2 = posX * CommonConstants.TILE_SIZE + offsetBlock*2;
+                    int y2 = posY * CommonConstants.TILE_SIZE + offsetBlock*2;
+                    g2.setColor(Color.YELLOW);
+                    int deltaCamX = container.getController().getCamera().getDeltaCameraX();
+                    int deltaCamY = container.getController().getCamera().getDeltaCameraY();
+                    g2.drawLine(drawX, drawY, x1*scale + deltaCamX , y1*scale + deltaCamY);
+                    g2.drawLine(drawX, drawY, x2*scale + deltaCamX, y2*scale + deltaCamY);
+                }
+            }
+        }
     }
 
     public boolean isHipoteticPositionColliding(int x, int y, NodeColladable otherNode) {
