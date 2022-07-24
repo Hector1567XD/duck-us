@@ -7,10 +7,10 @@ import client.game.engine.nodos.NodeColladable;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class AbrirMision1 extends GameNode implements NodeCenterable, NodeColladable {
+public class AbrirMision1 extends GameNode implements NodeCenterable, NodeColladable, NodeOpenable {
     private boolean misionAbierta = false;
     Mision misionActual;
-    
+
     public AbrirMision1(int x, int y, Mision mision) {
         this.x = x;
         this.y = y;
@@ -33,8 +33,7 @@ public class AbrirMision1 extends GameNode implements NodeCenterable, NodeCollad
 
     @Override
     public void update(GameContainer container) {
-       
-           
+
     }
 
     @Override
