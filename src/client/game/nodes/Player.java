@@ -9,6 +9,7 @@ import client.game.engine.nodos.NodeColladable;
 import client.game.tiles.MapTilesManager;
 import common.CommonConstants;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -111,6 +112,13 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         g2.fillRect(drawX - offSetX, drawY - offSetY, alto, ancho);
         g2.setColor(Color.red);
         g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
+         ArrayList<AbrirMision1> missions = container.getController().getNodes().getListByTag("mission");
+           for (AbrirMision1 i : missions) {
+               if (isPositionCollaiding(i, x, y)) {
+                   g2.setFont(new Font( "Arial", Font.BOLD, 20*scale ));
+                   g2.drawString("PULSE P PARA ABRIR LA MISION", 50*scale, 320*scale);
+               }
+           }    
     }
 
     public boolean isPositionCollaiding(NodeColladable otherNode, int x, int y) {
