@@ -7,6 +7,9 @@ import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
 import client.game.tiles.MapTilesManager;
+import client.utils.game.collitions.CenterBorders;
+import client.utils.game.collitions.CollideBox;
+import client.utils.game.collitions.CollitionsUtils;
 import common.CommonConstants;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -14,10 +17,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Player extends GameNode implements NodeCenterable, NodeColladable {
-
     private int velocity = 4;
  
-
     @Override
     public void created(GameContainer container) {
         this.x = 235;
@@ -86,15 +87,11 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
     }
 
-    public boolean isPositionCollaiding(NodeColladable otherNode, int x, int y) {
-        if ((x + this.getRightCenter() >= otherNode.getX() - otherNode.getLeftCenter())
-                && (x - this.getRightCenter() <= otherNode.getX() + otherNode.getLeftCenter())
-                && (y + this.getBottomCenter() >= otherNode.getY() - otherNode.getTopCenter())
-                && (y - this.getBottomCenter() <= otherNode.getY() + otherNode.getBottomCenter())) {
-            return true;
-        }
+    public boolean isHipoteticPositionColliding(int x, int y, NodeColladable otherNode) {
+        CollideBox selfBox = this.getPositionCollideBox(x, y);
+        CollideBox otherBox = otherNode.getCollideBox();
 
-        return false;
+        return selfBox.isCollidingWith(otherBox);
     }
 
     // to do (esto va en update)
@@ -102,8 +99,8 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         // COLISION CON BLOQUES
         ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
 
-        for (Bloque i : bloquesitos) {
-            if (isPositionCollaiding(i, x, y)) {
+        for (Bloque block : bloquesitos) {
+            if (isHipoteticPositionColliding(x, y, block)) {
                 return false;
             }
         }
@@ -122,7 +119,15 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                 int tile = arregloTilesets[posX][posY];
                 if (tile == 1) {
                     int offsetBlock = CommonConstants.TILE_SIZE / 2;
-                    boolean isColliding = this.isPositionCollaidingManual(x, y, posX * CommonConstants.TILE_SIZE + offsetBlock, posY * CommonConstants.TILE_SIZE + offsetBlock, offsetBlock);
+                    boolean isColliding 
+                            = this.isCollidingWithTile(
+                                x,
+                                y,
+                                posX * CommonConstants.TILE_SIZE + offsetBlock,
+                                posY * CommonConstants.TILE_SIZE + offsetBlock,
+                                offsetBlock
+                            );
+
                     if (isColliding) {
                         return false;
                     }
@@ -133,20 +138,15 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         return true;
     }
 
-    public boolean isPositionCollaidingManual(int x, int y, int oX, int oY, int distanceToCenter) {
-        if ((x + this.getRightCenter() >= oX - distanceToCenter)
-                && (x - this.getRightCenter() <= oX + distanceToCenter)
-                && (y + this.getBottomCenter() >= oY - distanceToCenter)
-                && (y - this.getBottomCenter() <= oY + distanceToCenter)) {
-            return true;
-        }
-
-        return false;
+    public boolean isCollidingWithTile(int x, int y, int oX, int oY, int d) {
+        CollideBox selfBox = this.getPositionCollideBox(x,y);
+        CollideBox positionBox = CollitionsUtils.createCenteredBox(oX, oY, new CenterBorders(d, d, d, d));
+        return selfBox.isCollidingWith(positionBox);
     }
 
-    public boolean isCollaiding(NodeColladable otherNode) {
-        return isPositionCollaiding(otherNode, x, y);
-    }
+    /*public boolean isColliding(NodeColladable otherNode) {
+        return this.isHipoteticPositionColliding(this.x, this.y, otherNode);
+    }*/
 
     @Override
     public String getNodeTag() {
@@ -161,19 +161,17 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         return 16;
     }
 
-    public int getTopCenter() {
-        return 16;
+    public CenterBorders getCenterBorders() {
+        return new CenterBorders(16, 16, 16, 16);
     }
 
-    public int getLeftCenter() {
-        return 16;
+    @Override
+    public CollideBox getCollideBox() {
+        return this.getPositionCollideBox(this.x, this.y);
     }
 
-    public int getRightCenter() {
-        return 16;
-    }
-
-    public int getBottomCenter() {
-        return 16;
+    public CollideBox getPositionCollideBox(int posX, int posY) {
+        CenterBorders centerBorders = this.getCenterBorders();
+        return CollitionsUtils.createCenteredBox(posX, posY, centerBorders);
     }
 }

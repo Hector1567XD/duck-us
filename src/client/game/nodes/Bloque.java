@@ -4,6 +4,9 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
+import client.utils.game.collitions.CenterBorders;
+import client.utils.game.collitions.CollideBox;
+import client.utils.game.collitions.CollitionsUtils;
 import java.awt.Color;
 import java.awt.Graphics2D;
 /**
@@ -53,22 +56,8 @@ public class Bloque extends GameNode implements NodeCenterable, NodeColladable {
     }
 
     @Override
-    public int getTopCenter() {
-        return 16;
-    }
-
-    @Override
-    public int getLeftCenter() {
-        return 16;
-    }
-
-    @Override
-    public int getRightCenter() {
-        return 16;
-    }
-
-    @Override
-    public int getBottomCenter() {
-        return 16;
+    public CollideBox getCollideBox() {
+        CenterBorders centerBorders = new CenterBorders(16, 16, 16, 16);
+        return CollitionsUtils.createCenteredBox(x, y, centerBorders);
     }
 }
