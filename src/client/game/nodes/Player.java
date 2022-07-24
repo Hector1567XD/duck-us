@@ -89,12 +89,46 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                     }   
                 }
             }
+            if (input.isKey(KeyEvent.VK_T)) {
+                ArrayList<AbrirVote> vote = container.getController().getNodes().getListByTag("vote");
+
+                for (AbrirVote i : vote) {
+                    if (isPositionCollaiding(i, x, y)) {
+                        //System.out.println("si :)");
+                        
+                        misionOpen = true;
+                        i.setMisionAbierta(true);
+                        
+                    }    
+                }
+            }
+              if (input.isKey(KeyEvent.VK_Y)) {
+                ArrayList<AbrirVote> vote = container.getController().getNodes().getListByTag("vote");
+
+                for (AbrirVote i : vote) {
+                    if (isPositionCollaiding(i, x, y)) {
+                        //System.out.println("si :)");
+                        
+                        misionOpen = false;
+                        i.setMisionAbierta(false);
+                        
+                    }    
+                }
+            }
                 ArrayList<AbrirMision1> missions = container.getController().getNodes().getListByTag("mission");
                 for (AbrirMision1 i : missions) {  
                     if (i.getMisionAbierta()== false) {
                         misionOpen = false;
                     }
-                }    
+                }
+                
+                ArrayList<AbrirVote> vote = container.getController().getNodes().getListByTag("vote");
+                for (AbrirVote i : vote) {  
+                    if (i.getMisionAbierta()== false) {
+                        misionOpen = false;
+                    }
+                }
+            
     }
 
     @Override
