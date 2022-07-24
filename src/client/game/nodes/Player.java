@@ -24,7 +24,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         this.y = 200;
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
         this.collideNode = new CollideNode(this);
-        //this.collideNode.setShowCollitionsShape(true); (Solo activar para debuggear)
+        //this.collideNode.setShowCollitionsShape(true);// (Solo activar para debuggear)
         this.addNode(this.collideNode);
     }
 
@@ -104,15 +104,10 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
 
     public CenterBorders getCenterBorders() {
         return new CenterBorders(16, 16, 16, 16);
-    }
-
+    }        
+            
     @Override
     public CollideBox getCollideBox() {
-        return this.getPositionCollideBox(this.x, this.y);
-    }
-
-    public CollideBox getPositionCollideBox(int posX, int posY) {
-        CenterBorders centerBorders = this.getCenterBorders();
-        return CollitionsUtils.createCenteredBox(posX, posY, centerBorders);
+        return this.collideNode.getPositionCollideBox(this.x, this.y);
     }
 }

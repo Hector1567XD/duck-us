@@ -17,17 +17,17 @@ public class CollideNode extends GameNode {
     private NodeColladable parent;
     private boolean showCollitionsShape;
 
+    public CollideNode(NodeColladable parent) {
+        this.parent = parent;
+        this.showCollitionsShape = false;
+    }
+    
     public boolean isShowCollitionsShape() {
         return showCollitionsShape;
     }
 
     public void setShowCollitionsShape(boolean showCollitionsShape) {
         this.showCollitionsShape = showCollitionsShape;
-    }
-
-    public CollideNode(NodeColladable parent) {
-        this.parent = parent;
-        this.showCollitionsShape = false;
     }
 
     @Override
