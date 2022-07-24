@@ -15,6 +15,15 @@ public abstract class ServerNode extends Node {
         update((ServerContainer) container);
     }
 
+    @Override
+    public void removed(Container container) {
+        removed((ServerContainer) container);
+    }
+
     public abstract void created(ServerContainer container);
     public abstract void update(ServerContainer container);
+    public void removed(ServerContainer container) {
+        // Optional
+    }
+
 }

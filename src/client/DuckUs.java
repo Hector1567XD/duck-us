@@ -7,6 +7,7 @@ import client.game.nodes.Camera;
 import client.game.nodes.AbrirMision1;
 import client.game.nodes.AbrirVote;
 import client.game.nodes.Bloque;
+import client.game.nodes.PingNode;
 import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
@@ -19,11 +20,24 @@ import client.game.nodes.VoteNode;
 public class DuckUs {
     public static void main(String[] args) {
         // APP BUILDING
-        SocketPublisher publisher = new SocketPublisher();
-        GameController controller = new GameController();
+            // SOCKET Y EL SOCKET PUBLISHER
+                SocketPublisher publisher = new SocketPublisher();
+                Client client = new Client(publisher, new DuckPacketReader());
+            // GAME CONTEXT
+                GameController controller = new GameController();
+                GameNetwork network = new GameNetwork(client);
+                GameContainer container = new GameContainer(Constants.SCALE, network, controller);
 
-        Client client = new Client(publisher, new DuckPacketReader());
-        client.start("localhost", 1331);
+        // AGREGANDO NODOS AL JUEGO
+            //Creando Nodos
+                Player player = new Player();
+                MapNode mapa = new MapNode(container);
+                PingNode pingNode = new PingNode();
+            // Agregando Nodos
+                controller.addNode(mapa);
+                controller.addNode(player);
+                controller.addNode(pingNode);
+                network.setPingNode(pingNode);
 
         GameNetwork network = new GameNetwork(client);
 
@@ -50,5 +64,9 @@ public class DuckUs {
         // BEGIN
         publisher.subscribe(network);
         container.start();
+        // EJECUSION
+            client.start("localhost", 1331); //<-- Conectandose al servidor
+            publisher.subscribe(network); // <-- Subscribiendo el NETWORK a los paquetes del socket
+            container.start(); // <-- Ejecutando el juego en si
     }
 }
