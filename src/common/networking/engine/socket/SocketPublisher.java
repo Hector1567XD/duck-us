@@ -1,11 +1,10 @@
 package common.networking.engine.socket;
 
 import common.networking.engine.Packet;
-import common.networking.engine.Packet;
 import java.util.ArrayList;
 
 public class SocketPublisher {
-    private ArrayList<SocketEventSuscriber> subscribers;
+    private final ArrayList<SocketEventSuscriber> subscribers;
 
     public SocketPublisher() {
         this.subscribers = new ArrayList<>();
