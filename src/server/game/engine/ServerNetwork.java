@@ -100,7 +100,7 @@ public class ServerNetwork extends Network {
                 currentPlayer.getX(),
                 currentPlayer.getY()
             );
-            this.sendPacketToAllWithout(movedPacket, client);
+            this.sendPacketToAllWithout(movedPacket, client);           
         }else if (packet.getPackageType() == PacketTypes.PLAYER_PING) {
             PingPacket pingPacket = (PingPacket) packet;
             Agent client = packet.getSender();
@@ -118,6 +118,7 @@ public class ServerNetwork extends Network {
             }
 
             this.pongNode.onPlayerPing(currentPlayer, container);
+            
         }else if (packet.getPackageType() == PacketTypes.PLAYER_VOTE){
             PlayerVotePacket votePacket = (PlayerVotePacket) packet;
             Agent client = packet.getSender();
@@ -142,7 +143,7 @@ public class ServerNetwork extends Network {
                 currentPlayer.getX(),
                 currentPlayer.getY()
             );
-            this.sendPacketToAll(votedPacket);
+            this.sendPacketToAllWithout(votedPacket,client);
         }
     }
 

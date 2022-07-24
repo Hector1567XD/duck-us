@@ -54,6 +54,7 @@ public class DuckUs {
         controller.setCamera(new Camera(container));
 
         controller.addNode(new Triangulito());
+        controller.addNode(vote,"vote");
 
         // BEGIN
         

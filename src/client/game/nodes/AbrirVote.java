@@ -17,9 +17,7 @@ public class AbrirVote extends GameNode implements NodeCenterable, NodeColladabl
     public AbrirVote(int x, int y, VoteNode votar ) {
         this.x = x;
         this.y = y;
-        this.vote = new VoteNode(this);
-        this.vote = vote;
-        this.addNode(vote);
+        this.vote = votar;
     }
 
     public boolean getMisionAbierta() {
@@ -27,7 +25,8 @@ public class AbrirVote extends GameNode implements NodeCenterable, NodeColladabl
     }
 
     public void setMisionAbierta(boolean misionAbierta) {
-        this.misionAbierta = misionAbierta;
+        this.misionAbierta = misionAbierta;    
+        this.vote.setAbrir(misionAbierta);
     }
 
     
@@ -37,13 +36,13 @@ public class AbrirVote extends GameNode implements NodeCenterable, NodeColladabl
     }
 
     @Override
-    public void update(GameContainer container) {
-        
+    public void update(GameContainer container) {      
+       
     }
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
-         int scale = container.getScale().getScale();
+        int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
         g2.setColor(Color.red);
         int alto = tileSize * scale;
@@ -53,13 +52,6 @@ public class AbrirVote extends GameNode implements NodeCenterable, NodeColladabl
 
         g2.fillOval((drawX) - offSetX, (drawY) - offSetY, alto, ancho);
 
-        if (getMisionAbierta() == true) {
-            this.vote.setAbrir(true);
-            this.vote.draw(container, g2);
-        }
-        if (getMisionAbierta() == false) {
-            this.vote.setAbrir(false);
-        }
     }
 
     @Override
@@ -73,7 +65,7 @@ public class AbrirVote extends GameNode implements NodeCenterable, NodeColladabl
     }
 
      public String getNodeTag() {
-        return "vote";
+        return "abrirvote";
     }
     
     

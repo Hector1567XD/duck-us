@@ -2,6 +2,7 @@ package client.game.engine;
 
 import client.game.nodes.OPlayer;
 import client.game.nodes.PingNode;
+import client.game.nodes.VoteNode;
 import common.game.engine.Container;
 import common.game.engine.Network;
 import common.networking.engine.Packet;
@@ -93,6 +94,10 @@ public class GameNetwork extends Network {
                 }
             }
         }else if (packet.getPackageType() == PacketTypes.PLAYER_VOTED) {
+            
+            VoteNode votacion = container.getController().getNodes().findByName("vote");
+            
+            votacion.setAbrir(true);
             
             
         }

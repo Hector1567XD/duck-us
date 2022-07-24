@@ -55,8 +55,8 @@ public class VoteNode extends GameNode {
     @Override
     public void update(GameContainer container) {
      if (isAbrir() == true) {  
-         Input input = container.getInput(); 
-         MouseListener[] click = container.getWindow().getWindow().getMouseListeners();
+         //Input input = container.getInput(); 
+         //MouseListener[] click = container.getWindow().getWindow().getMouseListeners();
              //this.setAbrir(false);
             // this.votacion.setMisionAbierta(false);
          }              
@@ -79,13 +79,15 @@ public class VoteNode extends GameNode {
         g2.setFont(new Font( "Arial", Font.BOLD, 46 ));
         g2.drawString("VOTACIONES", 250, 150);
     //  g2.drawString(palabra, 400, 300);
-        
-             
 
       } 
         
     }
 
+    public String getNodeTag() {
+        return "vote";
+    }
+    
     public int getOffsetX() {
         return 16;
     }

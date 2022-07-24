@@ -27,9 +27,9 @@ public class OPlayer extends GameNode implements NodeCenterable {
         g2.setColor(Color.GRAY);
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-        g2.fillRect(x * scale - getOffsetX(), y * scale - getOffsetY(), tileSize * scale, tileSize * scale);
+        g2.fillRect(drawX - getOffsetX()*scale, drawY - getOffsetY()*scale, tileSize * scale, tileSize * scale);
         g2.setColor(Color.WHITE);
-        g2.drawString(this.name + "(" + this.playerId + ")", x * scale + 4*scale, y * scale + 40 * scale);
+        g2.drawString(this.name + "(" + this.playerId + ")", x * scale+ 4*scale, y * scale + 40 * scale);
     }
 
     public int getPlayerId() {

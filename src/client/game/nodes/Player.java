@@ -10,6 +10,7 @@ import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
 import client.game.tiles.MapTilesManager;
 import common.CommonConstants;
+import common.networking.packets.PlayerVotePacket;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -94,48 +95,23 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                     }   
                 }
             }
-            if (input.isKey(KeyEvent.VK_T)) {
-                ArrayList<AbrirVote> vote = container.getController().getNodes().getListByTag("vote");
-
+            if (input.isKeyDown(KeyEvent.VK_T) && misionOpen==false) {
+                ArrayList<AbrirVote> vote = container.getController().getNodes().getListByTag("abrirvote");
                 for (AbrirVote i : vote) {
                     if (isPositionCollaiding(i, x, y)) {
                         //System.out.println("si :)");
-                        
+                        container.getNetwork().sendPacket(new PlayerVotePacket(1,1));
                         misionOpen = true;
                         i.setMisionAbierta(true);
                         
                     }    
                 }
             }
-              if (input.isKey(KeyEvent.VK_Y)) {
-                ArrayList<AbrirVote> vote = container.getController().getNodes().getListByTag("vote");
-
-                for (AbrirVote i : vote) {
-                    if (isPositionCollaiding(i, x, y)) {
-                        //System.out.println("si :)");
-                        
-                        misionOpen = false;
-                        i.setMisionAbierta(false);
-                        
-                    }    
-                }
-            }
-                ArrayList<AbrirMision1> missions = container.getController().getNodes().getListByTag("mission");
-                for (AbrirMision1 i : missions) {  
-                    if (i.getMisionAbierta()== false) {
-                        misionOpen = false;
-                    }
-                }
-                
-                ArrayList<AbrirVote> vote = container.getController().getNodes().getListByTag("vote");
-                for (AbrirVote i : vote) {  
-                    if (i.getMisionAbierta()== false) {
-                        misionOpen = false;
-                    }
-                }
             
     }
 
+    
+    
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
         g2.setColor(Color.GRAY);
@@ -212,6 +188,16 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     public boolean isCollaiding(NodeColladable otherNode) {
         return isPositionCollaiding(otherNode, x, y);
     }
+    
+    
+    public void setMision(boolean mision){
+       misionOpen=mision;
+    }
+    
+    public void VoteOpen() {
+        
+    }
+    
 
     @Override
     public String getNodeTag() {
