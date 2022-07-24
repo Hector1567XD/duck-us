@@ -21,6 +21,7 @@ import client.game.executors.ServerPongExecutor;
 public class GameNetwork extends Network {
     private final Client client;
     private final ArrayList<OPlayer> players = new ArrayList<>();
+    private int selfPlayerId = 0;
     private PingNode pingNode;
 
     public GameNetwork(Client client) {
@@ -101,5 +102,14 @@ public class GameNetwork extends Network {
                 }
             }
         }
+    }
+
+    // Obtener y establecer mi propio player ID segun el servidor
+    public int getSelfPlayerId() {
+        return selfPlayerId;
+    }
+
+    public void setSelfPlayerId(int selfPlayerId) {
+        this.selfPlayerId = selfPlayerId;
     }
 }

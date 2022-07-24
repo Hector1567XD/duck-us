@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class GameInformationExecutor{
     public static void execute(GameContainer container, GameInformationPacket packet) {
         GameNetwork network = container.getNetwork();
+        // Le decimos a nuestro GameNetwork  cual fue el PlayerId que nos asigno el servidor
+        network.setSelfPlayerId(packet.getSelfPlayerId());
         // Obtenemos la informacion de todos los jugadores previos de la partida
         ArrayList<PlayerJoined> previouslyPlayers =  packet.getPlayers();
         // Recorremos el arreglo de jugadores previos de la partida

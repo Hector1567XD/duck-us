@@ -25,8 +25,13 @@ public class PlayerLoginExecutor {
         // Obtenemos la lista de jugadores que han entrado previamente al servidor (cosa que ira enviado en GameInformationPacket)
         ArrayList<PlayerJoined> previouslyJoineds = PlayerLoginExecutor.getPlayerPriviouslyJoinedList(network, packetSender);
 
+        // Obtenemos el playerId del jugador que acaba de entrar al servidor
+        int selfPlayerId = newSPlayer.getPlayerId();
+        
+        // Creamos un nuevo paquete "GameInformation" donde estara tu ID de jugador y la informacion de los jugadores previos
+        GameInformationPacket gameInformationPacket = new GameInformationPacket(previouslyJoineds, selfPlayerId);
         // Notificamos al nuevo jugador de la informacion previa de la partida antes de que este entrara con "GameInformationPacket"
-        network.sendPacket(new GameInformationPacket(previouslyJoineds), packetSender);
+        network.sendPacket(gameInformationPacket, packetSender);
 
         // Notificamos al resto de jugadores que entro X jugador, pero excluimos al jugador que acaba de entrar de este paquete
         network.sendPacketToAllWithout(

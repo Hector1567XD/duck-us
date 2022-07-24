@@ -55,10 +55,8 @@ public class ServerNetwork extends Network {
 
     public void disconnectPlayer(ServerContainer container, SPlayer player) {
         ServerNetwork network = container.getNetwork();
-        // Le enviamos un paquete de desconexion a todos menos al jugador
-        network.sendPacketToAllWithout(new PlayerDisconnectedPacket(player.getPlayerId()), player.getAgent());
-        // Al jugador le enviamos un paquete de deconexion tambien pero con id = 0, cuando id = 0 entonces significa que eres tu el desconectado
-        network.sendPacket(new PlayerDisconnectedPacket(0), player.getAgent());
+        // Le enviamos un paquete de desconexion a TODOS
+        network.sendPacketToAll(new PlayerDisconnectedPacket(player.getPlayerId()));
         this.players.remove(player.getAgent());
     }
 
@@ -79,7 +77,6 @@ public class ServerNetwork extends Network {
     public void setPongNode(PongNode pongNode) {
         this.pongNode = pongNode;
     }
-   
     
     // METHODS
     

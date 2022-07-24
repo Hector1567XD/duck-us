@@ -10,7 +10,7 @@ public class PlayerDisconnectedExecutor {
         GameNetwork network = container.getNetwork();
         // Obtenemos el ID a eliminar
         int playerIdToRemove = packet.getPlayerId();
-        if (playerIdToRemove == 0) {
+        if (playerIdToRemove == 0 || playerIdToRemove == network.getSelfPlayerId()) {
             // Si el player ID es 0, entonces soy yo el desconectado
             ErrorHelper.showServerForceDisconnectError();
         }else{
