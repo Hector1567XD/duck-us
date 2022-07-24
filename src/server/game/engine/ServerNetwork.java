@@ -118,6 +118,31 @@ public class ServerNetwork extends Network {
             }
 
             this.pongNode.onPlayerPing(currentPlayer, container);
+        }else if (packet.getPackageType() == PacketTypes.PLAYER_VOTE){
+            PlayerVotePacket votePacket = (PlayerVotePacket) packet;
+            Agent client = packet.getSender();
+            
+            SPlayer currentPlayer = null;
+            for (SPlayer sOPlayer: this.players) {
+                if (sOPlayer.getAgent().equals(client)) {
+                    currentPlayer = sOPlayer;
+                }
+            }
+
+            if (currentPlayer == null) {
+                // :) No se encontro al jugador
+                return;
+            }
+ 
+            currentPlayer.setX(votePacket.getX());
+            currentPlayer.setY(votePacket.getY());
+            
+           PlayerVotedPacket votedPacket  = new PlayerVotedPacket(
+                currentPlayer.getPlayerId(),
+                currentPlayer.getX(),
+                currentPlayer.getY()
+            );
+            this.sendPacketToAll(votedPacket);
         }
     }
 

@@ -39,13 +39,7 @@ public class DuckUs {
                 controller.addNode(pingNode);
                 network.setPingNode(pingNode);
 
-        GameNetwork network = new GameNetwork(client);
-
-        GameContainer container = new GameContainer(Constants.SCALE, network, controller);
-
         // GAME
-        Player player = new Player();
-        MapNode mapa = new MapNode(container);
         Mision mision1 = new Mision();
         VoteNode vote = new VoteNode();
         controller.addNode(mapa, "MapNode");
@@ -62,8 +56,7 @@ public class DuckUs {
         controller.addNode(new Triangulito());
 
         // BEGIN
-        publisher.subscribe(network);
-        container.start();
+        
         // EJECUSION
             client.start("localhost", 1331); //<-- Conectandose al servidor
             publisher.subscribe(network); // <-- Subscribiendo el NETWORK a los paquetes del socket

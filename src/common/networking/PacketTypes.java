@@ -6,6 +6,7 @@ public class PacketTypes  {
     public static final short PLAYER_PING = 1;
     public static final short PLAYER_MOVE = 20;
     //public static final short KILL_PACKET = 40;
+     public static final short PLAYER_VOTE = 30;
     //public static final short CRITICAL_PACKET_SENDED = 50;
 
     // ENVIADOS POR EL SERVIDOR [60 - 119]
@@ -13,6 +14,7 @@ public class PacketTypes  {
     public static final short SERVER_PONG = 61;
     public static final short PLAYER_DISCONNECTED = 62;
     public static final short PLAYER_MOVED = 80;
+     public static final short PLAYER_VOTED = 70;
     //public static final short PLAYER_KILLED = 100;
     //public static final short CRITICAL_PACKET_RECEIVED = 110;
     

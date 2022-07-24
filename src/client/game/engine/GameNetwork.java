@@ -92,6 +92,9 @@ public class GameNetwork extends Network {
                     ErrorHelper.showServerForceDisconnectError();
                 }
             }
+        }else if (packet.getPackageType() == PacketTypes.PLAYER_VOTED) {
+            
+            
         }
     }
 }
