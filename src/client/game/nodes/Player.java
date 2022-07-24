@@ -2,22 +2,28 @@ package client.game.nodes;
 
 import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
-import client.game.engine.GameNetwork;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import common.networking.packets.PlayerMovePacket;
 import client.game.engine.nodos.NodeCenterable;
+import client.game.engine.nodos.NodeColladable;
+import client.game.tiles.MapTilesManager;
+import common.CommonConstants;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
-public class Player extends GameNode implements NodeCenterable {
+public class Player extends GameNode implements NodeCenterable, NodeColladable {
+
     private int velocity = 4;
+ 
 
     @Override
     public void created(GameContainer container) {
-        GameNetwork network = container.getNetwork();
-        network.sendPacket(new PlayerLoginPacket("Feredev"));
+        this.x = 235;
+        this.y = 200;
+        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 
     @Override
@@ -27,16 +33,40 @@ public class Player extends GameNode implements NodeCenterable {
 
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
-                y -= velocity;
+                if (canMove(container, this.x, this.y - velocity)) {
+                    y -= velocity;
+                } else {
+                    while (canMove(container, this.x, this.y - 1)) {
+                        y -= 1;
+                    }
+                }
             }
             if (input.isKey(KeyEvent.VK_S)) {
-                y += velocity;
+                if (canMove(container, this.x, this.y + velocity)) {
+                    y += velocity;
+                } else {
+                    while (canMove(container, this.x, this.y + 1)) {
+                        y += 1;
+                    }
+                }
             }
             if (input.isKey(KeyEvent.VK_A)) {
-                x -= velocity;
+                if (canMove(container, this.x - velocity, this.y)) {
+                    x -= velocity;
+                } else {
+                    while (canMove(container, this.x - 1, this.y)) {
+                        x -= 1;
+                    }
+                }
             }
             if (input.isKey(KeyEvent.VK_D)) {
-                x += velocity;
+                if (canMove(container, this.x + velocity, this.y)) {
+                    x += velocity;
+                } else {
+                    while (canMove(container, this.x + 1, this.y)) {
+                        x += 1;
+                    }
+                }
             }
             container.getNetwork().sendPacket(new PlayerMovePacket(this.x, this.y));
         }
@@ -47,15 +77,78 @@ public class Player extends GameNode implements NodeCenterable {
         g2.setColor(Color.GRAY);
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
+      
         g2.setColor(Color.gray);
         int alto = tileSize * scale;
         int ancho = tileSize * scale;
         int offSetX = this.getOffsetX() * scale;
         int offSetY = this.getOffsetY() * scale;
-        
-        g2.fillRect((x * scale) - offSetX, (y * scale) - offSetY, alto, ancho);
+
+        g2.fillRect(drawX - offSetX, drawY - offSetY, alto, ancho);
         g2.setColor(Color.red);
-        g2.fillRect(x * scale, y * scale, 2 * scale, 2 * scale);
+        g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
+    }
+
+    public boolean isPositionCollaiding(NodeColladable otherNode, int x, int y) {
+        if ((x + this.getRightCenter() >= otherNode.getX() - otherNode.getLeftCenter())
+                && (x - this.getRightCenter() <= otherNode.getX() + otherNode.getLeftCenter())
+                && (y + this.getBottomCenter() >= otherNode.getY() - otherNode.getTopCenter())
+                && (y - this.getBottomCenter() <= otherNode.getY() + otherNode.getBottomCenter())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // to do (esto va en update)
+    public boolean canMove(GameContainer container, int x, int y) {
+        // COLISION CON BLOQUES
+        ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
+
+        for (Bloque i : bloquesitos) {
+            if (isPositionCollaiding(i, x, y)) {
+                return false;
+            }
+        }
+
+        // COLISION CON TILESETS
+        MapNode mapNode = container.getController().getNodes().findByName("MapNode");
+        if (mapNode == null) {
+            return true;
+        }
+
+        MapTilesManager mapTilesManager = mapNode.getMapa();
+        int[][] arregloTilesets = mapTilesManager.getMapTileNum();
+
+        for (int posX = 0; posX < container.getMaxMapCol(); posX++) {
+            for (int posY = 0; posY < container.getMaxMapRow(); posY++) {
+                int tile = arregloTilesets[posX][posY];
+                if (tile == 1) {
+                    int offsetBlock = CommonConstants.TILE_SIZE / 2;
+                    boolean isColliding = this.isPositionCollaidingManual(x, y, posX * CommonConstants.TILE_SIZE + offsetBlock, posY * CommonConstants.TILE_SIZE + offsetBlock, offsetBlock);
+                    if (isColliding) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean isPositionCollaidingManual(int x, int y, int oX, int oY, int distanceToCenter) {
+        if ((x + this.getRightCenter() >= oX - distanceToCenter)
+                && (x - this.getRightCenter() <= oX + distanceToCenter)
+                && (y + this.getBottomCenter() >= oY - distanceToCenter)
+                && (y - this.getBottomCenter() <= oY + distanceToCenter)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean isCollaiding(NodeColladable otherNode) {
+        return isPositionCollaiding(otherNode, x, y);
     }
 
     @Override
@@ -68,6 +161,22 @@ public class Player extends GameNode implements NodeCenterable {
     }
 
     public int getOffsetY() {
+        return 16;
+    }
+
+    public int getTopCenter() {
+        return 16;
+    }
+
+    public int getLeftCenter() {
+        return 16;
+    }
+
+    public int getRightCenter() {
+        return 16;
+    }
+
+    public int getBottomCenter() {
         return 16;
     }
 }
