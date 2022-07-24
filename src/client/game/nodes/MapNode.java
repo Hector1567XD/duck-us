@@ -10,7 +10,7 @@ public class MapNode extends GameNode {
     MapTilesManager mapa;
     
     public MapNode(GameContainer container){
-       this.mapa = new MapTilesManager(container);
+       this.mapa = new MapTilesManager(this, container);
     }
     
     @Override
