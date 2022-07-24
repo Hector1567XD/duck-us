@@ -27,6 +27,7 @@ public class CollideNode extends GameNode {
 
     public CollideNode(NodeColladable parent) {
         this.parent = parent;
+        this.showCollitionsShape = false;
     }
 
     @Override
@@ -40,52 +41,52 @@ public class CollideNode extends GameNode {
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
-        CenterBorders centerBorders = this.parent.getCenterBorders();
-        g2.setColor(Color.ORANGE);
-        int x1 = drawX - centerBorders.getLeftCenter();
-        int x2 = drawX + centerBorders.getRightCenter() - x1;
-        int y1 = drawY - centerBorders.getTopCenter();
-        int y2 = drawY + centerBorders.getBottomCenter() - y1;
-        g2.fillRect(x1, y1, x2, y2);
+        if (showCollitionsShape) {
+            //CenterBorders centerBorders = this.parent.getCenterBorders();
+            g2.setColor(Color.ORANGE);
+            CollideBox collideBox = this.getPositionCollideBox(this.x, this.y);
+            this.drawCollideBox(container, g2, collideBox);
 
-        // COLISION CON COLLIDE MAPS
-        MapNode mapNode = container.getController().getNodes().findByName("MapNode");
-        if (mapNode == null) {
-            return;
-        }
+            // COLISION CON COLLIDE MAPS
+            MapNode mapNode = container.getController().getNodes().findByName("MapNode");
+            if (mapNode == null) {
+                return;
+            }
 
-        MapTilesManager mapTilesManager = mapNode.getMapa();
-        int[][] arregloTilesets = mapTilesManager.getMapTileNum();
-        AbstractCamera camera = container.getController().getCamera();
-        if (camera == null) return;
+            MapTilesManager mapTilesManager = mapNode.getMapa();
+            int[][] arregloTilesets = mapTilesManager.getMapTileNum();
 
-        for (int posX = 0; posX < container.getMaxMapCol(); posX++) {
-            for (int posY = 0; posY < container.getMaxMapRow(); posY++) {
-                int tile = arregloTilesets[posX][posY];
-                if (tile == 1) {
-                    int offsetBlock = CommonConstants.TILE_SIZE / 2;
-                    CollideBox tileCollideBox = this.getCollideBoxByTile(posX, posY, offsetBlock);
-
-                    int tx1 = tileCollideBox.getX1() + camera.getDeltaCameraX();
-                    int ty1 = tileCollideBox.getY1() + camera.getDeltaCameraY();
-                    int tx2 = tileCollideBox.getX2() - tileCollideBox.getX1();
-                    int ty2 = tileCollideBox.getY2() - tileCollideBox.getY1();
-                    g2.setColor(Color.red);
-                    g2.fillRect(tx1, ty1, tx2, ty2);
+            for (int posX = 0; posX < container.getMaxMapCol(); posX++) {
+                for (int posY = 0; posY < container.getMaxMapRow(); posY++) {
+                    int tile = arregloTilesets[posX][posY];
+                    if (tile == 1) {
+                        int offsetBlock = CommonConstants.TILE_SIZE / 2;
+                        CollideBox tileCollideBox = this.getCollideBoxByTile(posX, posY, offsetBlock);
+                        g2.setColor(Color.red);
+                        this.drawCollideBox(container, g2, tileCollideBox);
+                    }
                 }
             }
         }
-
     }
 
-    private void drawCollideBox(Graphics2D g2, CollideBox collideBox) {
-        //
+    private void drawCollideBox(GameContainer container, Graphics2D g2, CollideBox collideBox) {
+        AbstractCamera camera = container.getController().getCamera();
+        int x1 = collideBox.getX1();
+        int y1 = collideBox.getY1();
+        if (camera != null) {
+            x1 = collideBox.getX1() + camera.getDeltaCameraX();
+            y1 = collideBox.getY1() + camera.getDeltaCameraY();
+        }
+        int x2 = collideBox.getX2() - collideBox.getX1();
+        int y2 = collideBox.getY2() - collideBox.getY1();
+        g2.fillRect(x1, y1, x2, y2);
     }
-    
+
     public CollideBox getCollideBoxByTile(int posX, int posY, int offsetBlock) {
         int tilePosX = posX * CommonConstants.TILE_SIZE + offsetBlock;
         int tilePosY = posY * CommonConstants.TILE_SIZE + offsetBlock;
-        
+
         CollideBox tileCollideBox = CollitionsUtils.createCenteredBox(
             tilePosX,
             tilePosY,

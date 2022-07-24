@@ -7,15 +7,12 @@ import client.game.engine.core.Input;
 import client.game.engine.nodos.CollideNode;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
-import client.game.tiles.MapTilesManager;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
 import client.utils.game.collitions.CollitionsUtils;
-import common.CommonConstants;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 public class Player extends GameNode implements NodeCenterable, NodeColladable {
     private int velocity = 4;
@@ -27,6 +24,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
         this.y = 200;
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
         this.collideNode = new CollideNode(this);
+        //this.collideNode.setShowCollitionsShape(true); (Solo activar para debuggear)
         this.addNode(this.collideNode);
     }
 
@@ -79,7 +77,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     public void draw(GameContainer container, Graphics2D g2) {
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-      
+
         g2.setColor(Color.gray);
         int alto = tileSize * scale;
         int ancho = tileSize * scale;

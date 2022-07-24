@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 
 public class MapNode extends GameNode {
     MapTilesManager mapa;
-    
+
     public MapNode(GameContainer container){
        this.mapa = new MapTilesManager(this, container);
     }
@@ -33,6 +33,6 @@ public class MapNode extends GameNode {
     }
 
     public String getTagName() {
-        return "MapNode";    
+        return "MapNode";
     }
 }
