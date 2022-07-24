@@ -6,10 +6,11 @@ import common.game.engine.Network;
 import common.networking.engine.Agent;
 import common.networking.engine.Packet;
 import common.networking.packets.*;
-import common.networking.packets.classes.PlayerJoined;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import server.game.executors.PlayerLoginExecutor;
+import server.game.executors.PlayerMoveExecutor;
+import server.game.executors.PlayerPingExecutor;
 import server.game.nodes.PongNode;
 import server.game.nodes.SPlayer;
 import server.networking.Server;
@@ -44,61 +45,11 @@ public class ServerNetwork extends Network {
     }
 
     public void packetArrived(ServerContainer container, Packet packet, Agent packetSender) {
-        ServerNetwork network = container.getNetwork(); // TODO, hacer un casteo dentro de los containers
         switch (packet.getPackageType()) {
-            case PacketTypes.PLAYER_LOGIN_PACKET -> {
-                PlayerLoginPacket loginPacket = (PlayerLoginPacket) packet;
-                System.out.println("Ha entrado un jugador a la partida :) --> " + loginPacket.getPlayerName());
-                lastPlayerId++;
-                SPlayer newSPlayer = new SPlayer(packetSender, lastPlayerId, loginPacket.getPlayerName());
-                container.getController().addNode(newSPlayer);
-                this.players.put(packetSender, newSPlayer);
-                this.pongNode.addPlayer(newSPlayer, container);
-                // Notificamos al X jugador de la existencia de los jugadores que entraron previamente
-                ArrayList<PlayerJoined> previouslyJoineds = new ArrayList<>();
-                for (SPlayer oSPlayer: this.players.values()) {
-                    if (!oSPlayer.getAgent().equals(packetSender)) {
-                        previouslyJoineds.add(
-                            new PlayerJoined(
-                                oSPlayer.getPlayerId(),
-                                oSPlayer.getName(),
-                                oSPlayer.getX(),
-                                oSPlayer.getY()
-                            )
-                        );
-                    }
-                }
-                this.sendPacket(new GameInformationPacket(previouslyJoineds), packetSender);
-                // LUEGO de enviar la informacion de los jugadores anteriores añadimos al jugador al arraylist de jugadores
-                // Notificamos al resto de jugadores que entro X jugador
-                this.sendPacketToAllWithout(
-                        new PlayerJoinedPacket(newSPlayer.getPlayerId(), newSPlayer.getName()),
-                        packetSender
-                );
-            }
-            case PacketTypes.PLAYER_MOVE ->                 {
-                    PlayerMovePacket movePacket = (PlayerMovePacket) packet;
-                    SPlayer currentPlayer = this.players.get(packetSender);
-                    if (currentPlayer == null) { // :) No se encontro al jugador
-                        return;
-                    }
-                    currentPlayer.setX(movePacket.getX());
-                    currentPlayer.setY(movePacket.getY());
-                    PlayerMovedPacket movedPacket = new PlayerMovedPacket(
-                            currentPlayer.getPlayerId(),
-                            currentPlayer.getX(),
-                            currentPlayer.getY()
-                    );      this.sendPacketToAllWithout(movedPacket, packetSender);
-                }
-            case PacketTypes.PLAYER_PING ->                 {
-                    SPlayer currentPlayer = this.players.get(packetSender);
-                    if (currentPlayer == null) { // :) No se encontro al jugador
-                        return;
-                    }
-                    this.pongNode.onPlayerPing(currentPlayer, container);
-                }
-            default -> {
-            }
+            case PacketTypes.PLAYER_LOGIN_PACKET -> PlayerLoginExecutor.execute(container, (PlayerLoginPacket) packet, packetSender);
+            case PacketTypes.PLAYER_MOVE -> PlayerMoveExecutor.execute(container, (PlayerMovePacket) packet, packetSender);
+            case PacketTypes.PLAYER_PING -> PlayerPingExecutor.execute(container, (PingPacket) packet, packetSender);
+            default -> {}
         }
     }
 
@@ -128,12 +79,33 @@ public class ServerNetwork extends Network {
     public void setPongNode(PongNode pongNode) {
         this.pongNode = pongNode;
     }
+   
+    
+    // METHODS
+    
+    public SPlayer addNewPlayer(ServerContainer container, Agent playerAgent, String playerName) {
+        // Creamos el NODO del nuevo jugador
+        lastPlayerId++;
+        SPlayer newSPlayer = new SPlayer(playerAgent, lastPlayerId, playerName);
+        // Agregamos el nodo del nuevo jugador al ciclo de vida del servdor
+        container.getController().addNode(newSPlayer);
+        // Agregamos al nodo del nuevo jugador a la lista [hashmap] de jugadores del servidor
+        this.players.put(playerAgent, newSPlayer);
+        // Agregamos al nodo del nuevo jugador al pongNode para que se encargue de gestionar su ping y su pong
+        this.pongNode.addPlayer(newSPlayer, container);
+        // Retornamos el nodo del nuevo jugador para que el invocador de este metodo pueda usarlo
+        return newSPlayer;
+    }
+
+    public HashMap<Agent, SPlayer> getPlayersMap() {
+        return this.players;
+    }
+    
+    public SPlayer getPlayerByAgent(Agent packetSender) {
+        return this.players.get(packetSender);
+    }
+
+    public PongNode getPongNode() {
+        return pongNode;
+    }
 }
-/*
-    TODO: 
-    - Tener una lista mas inteligentes de clientes [Agent --> SPlayer] [temporalmente no]
-      - IDs de clientes
-      - Nodo SPlayer
-    - Reenvio a todos los clientes menos X cliente
-    - Si entras de ultimo al servidor te avise del resto de jugadores
-*/
