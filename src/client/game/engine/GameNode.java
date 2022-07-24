@@ -31,6 +31,7 @@ public abstract class GameNode extends Node {
     }
 
     public abstract void created(GameContainer container);
+
     public abstract void update(GameContainer container);
 
     public void _draw(GameContainer container, Graphics2D g2) {

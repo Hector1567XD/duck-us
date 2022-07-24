@@ -9,6 +9,7 @@ import client.game.nodes.MapNode;
 import client.game.nodes.Player;
 import client.networking.Client;
 import client.game.nodes.Camera;
+import client.game.nodes.Bloque;
 import client.game.nodes.Triangulito;
 import common.networking.engine.socket.SocketPublisher;
 
@@ -22,7 +23,10 @@ public class DuckGame {
         // GAME
             Player player = new Player();
             MapNode mapa = new MapNode(container);
-            controller.addNode(mapa);
+            controller.addNode(mapa, "MapNode");
+            controller.addNode(new Bloque(100,300));
+            controller.addNode(new Bloque(50,50));
+            controller.addNode(new Bloque(300,300));
             controller.addNode(player, "Player");
             // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
             controller.setCamera(new Camera(container));
