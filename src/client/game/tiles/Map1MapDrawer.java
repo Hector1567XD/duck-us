@@ -43,6 +43,10 @@ public class Map1MapDrawer {
             this.image[1] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 2.png"));
             this.image[2] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 3.png"));
             this.image[3] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 4.png"));
+            this.image[4] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 5.png"));
+            this.image[5] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 6.png"));
+            this.image[6] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 7.png"));
+            this.image[7] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 8.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
