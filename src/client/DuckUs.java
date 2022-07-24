@@ -4,11 +4,14 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNetwork;
 import client.game.engine.GameController;
 import client.game.nodes.PingNode;
+import client.game.nodes.Camera;
 import common.networking.DuckPacketReader;
 import common.networking.engine.socket.SocketPublisher;
 import client.networking.Client;
 import client.game.nodes.MapNode;
 import client.game.nodes.Player;
+import client.game.nodes.Triangulito;
+
 
 public class DuckUs {
     public static void main(String[] args) {
@@ -28,9 +31,13 @@ public class DuckUs {
                 PingNode pingNode = new PingNode();
             // Agregando Nodos
                 controller.addNode(mapa);
-                controller.addNode(player);
+                controller.addNode(player, "Player");
                 controller.addNode(pingNode);
                 network.setPingNode(pingNode);
+
+                // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
+                controller.setCamera(new Camera(container));
+                controller.addNode(new Triangulito());
 
         // EJECUSION
             client.start("localhost", 1331); //<-- Conectandose al servidor

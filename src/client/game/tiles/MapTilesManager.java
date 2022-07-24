@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
-import client.game.engine.core.Window;
+import client.game.nodes.MapNode;
 
 /**
  *
@@ -19,10 +19,17 @@ public class MapTilesManager {
     int size;
     Tiles[] tile;
     int mapTileNum[][];
+    public final int worldWitdh;
+    public final int worldHeight;
+    public MapNode mapNode;
 
-    public MapTilesManager(GameContainer container) {
+    public MapTilesManager(MapNode mapNode, GameContainer container) {
+        this.mapNode = mapNode;
         this.container = container;
         this.size =  container.getScale().getTileSize();
+
+        worldWitdh = size * container.getMaxMapCol();
+        worldHeight = size * container.getMaxMapRow();
 
         tile = new Tiles[10]; //10 mosaicos
         mapTileNum = new int[container.getMaxMapCol()][container.getMaxMapRow()];
@@ -53,7 +60,7 @@ public class MapTilesManager {
            int col = 0;
            int row = 0;
            
-           while(col < container.getMaxMapCol() && row < container.getMaxMapRow()){
+           while(col < 16 && row < 12){
                String line  = br.readLine(); //esto leera una linea 
                while (col < container.getMaxMapCol()) {
                    String numbers[] = line.split(" "); //esto parte la linea asi obteniendo los numeros del mapa 1 por 1
@@ -70,27 +77,28 @@ public class MapTilesManager {
        }catch (Exception e){
        }
     }
-    
-    public void draw(Graphics2D g2){
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-        while(col < container.getMaxMapCol() && row < container.getMaxMapRow())   {
-            int tileNum = mapTileNum[col][row];
-            g2.drawImage(tile[tileNum].image, x, y, size,size,null);
-            col++;
-            x+= size;
-            
-            if (col == container.getMaxMapCol()) {
-                col = 0;
-                x = 0;
-                row++;
-                y += size;
+
+    public void draw(Graphics2D g2) {
+        int worldCol = 0;
+        int worldRow = 0;
+
+        while(worldCol < container.getMaxMapCol() && worldRow < container.getMaxMapRow())   {
+            int tileNum = mapTileNum[worldCol][worldRow];
+
+            int worldX = worldCol * size;
+            int worldY = worldRow * size;
+
+            // El Tileset SIGUE al nodo de mapNode que es el nodo donde se mete este MapTilesManager
+            int screenX = worldX + mapNode.getDrawX();
+            int screenY = worldY + mapNode.getDrawY();
+  
+            g2.drawImage(tile[tileNum].image, screenX, screenY , size, size, null);
+            worldCol++;
+
+            if (worldCol >= container.getMaxMapCol()) {
+                worldCol = 0;
+                worldRow++;
             }
         }
-        //container.draw(g2);
     }
-    
-    
 }
