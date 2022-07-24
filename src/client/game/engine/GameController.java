@@ -19,6 +19,10 @@ public class GameController extends Controller {
 
     public void draw(GameContainer container, Graphics2D g2) {
         ArrayList<GameNode> nodes = this.getNodes().getList();
+        /**
+          * Este synchronized es para protegernos del caso en que 2 
+          * procesos diferentes modifican la lista de nodos
+          */
         synchronized (nodes) {
             for (GameNode node: nodes) {
                 node._draw(container, g2);

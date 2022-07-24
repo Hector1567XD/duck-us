@@ -18,6 +18,10 @@ public class NodeCollection {
     }
 
     public void add(NodeI node) {
+        /**
+          * Este synchronized es para protegernos del caso en que 2 
+          * procesos diferentes modifican la lista de nodos
+          */
         synchronized (nodes) {
             nodeCounter++;
             node.setNodeId(nodeCounter);
@@ -51,6 +55,10 @@ public class NodeCollection {
     }
 
     public void remove(NodeI node) {
+        /**
+          * Este synchronized es para protegernos del caso en que 2 
+          * procesos diferentes modifican la lista de nodos
+          */
         synchronized (nodes) {
             int nodeId = node.getNodeId();
 

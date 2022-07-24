@@ -8,6 +8,10 @@ public abstract class Controller {
     private final NodeCollection nodes = new NodeCollection();
 
     public void update(Container container) {
+        /**
+          * Este synchronized es para protegernos del caso en que 2 
+          * procesos diferentes modifican la lista de nodos
+          */
         synchronized (nodes) {
             for (int i = 0; i < nodes.size(); i ++) {
                 NodeI node = nodes.get(i);
