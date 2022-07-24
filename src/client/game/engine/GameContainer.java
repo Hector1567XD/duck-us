@@ -1,10 +1,8 @@
 package client.game.engine;
 
 import common.game.engine.Container;
-import common.game.engine.Scale;
 import client.game.engine.core.Input;
 import client.game.engine.core.Window;
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class GameContainer extends Container {
@@ -17,7 +15,7 @@ public class GameContainer extends Container {
     // Tamaño del mapa
     private int maxMapCol = 16;
     private int maxMapRow = 12;
-    
+
     public GameContainer(int scaleSize, GameNetwork network, GameController controller) {
         super(scaleSize, network, controller);
         this.window = new Window(this);
