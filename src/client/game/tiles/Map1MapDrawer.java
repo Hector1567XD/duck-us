@@ -38,7 +38,7 @@ public class Map1MapDrawer {
 
     private void loadMapImageLayers() {
         try {
-            this.image = new BufferedImage[8];
+            this.image = new BufferedImage[9];
             this.image[0] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 1.png"));
             this.image[1] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 2.png"));
             this.image[2] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 3.png"));
@@ -47,13 +47,14 @@ public class Map1MapDrawer {
             this.image[5] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 6.png"));
             this.image[6] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 7.png"));
             this.image[7] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 8.png"));
+            this.image[8] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 9.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void draw(Graphics2D g2, int x, int y) {
-        for (int i = 0; i <= 7; i++) {
+        for (int i = 0; i <= 8; i++) {
             if (this.image[i] != null) {
                 g2.drawImage(this.image[i], x, y, tileSize*mapXSize, tileSize*mapYSize, null);
             }
