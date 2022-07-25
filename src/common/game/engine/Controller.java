@@ -8,20 +8,22 @@ public abstract class Controller {
     private final NodeCollection nodes = new NodeCollection();
 
     public void update(Container container) {
-        for (int i = 0; i < nodes.size(); i ++) {
-            NodeI node = nodes.get(i);
+        synchronized (nodes) {
+            for (int i = 0; i < nodes.size(); i ++) {
+                NodeI node = nodes.get(i);
 
-            // Si el nodo no ha ejecutado su creacion, la ejecuta
-            if (!node.isCreated()) { node._created(container); }
+                // Si el nodo no ha ejecutado su creacion, la ejecuta
+                if (!node.isCreated()) { node._created(container); }
 
-            // Ejecuta el actualizador del nodo
-            node._update(container);
+                // Ejecuta el actualizador del nodo
+                node._update(container);
 
-            // Si el nodo hijo fue eliminado, lo elimina de la lista
-            if (node.isRemoved()) {
-                nodes.remove(node);
-                node._removed(container);
-                i--;
+                // Si el nodo hijo fue eliminado, lo elimina de la lista
+                if (node.isRemoved()) {
+                    nodes.remove(node);
+                    node._removed(container);
+                    i--;
+                }
             }
         }
     }
