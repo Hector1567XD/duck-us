@@ -15,8 +15,8 @@ public abstract class PacketReader {
             int packageType = bufferInput.readByte();
             Packet packet = this.decode(packageType, bufferInput);
 
+            // Cosas extras para llevar control de los paquetes
             packet.setDatagramPacket(datagramPacket);
-
             Agent agent = new Agent(datagramPacket.getAddress(), datagramPacket.getPort());
             packet.setSender(agent);
 

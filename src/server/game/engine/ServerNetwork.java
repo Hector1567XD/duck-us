@@ -5,17 +5,25 @@ import common.game.engine.Container;
 import common.game.engine.Network;
 import common.networking.engine.Agent;
 import common.networking.engine.Packet;
-import common.networking.engine.PacketReader;
-import common.networking.packets.PlayerJoinedPacket;
-import common.networking.packets.PlayerLoginPacket;
+import common.networking.packets.*;
 import java.io.IOException;
+import java.util.HashMap;
+import server.game.executors.PlayerLoginExecutor;
+import server.game.executors.PlayerMoveExecutor;
+import server.game.executors.PlayerPingExecutor;
+import server.game.nodes.PongNode;
+import server.game.nodes.SPlayer;
 import server.networking.Server;
 
 public class ServerNetwork extends Network {
     private final Server server;
+    private final HashMap<Agent, SPlayer> players;
+    private int lastPlayerId = 0; // <- ID del ukltimo jugador []
+    private PongNode pongNode;
 
     public ServerNetwork(Server server) {
         this.server = server;
+        this.players = new HashMap<>();
     }
 
     public void sendPacket(Packet packet, Agent agent) {
@@ -33,11 +41,68 @@ public class ServerNetwork extends Network {
     }
 
     public void packetArrived(ServerContainer container, Packet packet) {
-        ServerNetwork network = (ServerNetwork) container.getNetwork(); // TODO, hacer un casteo dentro de los containers
+        packetArrived(container, packet, packet.getSender());
+    }
 
-        if (packet.getPackageType() == PacketTypes.PLAYER_LOGIN) {
-            PlayerLoginPacket playerLogin = (PlayerLoginPacket) packet;
-            network.sendPacket(new PlayerJoinedPacket(25, playerLogin.getPlayerName()), packet.getSender());
+    public void packetArrived(ServerContainer container, Packet packet, Agent packetSender) {
+        switch (packet.getPackageType()) {
+            case PacketTypes.PLAYER_LOGIN_PACKET -> PlayerLoginExecutor.execute(container, (PlayerLoginPacket) packet, packetSender);
+            case PacketTypes.PLAYER_MOVE -> PlayerMoveExecutor.execute(container, (PlayerMovePacket) packet, packetSender);
+            case PacketTypes.PLAYER_PING -> PlayerPingExecutor.execute(container, (PingPacket) packet, packetSender);
+            default -> {}
         }
+    }
+
+    public void disconnectPlayer(ServerContainer container, SPlayer player) {
+        ServerNetwork network = container.getNetwork();
+        // Le enviamos un paquete de desconexion a TODOS
+        network.sendPacketToAll(new PlayerDisconnectedPacket(player.getPlayerId()));
+        this.players.remove(player.getAgent());
+    }
+
+    public void sendPacketToAll(Packet packet) {
+        for (Agent client: this.players.keySet()) {
+            this.sendPacket(packet, client);
+        }
+    }
+
+    public void sendPacketToAllWithout(Packet packet, Agent bannedClient) {
+        for (Agent client: this.players.keySet()) {
+            if (!client.equals(bannedClient)) {
+                this.sendPacket(packet, client);
+            }
+        }
+    }
+
+    public void setPongNode(PongNode pongNode) {
+        this.pongNode = pongNode;
+    }
+    
+    // METHODS
+    
+    public SPlayer addNewPlayer(ServerContainer container, Agent playerAgent, String playerName) {
+        // Creamos el NODO del nuevo jugador
+        lastPlayerId++;
+        SPlayer newSPlayer = new SPlayer(playerAgent, lastPlayerId, playerName);
+        // Agregamos el nodo del nuevo jugador al ciclo de vida del servdor
+        container.getController().addNode(newSPlayer);
+        // Agregamos al nodo del nuevo jugador a la lista [hashmap] de jugadores del servidor
+        this.players.put(playerAgent, newSPlayer);
+        // Agregamos al nodo del nuevo jugador al pongNode para que se encargue de gestionar su ping y su pong
+        this.pongNode.addPlayer(newSPlayer, container);
+        // Retornamos el nodo del nuevo jugador para que el invocador de este metodo pueda usarlo
+        return newSPlayer;
+    }
+
+    public HashMap<Agent, SPlayer> getPlayersMap() {
+        return this.players;
+    }
+    
+    public SPlayer getPlayerByAgent(Agent packetSender) {
+        return this.players.get(packetSender);
+    }
+
+    public PongNode getPongNode() {
+        return pongNode;
     }
 }

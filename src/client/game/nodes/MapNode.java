@@ -9,10 +9,10 @@ import java.awt.Graphics2D;
 public class MapNode extends GameNode {
     MapTilesManager mapa;
 
-    public MapNode(GameContainer container) {
-        this.mapa = new MapTilesManager(this, container);
+    public MapNode(GameContainer container){
+       this.mapa = new MapTilesManager(this, container);
     }
-
+    
     @Override
     public void created(GameContainer container) {
 
@@ -20,7 +20,6 @@ public class MapNode extends GameNode {
 
     @Override
     public void update(GameContainer container) {
-
     }
 
     @Override
