@@ -10,14 +10,14 @@ import client.utils.game.collitions.CollitionsUtils;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class AbrirMision1 extends GameNode implements NodeCenterable, NodeColladable, NodeOpenable {
+public class AbrirMision2 extends GameNode implements NodeCenterable, NodeColladable, NodeOpenable {
     private boolean misionAbierta = false;
-    Mision misionActual;
+    Mision2 misionActual;
 
-    public AbrirMision1(int x, int y) {
+    public AbrirMision2(int x, int y) {
         this.x = x;
         this.y = y;
-        this.misionActual = new Mision(this);
+        this.misionActual = new Mision2(this);
         this.addNode(misionActual);
     }
 
@@ -43,7 +43,7 @@ public class AbrirMision1 extends GameNode implements NodeCenterable, NodeCollad
 
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-        g2.setColor(Color.green);
+        g2.setColor(Color.pink);
         int alto = tileSize * scale;
         int ancho = tileSize * scale;
         int offSetX = this.getOffsetX() * scale;
