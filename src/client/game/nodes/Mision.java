@@ -76,12 +76,18 @@ public class Mision extends GameNode {
                this.palabra = String.valueOf(palabraArreglo);
                letrasEncontradas++;
                 if (letrasEncontradas >= letrasTotalesAEncontrar) {
-                    this.setAbrir(false);
-                    this.mision1.setMisionAbierta(false);
+                    this.ganarMision(container);
                 }
           }
             
        }              
+    }
+    
+    private void ganarMision(GameContainer container) {
+        this.setAbrir(false);
+        this.mision1.setMisionAbierta(false);
+        Player player = container.getController().getNodes().findByName("Player");
+        player.setMisionOpen(false);
     }
 
     @Override
