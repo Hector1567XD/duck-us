@@ -1,5 +1,6 @@
 package client.game.nodes;
 
+import client.game.engine.nodos.SpriteableNode;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -77,8 +78,8 @@ public class SpriteNode extends GameNode{
 
         g2.drawImage(
             currentSprite,
-            parent.getX() * escala - parent.getOffsetX() * escala,
-            parent.getY() * escala - parent.getOffsetY() * escala,
+            parent.getDrawX() - parent.getOffsetX() * escala,
+            parent.getDrawY() - parent.getOffsetY() * escala,
             parent.getWidth() * escala,
             parent.getHeight() * escala,
             null
