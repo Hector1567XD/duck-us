@@ -31,7 +31,9 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     private BufferedImage[] staticDuckLeft;
     private BufferedImage[] staticDuckRight;
     private BufferedImage[] spriteDead;
+    private BufferedImage[] spriteButton;
     private SpriteNode sprite;
+    private SpriteNode sprite2;
     private CollideNode collideNode;
     private int directionX = 1;
     private boolean impostor;
@@ -47,6 +49,9 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         // Sub nodo de sprites
         this.sprite = new SpriteNode(this);
         this.addNode(this.sprite);
+        // Sub nodo de sprites2
+        this.sprite2 = new SpriteNode(this,410,255,100,100);
+        this.addNode(this.sprite2);
         // Init Images
         this.initPlayerImages();
     }
@@ -57,6 +62,12 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dead/dead.png")),
             };
             this.spriteDead = spriteDead;
+
+            BufferedImage[] spriteButton = {
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButton.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButtonWait.png"))
+            };
+            this.spriteButton = spriteButton;
 
             BufferedImage[] staticSpriteLeft = {
                 ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")),};
@@ -100,6 +111,8 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         boolean canWalking = false;
 
         if (impostor) {
+            this.sprite2.setSprite(spriteButton);
+            this.sprite2.setIndex(0);
             if (alredyKill == true) {
                 if (timer <= 0) {
                     alredyKill = false;
@@ -107,10 +120,14 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 } else {
                     timer--;
                 }
+            } else {
+                this.sprite2.setIndex(1);
             }
             if (input.isKey(KeyEvent.VK_E)) {
                 this.Kill(container);
             }
+        } else {
+            this.sprite2.setSprite(null);            
         }
 
         if (isWalking) {
