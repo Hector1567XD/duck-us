@@ -18,6 +18,7 @@ import java.util.Scanner;
  * @author david_000
  */
 public class Mision2 extends GameNode {
+
     private boolean abrir = false;
     private String palabra;
     private char[] letrasRestantes;
@@ -40,25 +41,25 @@ public class Mision2 extends GameNode {
 
     @Override
     public void created(GameContainer container) {
-        this.palabraAEscribir = "Harry potter era un niño";
+        this.palabraAEscribir = "Harry potter era un muchacho";
         this.letraActual = 0;
-        
     }
 
     @Override
     public void update(GameContainer container) {
         if (isAbrir() == true) {
             Input input = container.getInput();
-             char[] letrasAEscribir = palabraAEscribir.toCharArray();
-             char character = letrasAEscribir[letraActual];
-             int ascii = (int) character;
-                   if (input.isKey(ascii)) {
-                     letraActual++;
-                   }
-             }
-         }
+            String palabraAEscribirMayuscula = palabraAEscribir.toUpperCase();
+            // Convertimos a mayusculas por que el Input KeyEvent solo lee las constantes en mayuscula
+            char[] letrasAEscribir = palabraAEscribirMayuscula.toCharArray();
+            char character = letrasAEscribir[letraActual];
+            int ascii = (int) character;
+            if (input.isKeyDown(ascii)) {
+                letraActual++;
+            }
+        }
+    }
 
-    
     private void ganarMision(GameContainer container) {
         this.setAbrir(false);
         this.mision2.setMisionAbierta(false);
@@ -81,10 +82,10 @@ public class Mision2 extends GameNode {
             g2.fillRect((int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize,
                     (int) (maxScreenRow - 2.5) * tileSize);
             g2.setColor(Color.WHITE);
-            g2.setFont(new Font("Arial", Font.BOLD, 23*scale));
-            g2.drawString("Velocidad", 125*scale, 75 *scale);
-            g2.drawString(palabraAEscribir, 200 * scale, 150*scale);
-            g2.drawString(palabraAEscribir.substring(0,letraActual),200*scale,300*scale);
+            g2.setFont(new Font("Arial", Font.BOLD, 23 * scale));
+            g2.drawString("Velocidad", 125 * scale, 75 * scale);
+            g2.drawString(palabraAEscribir, 200 * scale, 150 * scale);
+            g2.drawString(palabraAEscribir.substring(0, letraActual), 200 * scale, 300 * scale);
         }
 
     }
