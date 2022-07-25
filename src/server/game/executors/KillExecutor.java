@@ -10,17 +10,17 @@ import server.game.engine.ServerNetwork;
 import server.game.nodes.SPlayer;
 
 public class KillExecutor {
-    public static void execute(ServerContainer container, Agent packetSender, PlayerKillPacket packet) {
+    public static void execute(ServerContainer container, PlayerKillPacket packet, Agent packetSender) {
         ServerNetwork network = container.getNetwork();
         // Buscando al perpertrador
         SPlayer asesino = KillExecutor.getJugadorByAgent(container, packetSender);
         if (asesino == null) { // :) No se encontro al jugador
             return;
         }
-        
+
         // Buscando a la victima
         SPlayer victima = KillExecutor.getJugadorById(container, packet.getPlayerId());
-        
+
         if (victima == null) { // :) No se encontro al jugador
             return;
         }
@@ -41,7 +41,7 @@ public class KillExecutor {
     public static SPlayer getJugadorByAgent(ServerContainer container, Agent packetSender) {
         ServerNetwork network = container.getNetwork();
         SPlayer currentPlayer = null;
-        for (SPlayer sOPlayer: network.getPlayers()) {
+        for (SPlayer sOPlayer: network.getPlayersMap().values()) {
             if (sOPlayer.getAgent().equals(packetSender)) {
                 currentPlayer = sOPlayer;
             }
@@ -52,26 +52,11 @@ public class KillExecutor {
     public static SPlayer getJugadorById(ServerContainer container, int playerId) {
         ServerNetwork network = container.getNetwork();
         SPlayer currentPlayer = null;
-        for (SPlayer sOPlayer: network.getPlayers()) {
+        for (SPlayer sOPlayer: network.getPlayersMap().values()) {
             if (sOPlayer.getPlayerId() == playerId) {
                 currentPlayer = sOPlayer;
             }
         }
         return currentPlayer;
-    }
-    
-    public static void deadPlayer(ServerContainer container, PlayerKilledPacket packet ) {
-        ServerNetwork network = container.getNetwork();
-        
-        SPlayer victima = KillExecutor.getJugadorById(container, packet.getPlayerId());
-        
-        if (victima.isDead() == false) { // :) No se encontro al jugador
-            return;
-        }
-       
-        victima.killed(container);
-        
-        
-    
     }
 }

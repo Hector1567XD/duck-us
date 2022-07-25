@@ -11,6 +11,7 @@ import server.game.engine.ServerContainer;
 import server.game.engine.ServerNode;
 
 public class SPlayer extends ServerNode {
+
     private int velocity = 4;
     private int playerId;
     private Agent agent;
@@ -25,24 +26,22 @@ public class SPlayer extends ServerNode {
 
     @Override
     public void created(ServerContainer container) {
-        
+
     }
 
     @Override
     public void update(ServerContainer container) {
-        
+
     }
-    
+
     @Override
     public void removed(ServerContainer container) {
         container.getNetwork().disconnectPlayer(container, this);
     }
 
-    
-   public String getNodeTag() {
+    public String getNodeTag() {
         return "Splayer";
     }
-    
 
     public int getPlayerId() {
         return playerId;
@@ -63,22 +62,14 @@ public class SPlayer extends ServerNode {
     public void kill(ServerContainer container) {
         this.dead = true;
         container.getNetwork().sendPacketToAllWithout(new PlayerKilledPacket(this.playerId), agent);
-        container.getNetwork().sendPacket(new PlayerKilledPacket(0),agent);
+        container.getNetwork().sendPacket(new PlayerKilledPacket(0), agent);
     }
-    
-    public void killed(ServerContainer container) {
 
-             ArrayList<OPlayer> listPlayers = container.getController().getNodes().getListByTag("Oplayer");
-               for (OPlayer victima : listPlayers){
-     
-                   victima.setIsDead(true);
-                }
-            }
-        
-         
+    public void setIsDead(boolean dead) {
+        this.dead = dead;
+    }
 
     public void revive() {
         this.dead = false;
     }
 }
-
