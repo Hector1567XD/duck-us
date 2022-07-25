@@ -29,6 +29,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     private BufferedImage[] movingRight;
     private BufferedImage[] staticDuckLeft;
     private BufferedImage[] staticDuckRight;
+    private BufferedImage[] spriteDead;
     private SpriteNode sprite;
     private CollideNode collideNode;
     private int directionX = 1;
@@ -51,6 +52,11 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
 
     private void initPlayerImages() {
         try {
+            BufferedImage[] spriteDead = {
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dead/dead.png")),
+            };
+            this.spriteDead = spriteDead;
+
             BufferedImage[] staticSpriteLeft = {
                 ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")),};
             this.staticDuckLeft = staticSpriteLeft;
@@ -173,6 +179,10 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 this.sprite.setSprite(staticDuckLeft);
             }
             this.sprite.setSpeed(-1);
+        }
+
+        if (isDead) {
+            this.sprite.setSprite(spriteDead);
         }
     }
 
