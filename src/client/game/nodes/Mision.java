@@ -23,6 +23,7 @@ import javax.imageio.ImageIO;
  * @author david_000
  */
 public class Mision extends GameNode {
+
     private boolean abrir = false;
     private String palabra;
     private char[] letrasRestantes;
@@ -31,7 +32,7 @@ public class Mision extends GameNode {
     private int letrasEncontradas;
     private int letrasTotalesAEncontrar;
     private AbrirMision1 mision1;
-    private BufferedImage imagen;
+    private BufferedImage[] imagen;
 
     public Mision() {
     }
@@ -51,23 +52,26 @@ public class Mision extends GameNode {
     @Override
     public void created(GameContainer container) {
         try {
-            this.imagen = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v1.png"));
+            this.imagen = new BufferedImage[3];
+            this.imagen[0] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v1.png"));
+            this.imagen[1] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v2.png"));
+            this.imagen[2] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v3.png"));
             this.palabra = "H_l_Mundo";
-        this.keyRestantes = new int[3];
-        this.keyRestantes[0] = KeyEvent.VK_O;
-        this.keyRestantes[1] = KeyEvent.VK_A;
-        this.letrasEncontradas = 0;
-        this.letrasTotalesAEncontrar = 2;
-        this.letrasRestantes = new char[2];
-        this.letrasRestantes[0] = 'o';
-        this.letrasRestantes[1] = 'a';
-        this.posicionesRestantes = new int[2];
-        this.posicionesRestantes[0] = 1;
-        this.posicionesRestantes[1] = 3;
+            this.keyRestantes = new int[3];
+            this.keyRestantes[0] = KeyEvent.VK_O;
+            this.keyRestantes[1] = KeyEvent.VK_A;
+            this.letrasEncontradas = 0;
+            this.letrasTotalesAEncontrar = 2;
+            this.letrasRestantes = new char[2];
+            this.letrasRestantes[0] = 'o';
+            this.letrasRestantes[1] = 'a';
+            this.posicionesRestantes = new int[2];
+            this.posicionesRestantes[0] = 1;
+            this.posicionesRestantes[1] = 3;
         } catch (IOException ex) {
-            
+
         }
-        
+
     }
 
     @Override
@@ -86,7 +90,7 @@ public class Mision extends GameNode {
 
         }
     }
-    
+
     private void ganarMision(GameContainer container) {
         this.setAbrir(false);
         this.mision1.setMisionAbierta(false);
@@ -104,15 +108,15 @@ public class Mision extends GameNode {
             int maxScreenRow = container.getWindow().getMaxScreenRow();
             g2.setColor(new Color(0, 0, 0, 85));
             g2.fillRect(0, 0, maxScreenCol * tileSize, maxScreenRow * tileSize);
-            g2.drawImage(imagen, (int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize
-                    , (int) (maxScreenRow - 2.5) * tileSize, null);
-            
+            g2.drawImage(imagen[letrasEncontradas], (int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize,
+                     (int) (maxScreenRow - 2.5) * tileSize, null);
+
             g2.setColor(Color.BLACK);
-            
-            g2.setFont(new Font("Arial", Font.BOLD, 23 *scale));
+
+            g2.setFont(new Font("Arial", Font.BOLD, 23 * scale));
             //g2.drawString("JUEGO DEL AHORCADO", 125 *scale, 75 *scale);
-            g2.drawString(palabra, 200*scale, 200 * scale);
-            
+            g2.drawString(palabra, 200 * scale, 200 * scale);
+
         }
 
     }
