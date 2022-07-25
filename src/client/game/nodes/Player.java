@@ -8,12 +8,10 @@ import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import common.networking.packets.PlayerMovePacket;
 import client.game.engine.nodos.CollideNode;
-import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
 import client.utils.ImageUtils;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.awt.event.KeyEvent;
@@ -152,9 +150,9 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable {
         }
 
         if (input.isKey(KeyEvent.VK_P)) {
-            ArrayList<AbrirMision1> missions = container.getController().getNodes().getListByTag("mission");
+            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
 
-            for (AbrirMision1 mision : missions) {
+            for (NodeOpenable mision : missions) {
                 if (this.collideNode.isColliding(mision)) {
                     //System.out.println("si :)");
                     misionOpen = true;
@@ -164,8 +162,8 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable {
         }
 
         if (input.isKey(KeyEvent.VK_X)) {
-            ArrayList<AbrirMision1> missions = container.getController().getNodes().getListByTag("mission");
-            for (AbrirMision1 mision: missions) {
+            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+            for (NodeOpenable mision: missions) {
                 if (this.collideNode.isColliding(mision)) {
                     //System.out.println("no :)");  
                     misionOpen = false;
