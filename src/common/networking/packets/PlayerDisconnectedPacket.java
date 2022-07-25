@@ -1,19 +1,18 @@
 package common.networking.packets;
-
 import common.networking.PacketTypes;
 import common.networking.engine.Packet;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class KillPacket extends Packet {
+public class PlayerDisconnectedPacket extends Packet {
     private int playerId;
 
-    public KillPacket(int playerId) {
+    public PlayerDisconnectedPacket(int playerId) {
         this.playerId = playerId;
     }
 
-    public KillPacket(DataInputStream bufferInput) throws IOException {
+    public PlayerDisconnectedPacket(DataInputStream bufferInput) throws IOException {
         this.playerId = bufferInput.readShort();
     }
 
@@ -25,8 +24,10 @@ public class KillPacket extends Packet {
 
     @Override
     public int getPackageType() {
-        return PacketTypes.KILL_PACKET;
+        return PacketTypes.PLAYER_DISCONNECTED;
+    }
+
+    public int getPlayerId() {
+        return playerId;
     }
 }
-
-// TODO: Change by "UnsignedShort" instead "Short"

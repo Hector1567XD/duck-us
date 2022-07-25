@@ -2,7 +2,6 @@ package client.game.nodes;
 
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
-import client.game.tiles.LobbyMapDrawer;
 import client.game.tiles.Map1MapDrawer;
 import client.game.tiles.MapTilesManager;
 
@@ -16,7 +15,7 @@ public class MapNode extends GameNode {
        this.mapa = new MapTilesManager(this, container);
        this.mapDrawer = new Map1MapDrawer(this, container);
     }
-
+    
     @Override
     public void created(GameContainer container) {
 
@@ -24,7 +23,6 @@ public class MapNode extends GameNode {
 
     @Override
     public void update(GameContainer container) {
-
     }
 
     @Override
@@ -38,6 +36,6 @@ public class MapNode extends GameNode {
     }
 
     public String getTagName() {
-        return "MapNode";    
+        return "MapNode";
     }
 }

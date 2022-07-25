@@ -1,22 +1,71 @@
 package client.game.nodes;
 
+import client.game.engine.nodos.SpriteableNode;
 import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
+import common.networking.packets.PlayerMovePacket;
+import client.game.engine.nodos.CollideNode;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
-import client.game.tiles.MapTilesManager;
-import common.CommonConstants;
+import client.utils.ImageUtils;
+import client.utils.game.collitions.CenterBorders;
+import client.utils.game.collitions.CollideBox;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.IOException;
 
-public class Player extends GameNode implements NodeCenterable, NodeColladable {
-
+public class Player extends GameNode implements NodeCenterable, SpriteableNode, NodeColladable {
     private int velocity = 4;
- 
+    private BufferedImage[] movingLeft;
+    private BufferedImage[] movingRight;
+    private BufferedImage[] staticDuckLeft;
+    private BufferedImage[] staticDuckRight;
+    private SpriteNode sprite;
+    private CollideNode collideNode;
+    private int directionX = 1;
+
+    public Player() {
+        // Sub nodo de colision
+        this.collideNode = new CollideNode(this);
+        this.collideNode.setShowCollitionsShape(true);// (Solo activar para debuggear)
+        this.addNode(this.collideNode);
+        // Sub nodo de sprites
+        this.sprite = new SpriteNode(this);
+        this.addNode(this.sprite);
+        // Init Images
+        this.initPlayerImages();
+    }
+
+    private void initPlayerImages() {
+        try {
+            BufferedImage[] staticSpriteLeft = {
+                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")),
+            };
+            this.staticDuckLeft = staticSpriteLeft;
+            this.staticDuckRight = ImageUtils.flipXImageArray(this.staticDuckLeft);
+
+            BufferedImage[] movingLeft = {
+                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak1.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak2.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak3.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak4.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak5.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak6.png")),
+                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png"))
+            };
+            this.movingLeft = movingLeft;
+            this.movingRight = ImageUtils.flipXImageArray(this.movingLeft);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void created(GameContainer container) {
@@ -28,125 +77,82 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     @Override
     public void update(GameContainer container) {
         Input input = container.getInput();
-        boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
+        boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A)
+                || input.isKey(KeyEvent.VK_D);
 
+        boolean canWalking = false;
+        
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
-                if (canMove(container, this.x, this.y - velocity)) {
+                if (this.collideNode.canMove(container, this.x, this.y - velocity)) {
+                    canWalking = true;
                     y -= velocity;
                 } else {
-                    while (canMove(container, this.x, this.y - 1)) {
+                    while (this.collideNode.canMove(container, this.x, this.y - 1)) {
+                        canWalking = true;
                         y -= 1;
                     }
                 }
             }
             if (input.isKey(KeyEvent.VK_S)) {
-                if (canMove(container, this.x, this.y + velocity)) {
+                if (this.collideNode.canMove(container, this.x, this.y + velocity)) {
                     y += velocity;
+                    canWalking = true;
                 } else {
-                    while (canMove(container, this.x, this.y + 1)) {
+                    while (this.collideNode.canMove(container, this.x, this.y + 1)) {
                         y += 1;
+                        canWalking = true;
                     }
                 }
             }
             if (input.isKey(KeyEvent.VK_A)) {
-                if (canMove(container, this.x - velocity, this.y)) {
+                if (this.collideNode.canMove(container, this.x - velocity, this.y)) {
+                    this.directionX = -1;
+                    canWalking = true;
                     x -= velocity;
                 } else {
-                    while (canMove(container, this.x - 1, this.y)) {
+                    while (this.collideNode.canMove(container, this.x - 1, this.y)) {
                         x -= 1;
+                        this.directionX = -1;
+                        canWalking = true;
                     }
                 }
             }
             if (input.isKey(KeyEvent.VK_D)) {
-                if (canMove(container, this.x + velocity, this.y)) {
+                if (this.collideNode.canMove(container, this.x + velocity, this.y)) {
                     x += velocity;
+                    this.directionX = 1;
+                    canWalking = true;
                 } else {
-                    while (canMove(container, this.x + 1, this.y)) {
+                    while (this.collideNode.canMove(container, this.x + 1, this.y)) {
                         x += 1;
+                        this.directionX = 1;
+                        canWalking = true;
                     }
                 }
             }
+            container.getNetwork().sendPacket(new PlayerMovePacket(this.x, this.y));
+        }
+
+        if (canWalking) {
+            if (directionX == 1) {
+                this.sprite.setSprite(movingRight);
+            } else if (directionX == -1) {
+                this.sprite.setSprite(movingLeft);
+            }
+            this.sprite.setSpeed(5);
+        }else{
+            if (directionX == 1) {
+                this.sprite.setSprite(staticDuckRight);
+            } else if (directionX == -1) {
+                this.sprite.setSprite(staticDuckLeft);
+            }
+            this.sprite.setSpeed(-1);
         }
     }
 
     @Override
-    public void draw(GameContainer container, Graphics2D g2) {
-        int scale = container.getScale().getScale();
-        int tileSize = container.getScale().getOriginalTileSize();
-      
-        g2.setColor(Color.gray);
-        int alto = tileSize * scale;
-        int ancho = tileSize * scale;
-        int offSetX = this.getOffsetX() * scale;
-        int offSetY = this.getOffsetY() * scale;
-
-        g2.fillRect(drawX - offSetX, drawY - offSetY, alto, ancho);
-        g2.setColor(Color.red);
-        g2.fillRect(drawX, drawY, 2 * scale, 2 * scale);
-    }
-
-    public boolean isPositionCollaiding(NodeColladable otherNode, int x, int y) {
-        if ((x + this.getRightCenter() >= otherNode.getX() - otherNode.getLeftCenter())
-                && (x - this.getRightCenter() <= otherNode.getX() + otherNode.getLeftCenter())
-                && (y + this.getBottomCenter() >= otherNode.getY() - otherNode.getTopCenter())
-                && (y - this.getBottomCenter() <= otherNode.getY() + otherNode.getBottomCenter())) {
-            return true;
-        }
-
-        return false;
-    }
-
-    // to do (esto va en update)
-    public boolean canMove(GameContainer container, int x, int y) {
-        // COLISION CON BLOQUES
-        ArrayList<Bloque> bloquesitos = container.getController().getNodes().getListByTag("Bloque");
-
-        for (Bloque i : bloquesitos) {
-            if (isPositionCollaiding(i, x, y)) {
-                return false;
-            }
-        }
-
-        // COLISION CON TILESETS
-        MapNode mapNode = container.getController().getNodes().findByName("MapNode");
-        if (mapNode == null) {
-            return true;
-        }
-
-        MapTilesManager mapTilesManager = mapNode.getMapa();
-        int[][] arregloTilesets = mapTilesManager.getMapTileNum();
-
-        for (int posX = 0; posX < container.getMaxMapCol(); posX++) {
-            for (int posY = 0; posY < container.getMaxMapRow(); posY++) {
-                int tile = arregloTilesets[posX][posY];
-                if (tile == 1) {
-                    int offsetBlock = CommonConstants.TILE_SIZE / 2;
-                    boolean isColliding = this.isPositionCollaidingManual(x, y, posX * CommonConstants.TILE_SIZE + offsetBlock, posY * CommonConstants.TILE_SIZE + offsetBlock, offsetBlock);
-                    if (isColliding) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
-    }
-
-    public boolean isPositionCollaidingManual(int x, int y, int oX, int oY, int distanceToCenter) {
-        if ((x + this.getRightCenter() >= oX - distanceToCenter)
-                && (x - this.getRightCenter() <= oX + distanceToCenter)
-                && (y + this.getBottomCenter() >= oY - distanceToCenter)
-                && (y - this.getBottomCenter() <= oY + distanceToCenter)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean isCollaiding(NodeColladable otherNode) {
-        return isPositionCollaiding(otherNode, x, y);
-    }
+    public void draw(GameContainer container, Graphics2D g2) {}
 
     @Override
     public String getNodeTag() {
@@ -154,26 +160,27 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
     }
 
     public int getOffsetX() {
-        return 16;
+        return 25;
     }
 
     public int getOffsetY() {
-        return 16;
+        return 25;
     }
 
-    public int getTopCenter() {
-        return 16;
+    public int getWidth() {
+        return 50;
     }
 
-    public int getLeftCenter() {
-        return 16;
+    public int getHeight() {
+        return 50;
     }
 
-    public int getRightCenter() {
-        return 16;
-    }
-
-    public int getBottomCenter() {
-        return 16;
+    public CenterBorders getCenterBorders() {
+        return new CenterBorders(20, 24, 20, 20);
+    }        
+            
+    @Override
+    public CollideBox getCollideBox() {
+        return this.collideNode.getPositionCollideBox(this.x, this.y);
     }
 }

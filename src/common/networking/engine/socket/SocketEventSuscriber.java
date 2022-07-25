@@ -1,8 +1,6 @@
 package common.networking.engine.socket;
 
 import common.networking.engine.Agent;
-import common.networking.engine.Agent;
-import common.networking.engine.Packet;
 import common.networking.engine.Packet;
 
 public interface SocketEventSuscriber {
