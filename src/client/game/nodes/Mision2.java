@@ -12,6 +12,9 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -26,6 +29,7 @@ public class Mision2 extends GameNode {
     private int letraActual;
     private String palabraAEscribir;
     private AbrirMision2 mision2;
+    private String cadena;
 
     public Mision2(AbrirMision2 mision2) {
         this.mision2 = mision2;
@@ -41,8 +45,10 @@ public class Mision2 extends GameNode {
 
     @Override
     public void created(GameContainer container) {
-        this.palabraAEscribir = "Harry potter era un muchacho";
+        this.palabraAEscribir = "Harry potter es un legendario mago que estudio en la academa Howard";
         this.letraActual = 0;
+        this.cadena = palabraAEscribir.substring(0, 67);
+
     }
 
     @Override
@@ -58,6 +64,7 @@ public class Mision2 extends GameNode {
                 letraActual++;
             }
         }
+
     }
 
     private void ganarMision(GameContainer container) {
@@ -83,9 +90,14 @@ public class Mision2 extends GameNode {
                     (int) (maxScreenRow - 2.5) * tileSize);
             g2.setColor(Color.WHITE);
             g2.setFont(new Font("Arial", Font.BOLD, 23 * scale));
-            g2.drawString("Velocidad", 125 * scale, 75 * scale);
-            g2.drawString(palabraAEscribir, 200 * scale, 150 * scale);
-            g2.drawString(palabraAEscribir.substring(0, letraActual), 200 * scale, 300 * scale);
+            g2.drawString("Escribir Veloz", 200 * scale, 75 * scale);
+            g2.setFont(new Font("Arial", Font.BOLD, 12 * scale));
+
+            g2.drawString("APURATE!! Esta es la palabra : ", 60, 120 * scale);
+            g2.drawString(palabraAEscribir, 60 * scale, 150 * scale);
+            g2.drawString("Resultado : ", 60 * scale, 180 * scale);
+            g2.drawString(palabraAEscribir.substring(0, letraActual), 60 * scale, 200 * scale);
+
         }
 
     }
