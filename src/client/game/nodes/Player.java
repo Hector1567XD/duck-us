@@ -1,5 +1,6 @@
 package client.game.nodes;
 
+import client.game.engine.nodos.SpriteNode;
 import client.game.engine.nodos.SpriteableNode;
 import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
@@ -41,7 +42,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     public Player() {
         // Sub nodo de colision
         this.collideNode = new CollideNode(this);
-        this.collideNode.setShowCollitionsShape(true);// (Solo activar para debuggear)
+        this.collideNode.setShowCollitionsShape(false);// (Solo activar para debuggear)
         this.addNode(this.collideNode);
         // Sub nodo de sprites
         this.sprite = new SpriteNode(this);
@@ -61,7 +62,6 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")),};
             this.staticDuckLeft = staticSpriteLeft;
             this.staticDuckRight = ImageUtils.flipXImageArray(this.staticDuckLeft);
-
             BufferedImage[] movingLeft = {
                 ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak1.png")),
                 ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak2.png")),
