@@ -99,9 +99,10 @@ public class Mision extends GameNode {
             g2.fillRect((int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize,
                     (int) (maxScreenRow - 2.5) * tileSize);
             g2.setColor(Color.WHITE);
-            g2.setFont(new Font("Arial", Font.BOLD, 46));
-            g2.drawString("JUEGO DEL AHORCADO", 250, 150);
-            g2.drawString(palabra, 400, 300);
+            
+            g2.setFont(new Font("Arial", Font.BOLD, 23 *scale));
+            g2.drawString("JUEGO DEL AHORCADO", 125 *scale, 75 *scale);
+            g2.drawString(palabra, 200*scale, 150 * scale);
 
         }
 
