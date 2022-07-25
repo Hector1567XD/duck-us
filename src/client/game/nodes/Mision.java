@@ -103,7 +103,7 @@ public class Mision extends GameNode {
             g2.setFont(new Font("Arial", Font.BOLD, 23 *scale));
             g2.drawString("JUEGO DEL AHORCADO", 125 *scale, 75 *scale);
             g2.drawString(palabra, 200*scale, 150 * scale);
-
+            
         }
 
     }

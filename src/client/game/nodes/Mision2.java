@@ -22,9 +22,8 @@ public class Mision2 extends GameNode {
     private String palabra;
     private char[] letrasRestantes;
     private int[] keyRestantes;
-    private int[] posicionesRestantes;
-    private int letrasEncontradas;
-    private int letrasTotalesAEncontrar;
+    private int letraActual;
+    private String palabraAEscribir;
     private AbrirMision2 mision2;
 
     public Mision2(AbrirMision2 mision2) {
@@ -41,38 +40,24 @@ public class Mision2 extends GameNode {
 
     @Override
     public void created(GameContainer container) {
-        this.x = 235;
-        this.y = 200;
-        this.palabra = "H_l_Mundo";
-        this.keyRestantes = new int[3];
-        this.keyRestantes[0] = KeyEvent.VK_O;
-        this.keyRestantes[1] = KeyEvent.VK_A;
-        this.letrasEncontradas = 0;
-        this.letrasTotalesAEncontrar = 2;
-        this.letrasRestantes = new char[2];
-        this.letrasRestantes[0] = 'o';
-        this.letrasRestantes[1] = 'a';
-        this.posicionesRestantes = new int[2];
-        this.posicionesRestantes[0] = 1;
-        this.posicionesRestantes[1] = 3;
+        this.palabraAEscribir = "Harry potter era un niño";
+        this.letraActual = 0;
+        
     }
 
     @Override
     public void update(GameContainer container) {
         if (isAbrir() == true) {
             Input input = container.getInput();
-            if (input.isKeyDown(keyRestantes[letrasEncontradas])) {
-                char[] palabraArreglo = palabra.toCharArray();
-                palabraArreglo[posicionesRestantes[letrasEncontradas]] = letrasRestantes[letrasEncontradas];
-                this.palabra = String.valueOf(palabraArreglo);
-                letrasEncontradas++;
-                if (letrasEncontradas >= letrasTotalesAEncontrar) {
-                    this.ganarMision(container);
-                }
-            }
+             char[] letrasAEscribir = palabraAEscribir.toCharArray();
+             char character = letrasAEscribir[letraActual];
+             int ascii = (int) character;
+                   if (input.isKey(ascii)) {
+                     letraActual++;
+                   }
+             }
+         }
 
-        }
-    }
     
     private void ganarMision(GameContainer container) {
         this.setAbrir(false);
@@ -96,10 +81,10 @@ public class Mision2 extends GameNode {
             g2.fillRect((int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize,
                     (int) (maxScreenRow - 2.5) * tileSize);
             g2.setColor(Color.WHITE);
-            g2.setFont(new Font("Arial", Font.BOLD, 46));
-            g2.drawString("JUEGO DEL AHORCADO", 250, 150);
-            g2.drawString(palabra, 400, 300);
-
+            g2.setFont(new Font("Arial", Font.BOLD, 23*scale));
+            g2.drawString("Velocidad", 125*scale, 75 *scale);
+            g2.drawString(palabraAEscribir, 200 * scale, 150*scale);
+            g2.drawString(palabraAEscribir.substring(0,letraActual),200*scale,300*scale);
         }
 
     }
