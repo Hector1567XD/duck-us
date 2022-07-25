@@ -1,13 +1,14 @@
 package client.game.engine;
 
 import client.game.engine.nodos.AbstractCamera;
+import client.game.engine.nodos.GameNodeI;
 import common.game.engine.node.NodeI;
 import common.game.engine.node.Node;
 import common.game.engine.Container;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-public abstract class GameNode extends Node {
+public abstract class GameNode extends Node implements GameNodeI {
     // ESTAS 2 PROPIEDADES SOLO SE DEBEN USAR EN EL DRAW
     protected int drawX = 0; // Posicion X del nodo TENIENDO EN CUENTA LA CAMARA
     protected int drawY = 0; // Posicion Y del nodo TENIENDO EN CUENTA LA CAMARA
@@ -64,4 +65,6 @@ public abstract class GameNode extends Node {
     }
 
     public abstract void draw(GameContainer container, Graphics2D g2);
+    
+    
 }
