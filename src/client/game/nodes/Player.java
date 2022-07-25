@@ -4,12 +4,12 @@ import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
+import common.networking.packets.PlayerMovePacket;
 import client.game.engine.nodos.CollideNode;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
-import client.utils.game.collitions.CollitionsUtils;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -70,11 +70,13 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                     }
                 }
             }
+            container.getNetwork().sendPacket(new PlayerMovePacket(this.x, this.y));
         }
     }
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
+        g2.setColor(Color.GRAY);
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
 

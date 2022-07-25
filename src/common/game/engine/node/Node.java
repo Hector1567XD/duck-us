@@ -27,6 +27,14 @@ public abstract class Node implements NodeI {
     }
 
     @Override
+    public void _removed(Container container) {
+        removed(container);
+        for (NodeI node: childNodes) {
+            node._removed(container);
+        }
+    }
+
+    @Override
     public void _update(Container container) {
         update(container);
         for (int i = 0; i < childNodes.size(); i ++) {
@@ -41,6 +49,7 @@ public abstract class Node implements NodeI {
             // Si el nodo hijo fue eliminado, lo elimina de la lista
             if (node.isRemoved()) {
                 childNodes.remove(i);
+                node._removed(container);
                 i--;
             }
         }
@@ -49,6 +58,9 @@ public abstract class Node implements NodeI {
     // EVENTOS EXTERNOS
     public abstract void created(Container container);
     public abstract void update(Container container);
+    public void removed(Container container) {
+        // Optional method
+    }
 
     // GETTERS
     public int getX() {
