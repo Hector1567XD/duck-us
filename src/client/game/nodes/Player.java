@@ -113,14 +113,16 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         if (impostor) {
             this.sprite2.setSprite(spriteButton);
             this.sprite2.setIndex(0);
-            if (alredyKill == true) {
+            
+            if (alredyKill == true) {    
                 if (timer <= 0) {
                     alredyKill = false;
                     timer = 10 * 60;
                 } else {
                     timer--;
                 }
-            } else {
+            } else if ((canKill(container) == true)) {
+                //System.out.println("Puedes matar D:");
                 this.sprite2.setIndex(1);
             }
             if (input.isKey(KeyEvent.VK_E)) {
@@ -225,8 +227,18 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 System.out.println("Muerto");
                 container.getNetwork().sendPacket(new PlayerKillPacket(victima.getPlayerId()));
             }
-
         }
+    }
+
+    public boolean canKill(GameContainer container) {
+        ArrayList<OPlayer> listPlayers = container.getController().getNodes().getListByTag("Oplayer");
+        for (OPlayer victima : listPlayers) {
+            double killD = NodeDistanceHelper.getDistance(this, victima);
+            if (killD < CommonConstants.DISTANCE_TO_KILL && alredyKill == false) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getOffsetX() {
