@@ -6,6 +6,8 @@ package client.forms;
 
 import client.Constants;
 import client.DuckOrquestador;
+import client.game.engine.GameContainer;
+import common.networking.packets.PlayerLoginPacket;
 
 /**
  *
@@ -13,10 +15,11 @@ import client.DuckOrquestador;
  */
 public class Connect extends javax.swing.JPanel {
     DuckOrquestador orquestator;
-
+    
     public Connect(DuckOrquestador orquestator) {
         this.orquestator = orquestator;
         initComponents();
+        txtName.setText("Nombre");
         txtIpAddress.setText(Constants.DEFAULT_IP_ADDRESS);
         txtPort.setText(Constants.DEFAULT_PORT);
     }
@@ -34,6 +37,10 @@ public class Connect extends javax.swing.JPanel {
         txtIpAddress = new javax.swing.JTextField();
         txtPort = new javax.swing.JTextField();
         btnConnect = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
 
         txtIpAddress.setText("jTextField1");
         txtIpAddress.addActionListener(new java.awt.event.ActionListener() {
@@ -56,6 +63,19 @@ public class Connect extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Direccion");
+
+        jLabel2.setText("Puerto");
+
+        jLabel3.setText("Nombre del jugador");
+
+        txtName.setText("jTextField1");
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -63,19 +83,39 @@ public class Connect extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(144, 144, 144)
+                        .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(jLabel1)
+                        .addGap(94, 94, 94)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(txtIpAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(144, 144, 144)
-                        .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(129, 129, 129)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(78, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(145, 145, 145))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(117, 117, 117)
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtIpAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPort))
@@ -88,6 +128,8 @@ public class Connect extends javax.swing.JPanel {
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
         // TODO add your handling code here:
         this.orquestator.connectToServer(txtIpAddress.getText(), Integer.parseInt(txtPort.getText()));
+        this.orquestator.setNombre(txtName.getName());
+        System.out.println(txtName.getText());
         this.orquestator.openGame();
     }//GEN-LAST:event_btnConnectActionPerformed
 
@@ -99,10 +141,18 @@ public class Connect extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPortActionPerformed
 
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConnect;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField txtIpAddress;
+    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPort;
     // End of variables declaration//GEN-END:variables
 }

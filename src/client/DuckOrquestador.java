@@ -15,6 +15,7 @@ public class DuckOrquestador {
     MenuWindow window;
     SocketPublisher publisher;
     Client client;
+    String nombre;
 
     public DuckOrquestador() {
         this.publisher = new SocketPublisher();
@@ -48,16 +49,31 @@ public class DuckOrquestador {
     public void connectToServer(String ipAddress, int port) {
         this.client = DuckConnect.createClient(publisher, ipAddress, port);
     }
+    
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        System.out.println(nombre);
+        this.nombre = nombre;
+    }   
+
+    
     public void openGame() {
         if (window != null) {
             window.close();
         }
-        DuckGame.start(publisher, client);
+        DuckGame.start(publisher, client, nombre);
     }
 
     public void starGameWithoutMenu() {
         this.connectToServer(Constants.DEFAULT_IP_ADDRESS, Integer.parseInt(Constants.DEFAULT_PORT));
         this.openGame();
     }
+
+        
+    
+    
+    
 }
