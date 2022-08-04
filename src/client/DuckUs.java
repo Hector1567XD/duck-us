@@ -8,6 +8,7 @@ public class DuckUs {
     public static void main(String[] args) {
         DuckOrquestador orquestator = new DuckOrquestador();
         
+        // Cargar de archivo
         //orquestator.setDefaultName("Nombre por defecto");
         
         if (Constants.SKIP_MENU) {
