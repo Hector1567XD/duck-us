@@ -30,8 +30,8 @@ public class Triangulito extends GameNode {
         int offSetX = 0;
         int offSetY = 0;
         
-        g2.fillRect(drawX, drawY, alto, ancho);
+        /*g2.fillRect(drawX, drawY, alto, ancho);
         g2.setColor(Color.BLUE);
-        g2.fillRect(x, y, alto, ancho);
+        g2.fillRect(x, y, alto, ancho);*/
     }
 }

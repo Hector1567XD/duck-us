@@ -1,7 +1,6 @@
-package client.game.tiles;
+package client.game.nodes.tiles;
 
 import client.game.engine.GameContainer;
-import client.game.engine.tiles.Tiles;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;

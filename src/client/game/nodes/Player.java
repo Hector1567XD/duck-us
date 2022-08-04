@@ -34,7 +34,7 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
     public Player() {
         // Sub nodo de colision
         this.collideNode = new CollideNode(this);
-        this.collideNode.setShowCollitionsShape(false);// (Solo activar para debuggear)
+        //this.collideNode.setShowCollitionsShape(false);// (Solo activar para debuggear)
         this.addNode(this.collideNode);
         // Sub nodo de sprites
         this.sprite = new SpriteNode(this);
