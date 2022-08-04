@@ -1,5 +1,6 @@
 package client.game.nodes;
 
+import client.game.nodes.classes.Sound;
 import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
@@ -13,6 +14,7 @@ public class Player extends GameNode implements NodeCenterable {
     private int velocity = 4;
     Sound sound = new Sound();
     private int soundCounter = 0;
+    private int soundStep = 0;
 
     @Override
     public void created(GameContainer container) {
@@ -26,8 +28,12 @@ public class Player extends GameNode implements NodeCenterable {
 
         if (isWalking) {
             soundCounter++;
-            if (soundCounter >= 15) {
-                sonidoPisada(0);
+            if (soundCounter >= 20) {
+                sonidoPisada(soundStep);
+                soundStep++;
+                if (soundStep > 2) {
+                    soundStep = 0;
+                }
                 soundCounter = 0;
             }
 
@@ -74,23 +80,9 @@ public class Player extends GameNode implements NodeCenterable {
     public int getOffsetY() {
         return 16;
     }
-    
-    public void playMusic(int i) {
-        
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
-        
-    }
-    
-    public void stopMusic(){
-        sound.stop();
-    }
-    
+
     public void sonidoPisada(int i) {
        sound.setFile(i);
        sound.play();
     }
-    
-    
 }
