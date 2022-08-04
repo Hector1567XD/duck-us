@@ -33,6 +33,9 @@ public class Mision extends GameNode {
     private int letrasTotalesAEncontrar;
     private AbrirMision1 mision1;
     private BufferedImage[] imagen;
+    private boolean ganaste;
+    private int contador;
+
 
     public Mision() {
     }
@@ -48,6 +51,16 @@ public class Mision extends GameNode {
     public void setAbrir(boolean abrir) {
         this.abrir = abrir;
     }
+
+    public boolean isGanaste() {
+        return ganaste;
+    }
+
+    public void setGanaste(boolean ganaste) {
+        this.ganaste = ganaste;
+    }
+    
+    
 
     @Override
     public void created(GameContainer container) {
@@ -68,6 +81,9 @@ public class Mision extends GameNode {
             this.posicionesRestantes = new int[2];
             this.posicionesRestantes[0] = 1;
             this.posicionesRestantes[1] = 3;
+            this.ganaste = false;
+            this.contador = 13 * 10;
+
         } catch (IOException ex) {
 
         }
@@ -83,19 +99,28 @@ public class Mision extends GameNode {
                 palabraArreglo[posicionesRestantes[letrasEncontradas]] = letrasRestantes[letrasEncontradas];
                 this.palabra = String.valueOf(palabraArreglo);
                 letrasEncontradas++;
-                if (letrasEncontradas >= letrasTotalesAEncontrar) {
-                    this.ganarMision(container);
-                }
+               
+              
             }
+             if (letrasEncontradas >= letrasTotalesAEncontrar) {
+                    contador--;
+                    this.ganaste = true;
+                    this.ganarMision(container);
+             }     
 
         }
     }
 
     private void ganarMision(GameContainer container) {
+       if (contador == 0) {
         this.setAbrir(false);
         this.mision1.setMisionAbierta(false);
         Player player = container.getController().getNodes().findByName("Player");
         player.setMisionOpen(false);
+        this.mision1.setGanaste(ganaste);
+
+       }        
+        
     }
 
     @Override
@@ -116,7 +141,10 @@ public class Mision extends GameNode {
             g2.setFont(new Font("Arial", Font.BOLD, 23 * scale));
             //g2.drawString("JUEGO DEL AHORCADO", 125 *scale, 75 *scale);
             g2.drawString(palabra, 200 * scale, 200 * scale);
-
+              if (ganaste == true) {
+                  g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
+                  g2.drawString("MISION CUMPLIDA", 170, 250);
+              }
         }
 
     }

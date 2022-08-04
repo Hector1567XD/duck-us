@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 public class AbrirMision2 extends GameNode implements NodeCenterable, NodeColladable, NodeOpenable {
     private boolean misionAbierta = false;
     Mision2 misionActual;
+    private boolean ganaste = false;
 
     public AbrirMision2(int x, int y) {
         this.x = x;
@@ -28,6 +29,17 @@ public class AbrirMision2 extends GameNode implements NodeCenterable, NodeCollad
     public void setMisionAbierta(boolean misionAbierta) {
         this.misionAbierta = misionAbierta;
     }
+
+    public boolean isGanaste() {
+        return ganaste;
+    }
+
+    public void setGanaste(boolean ganaste) {
+        this.ganaste = ganaste;
+    }
+    
+    
+    
 
     @Override
     public void created(GameContainer container) {

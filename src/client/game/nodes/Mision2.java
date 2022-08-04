@@ -92,7 +92,6 @@ public class Mision2 extends GameNode {
             }
             if (letraActual == this.palabraAEscribir.length()-1){
                        contador--;
-                       System.out.println(contador);
                        this.ganaste = true;
                        this.ganarMision(container);
                    }
@@ -105,7 +104,8 @@ public class Mision2 extends GameNode {
          this.setAbrir(false);
          this.mision2.setMisionAbierta(false);
          Player player = container.getController().getNodes().findByName("Player");
-         player.setMisionOpen(false);  
+         player.setMisionOpen(false);
+         this.mision2.setGanaste(ganaste);
        }       
     }
 
@@ -138,6 +138,7 @@ public class Mision2 extends GameNode {
                   g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
                   g2.drawString("MISION CUMPLIDA", 170, 250);
               }
+              
         }
 
     }
