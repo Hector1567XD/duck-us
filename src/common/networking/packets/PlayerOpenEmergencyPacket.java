@@ -8,34 +8,27 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 
-public class PlayerVotedPacket extends Packet {
+public class PlayerOpenEmergencyPacket extends Packet {
     private int playerId;
-    private int x;
-    private int y;
 
-    public PlayerVotedPacket(int playerId,int x, int y) {
+
+    public PlayerOpenEmergencyPacket(int playerId) {
          this.playerId = playerId;
-        this.x = x;
-        this.y = y;
     }
 
-    public PlayerVotedPacket(DataInputStream bufferInput) throws IOException {
+    public PlayerOpenEmergencyPacket(DataInputStream bufferInput) throws IOException {
         this.playerId = bufferInput.readShort();
-        this.x = bufferInput.readInt();
-        this.y = bufferInput.readInt();
     }
 
     @Override
     public void write(DataOutputStream bufferOutput) throws IOException {
         super.write(bufferOutput);
         bufferOutput.writeShort(playerId);
-        bufferOutput.writeInt(x);
-        bufferOutput.writeInt(y);
     }
 
     @Override
     public int getPackageType() {
-        return PacketTypes.PLAYER_VOTED;
+        return PacketTypes.PLAYER_EMERGENCYOPEN;
     }
 
     public int getPlayerId() {
@@ -43,11 +36,4 @@ public class PlayerVotedPacket extends Packet {
     }
     
     
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 }

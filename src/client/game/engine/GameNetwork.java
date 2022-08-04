@@ -2,6 +2,7 @@ package client.game.engine;
 
 import client.game.nodes.OPlayer;
 import client.game.nodes.PingNode;
+import client.game.nodes.Player;
 import client.game.nodes.VoteNode;
 import common.game.engine.Container;
 import common.game.engine.Network;
@@ -93,13 +94,16 @@ public class GameNetwork extends Network {
                     ErrorHelper.showServerForceDisconnectError();
                 }
             }
-        }else if (packet.getPackageType() == PacketTypes.PLAYER_VOTED) {
+        }else if (packet.getPackageType() == PacketTypes.PLAYER_EMERGENCYOPEN) {
             
             VoteNode votacion = container.getController().getNodes().findByName("vote");
+            Player jugador = container.getController().getNodes().findByName("Player");  
             
+            jugador.setMision(true);
             votacion.setAbrir(true);
             
             
+            // 
         }
     }
 }

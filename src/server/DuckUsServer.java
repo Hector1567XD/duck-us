@@ -6,6 +6,7 @@ import server.game.engine.ServerContainer;
 import server.game.engine.ServerController;
 import server.game.engine.ServerNetwork;
 import server.game.nodes.PongNode;
+import server.game.nodes.SEmergency;
 import server.networking.Server;
 
 public class DuckUsServer {
@@ -23,6 +24,8 @@ public class DuckUsServer {
         // GAME
             PongNode pongNode = new PongNode();
             controller.addNode(pongNode);
+            SEmergency emergency = new SEmergency();           
+            container.getController().addNode(emergency,"EmergencyRoom");
             network.setPongNode(pongNode);
             
         // BEGIN

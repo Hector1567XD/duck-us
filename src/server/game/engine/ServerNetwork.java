@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import server.game.nodes.PongNode;
 import server.game.nodes.SPlayer;
+import server.game.nodes.SEmergency;
 import server.networking.Server;
 
 public class ServerNetwork extends Network {
@@ -119,8 +120,8 @@ public class ServerNetwork extends Network {
 
             this.pongNode.onPlayerPing(currentPlayer, container);
             
-        }else if (packet.getPackageType() == PacketTypes.PLAYER_VOTE){
-            PlayerVotePacket votePacket = (PlayerVotePacket) packet;
+        }else if (packet.getPackageType() == PacketTypes.PLAYER_EMERGENCY){
+            PlayerEmergencyPacket votePacket = (PlayerEmergencyPacket) packet;
             Agent client = packet.getSender();
             
             SPlayer currentPlayer = null;
@@ -134,14 +135,10 @@ public class ServerNetwork extends Network {
                 // :) No se encontro al jugador
                 return;
             }
- 
-            currentPlayer.setX(votePacket.getX());
-            currentPlayer.setY(votePacket.getY());
-            
-           PlayerVotedPacket votedPacket  = new PlayerVotedPacket(
-                currentPlayer.getPlayerId(),
-                currentPlayer.getX(),
-                currentPlayer.getY()
+         
+
+           PlayerOpenEmergencyPacket votedPacket  = new PlayerOpenEmergencyPacket(
+                currentPlayer.getPlayerId()
             );
             this.sendPacketToAllWithout(votedPacket,client);
         }

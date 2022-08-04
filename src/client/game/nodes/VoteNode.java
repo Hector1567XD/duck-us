@@ -23,6 +23,7 @@ import java.util.Scanner;
 public class VoteNode extends GameNode {
   
     private boolean abrir = false;
+    private int time;
     private AbrirVote votacion;
     
     
@@ -49,17 +50,26 @@ public class VoteNode extends GameNode {
     public void created(GameContainer container) {
         this.x = 140;
         this.y = 200;
+        time = 10*120;
        
     }       
 
     @Override
     public void update(GameContainer container) {
      if (isAbrir() == true) {  
-         //Input input = container.getInput(); 
-         //MouseListener[] click = container.getWindow().getWindow().getMouseListeners();
-             //this.setAbrir(false);
-            // this.votacion.setMisionAbierta(false);
-         }              
+        /* Input input = container.getInput(); 
+         MouseListener[] click = container.getWindow().getWindow().getMouseListeners();
+             this.setAbrir(false);
+             this.votacion.setMisionAbierta(false);*/
+       
+            /*if (time<=0) {
+                 abrir = false;
+                 time = 10*120;
+            }else {
+                 time--; 
+                }  */
+        }
+                    
     }
 
     @Override
@@ -78,6 +88,7 @@ public class VoteNode extends GameNode {
         g2.setColor(Color.WHITE);
         g2.setFont(new Font( "Arial", Font.BOLD, 23*scale ));
         g2.drawString("VOTACIONES", 250*scale, 150*scale);
+       /*g2.drawString("Tiempo: "+time, 200*scale, 100*scale);*/
     //  g2.drawString(palabra, 400, 300);
 
       } 

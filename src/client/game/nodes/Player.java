@@ -10,7 +10,7 @@ import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
 import client.game.tiles.MapTilesManager;
 import common.CommonConstants;
-import common.networking.packets.PlayerVotePacket;
+import common.networking.packets.PlayerEmergencyPacket;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -100,7 +100,7 @@ public class Player extends GameNode implements NodeCenterable, NodeColladable {
                 for (AbrirVote i : vote) {
                     if (isPositionCollaiding(i, x, y)) {
                         //System.out.println("si :)");
-                        container.getNetwork().sendPacket(new PlayerVotePacket(1,1));
+                        container.getNetwork().sendPacket(new PlayerEmergencyPacket());
                         misionOpen = true;
                         i.setMisionAbierta(true);
                         

@@ -15,37 +15,24 @@ import java.io.IOException;
  *
  * @author Ortiz pc
  */
-public class PlayerVotePacket extends Packet {
-    private int x;
-    private int y;
+public class PlayerEmergencyPacket extends Packet {
 
-    public PlayerVotePacket(int x, int y) {
-        this.x = x;
-        this.y = y;
+
+    public PlayerEmergencyPacket() {
+
     }
 
-    public PlayerVotePacket(DataInputStream bufferInput) throws IOException {
-        this.x = bufferInput.readInt();
-        this.y = bufferInput.readInt();
-    }
+     public PlayerEmergencyPacket(DataInputStream bufferInput) {
 
+    }   
+        
     @Override
     public void write(DataOutputStream bufferOutput) throws IOException {
-        super.write(bufferOutput);
-        bufferOutput.writeInt(x);
-        bufferOutput.writeInt(y);
     }
 
     @Override
     public int getPackageType() {
-        return PacketTypes.PLAYER_VOTE;
+        return PacketTypes.PLAYER_EMERGENCY;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
 }
