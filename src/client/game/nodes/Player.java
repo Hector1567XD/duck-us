@@ -15,7 +15,8 @@ public class Player extends GameNode implements NodeCenterable {
     Sound sound = new Sound();
     private int soundCounter = 0;
     private int soundStep = 0;
-
+    private int soundAcumulatorMax = 20;
+    
     @Override
     public void created(GameContainer container) {
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
@@ -28,11 +29,18 @@ public class Player extends GameNode implements NodeCenterable {
 
         if (isWalking) {
             soundCounter++;
-            if (soundCounter >= 20) {
+            if (soundCounter >= soundAcumulatorMax + 5) {
                 sonidoPisada(soundStep);
                 soundStep++;
                 if (soundStep > 2) {
                     soundStep = 0;
+                }
+                if (soundStep == 0) {
+                    soundAcumulatorMax = 7 + 5;
+                }else if (soundStep == 1) {
+                    soundAcumulatorMax = 15;
+                }else if (soundStep == 2) {
+                    soundAcumulatorMax = 14;
                 }
                 soundCounter = 0;
             }
