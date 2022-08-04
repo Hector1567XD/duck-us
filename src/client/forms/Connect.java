@@ -8,13 +8,25 @@ import client.Constants;
 import client.DuckOrquestador;
 import client.game.engine.GameContainer;
 import common.networking.packets.PlayerLoginPacket;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 /**
  *
  * @author hecto
  */
 public class Connect extends javax.swing.JPanel {
+
     DuckOrquestador orquestator;
+    //Ficheros
+    File archivo = null;
+    FileReader fr = null;
+    BufferedReader br = null;
+    FileWriter fichero = null;
+    PrintWriter pw = null;
 
     public Connect(DuckOrquestador orquestator, String defaultName) {
         this.orquestator = orquestator;
@@ -129,9 +141,29 @@ public class Connect extends javax.swing.JPanel {
         this.orquestator.connectToServer(txtIpAddress.getText(), Integer.parseInt(txtPort.getText()));
         String nuevoNombre = txtName.getText();
         this.orquestator.setNombre(nuevoNombre);
-        this.orquestator.openGame();
-    }//GEN-LAST:event_btnConnectActionPerformed
 
+        try {
+
+            fichero = new FileWriter("jugador.txt");
+            pw = new PrintWriter(fichero);
+            pw.println(nuevoNombre);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // En el finally cerramos el fichero, para asegurarnos
+            // que se cierra tanto si todo va bien como si salta 
+            // una excepcion.
+            try {
+                if (null != fichero) {
+                    fichero.close();
+                }
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+            this.orquestator.openGame();
+    }//GEN-LAST:event_btnConnectActionPerformed
+    }
     private void txtIpAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIpAddressActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIpAddressActionPerformed
