@@ -8,4 +8,5 @@ public class Constants extends CommonConstants {
     final public static boolean SKIP_MENU = false;
     final public static String DEFAULT_IP_ADDRESS = "localhost";
     final public static String DEFAULT_PORT = "1331";
+    final public static String DEFAULT_NAME = "Player";
 }

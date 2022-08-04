@@ -30,8 +30,9 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
     private SpriteNode sprite;
     private CollideNode collideNode;
     private int directionX = 1;
+    private String gameName;
 
-    public Player() {
+    public Player(String nombre) {
         // Sub nodo de colision
         this.collideNode = new CollideNode(this);
         this.collideNode.setShowCollitionsShape(true);// (Solo activar para debuggear)
@@ -41,6 +42,7 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
         this.addNode(this.sprite);
         // Init Images
         this.initPlayerImages();
+        this.gameName = nombre;
     }
 
     private void initPlayerImages() {
@@ -71,7 +73,7 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
     public void created(GameContainer container) {
         this.x = 235;
         this.y = 200;
-        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+        container.getNetwork().sendPacket(new PlayerLoginPacket(gameName));
     }
 
     @Override

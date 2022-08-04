@@ -16,9 +16,15 @@ public class DuckOrquestador {
     SocketPublisher publisher;
     Client client;
     String nombre;
+    String defaultName;
 
     public DuckOrquestador() {
+        this.defaultName = Constants.DEFAULT_NAME;
         this.publisher = new SocketPublisher();
+    }
+    
+    public void setDefaultName(String defaultName) {
+        this.defaultName = defaultName;
     }
     
     public void setWindow(MenuWindow window) {
@@ -34,7 +40,7 @@ public class DuckOrquestador {
     }
     
     public void openConnect() {
-        window.setPanel(new Connect(this));
+        window.setPanel(new Connect(this, defaultName));
     }
     
     public void openAcercaDe() {
@@ -55,9 +61,8 @@ public class DuckOrquestador {
     }
 
     public void setNombre(String nombre) {
-        System.out.println(nombre);
         this.nombre = nombre;
-    }   
+    }
 
     
     public void openGame() {
@@ -69,11 +74,7 @@ public class DuckOrquestador {
 
     public void starGameWithoutMenu() {
         this.connectToServer(Constants.DEFAULT_IP_ADDRESS, Integer.parseInt(Constants.DEFAULT_PORT));
+        this.setNombre(defaultName);
         this.openGame();
     }
-
-        
-    
-    
-    
 }

@@ -15,15 +15,14 @@ import common.networking.packets.PlayerLoginPacket;
  */
 public class Connect extends javax.swing.JPanel {
     DuckOrquestador orquestator;
-    
-    public Connect(DuckOrquestador orquestator) {
+
+    public Connect(DuckOrquestador orquestator, String defaultName) {
         this.orquestator = orquestator;
         initComponents();
-        txtName.setText("Nombre");
+        txtName.setText(defaultName);
         txtIpAddress.setText(Constants.DEFAULT_IP_ADDRESS);
         txtPort.setText(Constants.DEFAULT_PORT);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -128,8 +127,8 @@ public class Connect extends javax.swing.JPanel {
     private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnectActionPerformed
         // TODO add your handling code here:
         this.orquestator.connectToServer(txtIpAddress.getText(), Integer.parseInt(txtPort.getText()));
-        this.orquestator.setNombre(txtName.getName());
-        System.out.println(txtName.getText());
+        String nuevoNombre = txtName.getText();
+        this.orquestator.setNombre(nuevoNombre);
         this.orquestator.openGame();
     }//GEN-LAST:event_btnConnectActionPerformed
 

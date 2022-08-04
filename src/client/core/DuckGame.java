@@ -16,7 +16,7 @@ import common.networking.engine.socket.SocketPublisher;
 import client.game.nodes.PingNode;
 
 public class DuckGame {
-    public static void start(SocketPublisher publisher, Client client,String nombre) {
+    public static void start(SocketPublisher publisher, Client client, String nombre) {
         
         // APP GAME BUILDING
             GameController controller = new GameController();
