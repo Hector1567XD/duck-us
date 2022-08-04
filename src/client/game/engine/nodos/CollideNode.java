@@ -4,7 +4,8 @@ import client.Constants;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.nodes.Bloque;
-import client.game.nodes.MapNode;
+import client.game.nodes.MapEscuelaNode;
+import client.game.nodes.MapNodeParent;
 import client.game.nodes.tiles.Map1CollitionManager;
 import client.game.nodes.tiles.MapCollitionManagerParent;
 import client.game.utils.CollideBoxCamDrawer;
@@ -12,6 +13,7 @@ import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
 import client.utils.game.collitions.CollitionsUtils;
 import common.CommonConstants;
+import common.utils.NodeCollectionUtils;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -73,10 +75,21 @@ public class CollideNode extends GameNode {
         }
 
         // COLISION CON COLLIDE MAPS
-        MapNode mapNode = container.getController().getNodes().findByName("MapNode");
+        ArrayList<MapNodeParent> mapNodes = container.getController().getNodes().getListByTag("MapNode");
+        boolean canMoveInMapNode = true;
+        for (MapNodeParent mapNode: mapNodes) {
+            canMoveInMapNode = this.canMoveInMapNode(mapNode, x, y);
+            if (canMoveInMapNode == false) return false;
+        }
+
+        return canMoveInMapNode;
+    }
+
+    public boolean canMoveInMapNode(MapNodeParent mapNode, int x, int y) {
         if (mapNode == null) {
             return true;
         }
+
         MapCollitionManagerParent mapTilesManager = mapNode.getCollideMap();
         int[][] arregloTilesets = mapTilesManager.getMapTileNum();
 

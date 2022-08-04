@@ -1,12 +1,16 @@
 package client.game.nodes.tiles;
 
-import client.game.nodes.MapNode;
+import client.game.nodes.MapEscuelaNode;
 
 /**
  *
  * @author david_000
  */
 public class Map1CollitionManager extends MapCollitionManagerParent {
+    public Map1CollitionManager(int offsetCols, int offsetRows) {
+        super(offsetCols, offsetRows);
+    }
+
     @Override
     public int getWorldCols() {
         return 190;

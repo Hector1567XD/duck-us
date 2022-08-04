@@ -17,6 +17,16 @@ import java.awt.Color;
 public abstract class MapCollitionManagerParent extends GameNode {
     protected int mapTileNum[][];
     private final boolean showCollitionsShape = Constants.SHOW_COLLISION_SHAPE && Constants.SHOW_COLLISION_MANAGER_COLLISION_SHAPE;
+    private int offsetCols = 0;
+    private int offsetRows = 0;
+
+    public int getOffsetCols() {
+        return offsetCols;
+    }
+
+    public int getOffsetRows() {
+        return offsetRows;
+    }
 
     public abstract int getWorldCols();
 
@@ -26,37 +36,55 @@ public abstract class MapCollitionManagerParent extends GameNode {
         return mapTileNum;
     }
 
-    public MapCollitionManagerParent() {
-        mapTileNum = new int[this.getWorldCols()][this.getWorldRows()];
+    public MapCollitionManagerParent(int offsetCols, int offsetRows) {
+        this.offsetCols = offsetCols;
+        this.offsetRows = offsetRows;
+        mapTileNum = new int[this.getWorldCols() + this.getOffsetCols()][this.getWorldRows() + this.getOffsetRows()];
+        initializeTileNum();
         loadMap();
     }
 
     public abstract String getCollitionMapFileName();
 
-    public void loadMap() { 
-       try {
-           InputStream is = getClass().getResourceAsStream(getCollitionMapFileName());
-           BufferedReader br = new BufferedReader(new InputStreamReader(is)); //lector almacenado de buffer
-           int col = 0;
-           int row = 0;
-           
-           while(col < getWorldCols() && row < getWorldRows()){
-               String line  = br.readLine(); //esto leera una linea 
-               while (col < getWorldCols()) {
-                   String numbers[] = line.split(" "); //esto parte la linea asi obteniendo los numeros del mapa 1 por 1
-                   int num = Integer.parseInt(numbers[col]);
-                   mapTileNum[col][row] = num;
-                   col++;
-               }
-             if (col == getWorldCols()){
-                 col = 0;
-                 row++;
-             }  
-           }
-       }catch (Exception e){
-           System.out.println(e.fillInStackTrace());
-           e.fillInStackTrace();
-       }
+    public void initializeTileNum() {
+        int col = 0;
+        int row = 0;
+        while (col < getWorldCols() + getOffsetCols() && row < getWorldRows() + getOffsetRows()) {
+            while (col < getWorldCols()) {
+                mapTileNum[col][row] = 0;
+                col++;
+            }
+            if (col == getWorldCols()) {
+                col = 0;
+                row++;
+            }
+        }
+    }
+
+    public void loadMap() {
+        try {
+            InputStream is = getClass().getResourceAsStream(getCollitionMapFileName());
+            BufferedReader br = new BufferedReader(new InputStreamReader(is)); //lector almacenado de buffer
+            int col = 0;
+            int row = 0;
+
+            while (col < getWorldCols() && row < getWorldRows()) {
+                String line = br.readLine(); //esto leera una linea 
+                while (col < getWorldCols()) {
+                    String numbers[] = line.split(" "); //esto parte la linea asi obteniendo los numeros del mapa 1 por 1
+                    int num = Integer.parseInt(numbers[col]);
+                    mapTileNum[col + getOffsetCols()][row + getOffsetRows()] = num;
+                    col++;
+                }
+                if (col == getWorldCols()) {
+                    col = 0;
+                    row++;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.fillInStackTrace());
+            e.fillInStackTrace();
+        }
     }
 
     @Override
@@ -83,16 +111,18 @@ public abstract class MapCollitionManagerParent extends GameNode {
         int tilePosY = posY * CommonConstants.TILE_SIZE + offsetBlock - 2 * CommonConstants.TILE_SIZE;
 
         CollideBox tileCollideBox = CollitionsUtils.createCenteredBox(
-            tilePosX,
-            tilePosY,
-            new CenterBorders(offsetBlock, offsetBlock, offsetBlock, offsetBlock)
+                tilePosX,
+                tilePosY,
+                new CenterBorders(offsetBlock, offsetBlock, offsetBlock, offsetBlock)
         );
         return tileCollideBox;
     }
-    
-    @Override
-    public void created(GameContainer container) {}
 
     @Override
-    public void update(GameContainer container) {}
+    public void created(GameContainer container) {
+    }
+
+    @Override
+    public void update(GameContainer container) {
+    }
 }

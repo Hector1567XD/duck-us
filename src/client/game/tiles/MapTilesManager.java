@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
-import client.game.nodes.MapNode;
+import client.game.nodes.MapEscuelaNode;
 
 /**
  *
@@ -19,7 +19,7 @@ public class MapTilesManager {
     int mapTileNum[][];
     public final int worldWitdh;
     public final int worldHeight;
-    public MapNode mapNode;
+    public MapEscuelaNode mapNode;
 
     public GameContainer getContainer() {
         return container;
@@ -33,7 +33,7 @@ public class MapTilesManager {
         return mapTileNum;
     }    
 
-    public MapTilesManager(MapNode mapNode, GameContainer container) {
+    public MapTilesManager(MapEscuelaNode mapNode, GameContainer container) {
         this.mapNode = mapNode;
         this.container = container;
         this.size = container.getScale().getTileSize();

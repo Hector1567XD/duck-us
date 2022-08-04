@@ -2,30 +2,23 @@ package client.game.nodes;
 
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
-import client.game.nodes.tiles.Map1MapDrawer;
-import client.game.nodes.tiles.Map1CollitionManager;
 import client.game.nodes.tiles.MapCollitionManagerParent;
 import client.game.nodes.tiles.MapDrawerParentInterface;
 
 import java.awt.Graphics2D;
 
-public class MapNode extends GameNode {
+public abstract class MapNodeParent extends GameNode {
     MapCollitionManagerParent mapCollitions;
     MapDrawerParentInterface mapDrawer;
 
-    public MapNode(GameContainer container){
-       this.mapCollitions = new Map1CollitionManager();
-       this.mapDrawer = new Map1MapDrawer(container.getScale().getTileSize());
-    }
-
     @Override
     public void created(GameContainer container) {
-
+        this.x = this.x + this.getOffsetCols() * container.getScale().getOriginalTileSize();
+        this.y = this.y + this.getOffsetRows() * container.getScale().getOriginalTileSize();
     }
 
     @Override
-    public void update(GameContainer container) {
-    }
+    public void update(GameContainer container) {}
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
@@ -37,7 +30,11 @@ public class MapNode extends GameNode {
         return mapCollitions;
     }
 
-    public String getTagName() {
+    public String getNodeTag() {
         return "MapNode";
     }
+
+    public abstract int getOffsetCols();
+
+    public abstract int getOffsetRows();
 }

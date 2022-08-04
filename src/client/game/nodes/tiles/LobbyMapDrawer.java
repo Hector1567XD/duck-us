@@ -7,31 +7,31 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
-import client.game.nodes.MapNode;
+import client.game.nodes.MapEscuelaNode;
 import java.awt.image.BufferedImage;
 
-public class LobbyMapDrawer {
-    GameContainer container;
-    /*public final int worldWitdh;
-    public final int worldHeight;*/
-    private final int tileSize;
+public class LobbyMapDrawer implements MapDrawerParentInterface {
+    private int tileSize;
     private BufferedImage[] image;
     private int mapXSize = 0;
     private int mapYSize = 0;
 
-    public GameContainer getContainer() {
-        return container;
+    public int getTileSize() {
+        return tileSize;
     }
 
-    public LobbyMapDrawer(MapNode mapNode, GameContainer container) {
-        this.container = container;
-        this.tileSize = container.getScale().getTileSize();
+    @Override
+    public int getWorldCols() {
+        return 40;
+    }
 
-        /*worldWitdh = size * container.getMaxMapCol();
-        worldHeight = size * container.getMaxMapRow();*/
+    @Override
+    public int getWorldRows() {
+        return 40;
+    }
 
-        this.mapXSize = 40;
-        this.mapYSize = 40;
+    public LobbyMapDrawer(int tileSize) {
+        this.tileSize = tileSize;
         loadMapImageLayers();
     }
 
@@ -53,7 +53,9 @@ public class LobbyMapDrawer {
 
     public void draw(Graphics2D g2, int x, int y) {
         for (int i = 0; i <= 7; i++) {
-            g2.drawImage(this.image[i], x, y, tileSize*mapXSize, tileSize*mapYSize, null);
+            if (this.image[i] != null) {
+                g2.drawImage(this.image[i], x, y, getTileSize()*getWorldCols(), getTileSize()*getWorldRows(), null);
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public class Map1MapDrawer implements MapDrawerParentInterface{
+public class Map1MapDrawer implements MapDrawerParentInterface {
     private int tileSize;
     private BufferedImage[] image;
     private int mapXSize = 0;
@@ -14,12 +14,14 @@ public class Map1MapDrawer implements MapDrawerParentInterface{
     public int getTileSize() {
         return tileSize;
     }
-    
-    public int getMapXSize() {
+
+    @Override
+    public int getWorldCols() {
         return 190;
     }
-        
-    public int getMapYSize() {
+
+    @Override
+    public int getWorldRows() {
         return 90;
     }
 
@@ -49,7 +51,7 @@ public class Map1MapDrawer implements MapDrawerParentInterface{
     public void draw(Graphics2D g2, int x, int y) {
         for (int i = 0; i <= 9; i++) {
             if (this.image[i] != null) {
-                g2.drawImage(this.image[i], x, y, getTileSize()*getMapXSize(), getTileSize()*getMapYSize(), null);
+                g2.drawImage(this.image[i], x, y, getTileSize()*getWorldCols(), getTileSize()*getWorldRows(), null);
             }
         }
     }
