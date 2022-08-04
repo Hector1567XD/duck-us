@@ -11,12 +11,12 @@ import java.awt.event.KeyEvent;
 
 public class Player extends GameNode implements NodeCenterable {
     private int velocity = 4;
- 
+     Sound sound = new Sound();
 
     @Override
     public void created(GameContainer container) {
-       
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+        
     }
 
     @Override
@@ -25,6 +25,7 @@ public class Player extends GameNode implements NodeCenterable {
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
 
         if (isWalking) {
+            SE(0);
             if (input.isKey(KeyEvent.VK_W)) {
                 y -= velocity;
             }
@@ -68,4 +69,23 @@ public class Player extends GameNode implements NodeCenterable {
     public int getOffsetY() {
         return 16;
     }
+    
+    public void playMusic(int i) {
+        
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+        
+    }
+    
+    public void stopMusic(){
+        sound.stop();
+    }
+    
+    public void SE(int i) {
+       sound.setFile(i);
+       sound.play();
+    }
+    
+    
 }
