@@ -6,6 +6,11 @@ package client.forms;
 
 import client.DuckOrquestador;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
@@ -14,6 +19,7 @@ import java.awt.Dimension;
 public class MenuPrincipal extends javax.swing.JPanel {
     DuckOrquestador orquestator;
     
+    
     /**
      * Creates new form MenuPrincipal
      */
@@ -21,7 +27,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
      * Creates new form SeleccionDeOpciones
      */
     public MenuPrincipal(DuckOrquestador orquestator) {
-        this.orquestator = orquestator;
+        this.orquestator = orquestator;  
         initComponents();
         
     }
@@ -40,6 +46,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
+        setToolTipText("");
+        setAutoscrolls(true);
 
         inicio.setText("INICIO");
         inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -56,23 +64,22 @@ public class MenuPrincipal extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(198, 198, 198)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
-                        .addComponent(inicio)))
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addGap(285, 285, 285)
+                .addComponent(inicio)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(188, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(186, 186, 186))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
                 .addComponent(inicio)
-                .addGap(156, 156, 156))
+                .addGap(55, 55, 55))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -86,5 +93,5 @@ public class MenuPrincipal extends javax.swing.JPanel {
     private javax.swing.JButton inicio;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
-
+    
 }
