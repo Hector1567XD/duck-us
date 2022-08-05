@@ -38,8 +38,9 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     private boolean alredyKill;
     private int timer;
     private boolean isDead;
+    private String gameName;
 
-    public Player() {
+    public Player(String nombre) {
         // Sub nodo de colision
         this.collideNode = new CollideNode(this);
         this.collideNode.setShowCollitionsShape(false);// (Solo activar para debuggear)
@@ -49,6 +50,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         this.addNode(this.sprite);
         // Init Images
         this.initPlayerImages();
+        this.gameName = nombre;
     }
 
     private void initPlayerImages() {
@@ -82,7 +84,6 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     public void created(GameContainer container) {
         this.x = 235;
         this.y = 200;
-        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
         alredyKill = false;
         timer = 10 * 60;
 
@@ -90,6 +91,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         if (impostor) {
             System.out.println("soy impostor :D");
         }
+        container.getNetwork().sendPacket(new PlayerLoginPacket(gameName));
     }
 
     @Override
