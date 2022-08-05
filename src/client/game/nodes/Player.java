@@ -157,7 +157,8 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         if (impostor) {
             this.soundGO(3);
             System.out.println("soy impostor :D");
-        }
+        }else 
+            this.soundGO(9);
     }
 
     @Override
@@ -175,7 +176,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         if (isDying) {
             this.sprite.setSprite(spriteDying);
             this.sprite.setSpeed(5);
-
+            this.soundGO(6);
             if (this.sprite.getIndex() >= 10) {
                 isDying = false;
                 this.sprite.setSpeed(0);
@@ -327,6 +328,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
             if (killD < CommonConstants.DISTANCE_TO_KILL && alredyKill == false) {
                 isKilling = true;
                 alredyKill = true;
+                this.soundGO(6);
                 System.out.println("Muerto");
                 container.getNetwork().sendPacket(new PlayerKillPacket(victima.getPlayerId()));
             }
