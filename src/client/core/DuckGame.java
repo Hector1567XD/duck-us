@@ -1,4 +1,3 @@
-
 package client.core;
 
 import client.Constants;
@@ -18,15 +17,17 @@ import client.game.nodes.AbrirMision3;
 import client.game.nodes.AbrirMision4;
 
 public class DuckGame {
-    public static void start(SocketPublisher publisher, Client client) {
+
+    public static void start(SocketPublisher publisher, Client client, String nombre) {
+
         // APP GAME BUILDING
-            GameController controller = new GameController();
-            GameNetwork network = new GameNetwork(client);
-            GameContainer container = new GameContainer(Constants.SCALE, network, controller);
+        GameController controller = new GameController();
+        GameNetwork network = new GameNetwork(client);
+        GameContainer container = new GameContainer(Constants.SCALE, network, controller);
 
         // GAME
         //Creando Nodos
-            Player player = new Player();
+            Player player = new Player(nombre);
             MapNode mapa = new MapNode(container);
             PingNode pingNode = new PingNode();
 
@@ -53,5 +54,6 @@ public class DuckGame {
         // BEGIN
             publisher.subscribe(network);
             container.start();
-    }
-}
+
+        }
+    }  
