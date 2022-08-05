@@ -71,6 +71,8 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
     public void created(GameContainer container) {
         this.x = 4032;
         this.y = 1440;
+        /*this.x = 455;
+        this.y = 322;*/
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
     }
 

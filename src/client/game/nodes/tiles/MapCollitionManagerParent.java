@@ -47,6 +47,7 @@ public abstract class MapCollitionManagerParent extends GameNode {
     public abstract String getCollitionMapFileName();
 
     public void initializeTileNum() {
+        System.out.println("=== INITIALIZE");
         int col = 0;
         int row = 0;
         while (col < getWorldCols() + getOffsetCols() && row < getWorldRows() + getOffsetRows()) {
@@ -67,7 +68,6 @@ public abstract class MapCollitionManagerParent extends GameNode {
             BufferedReader br = new BufferedReader(new InputStreamReader(is)); //lector almacenado de buffer
             int col = 0;
             int row = 0;
-
             while (col < getWorldCols() && row < getWorldRows()) {
                 String line = br.readLine(); //esto leera una linea 
                 while (col < getWorldCols()) {
@@ -91,9 +91,8 @@ public abstract class MapCollitionManagerParent extends GameNode {
     public void draw(GameContainer container, Graphics2D g2) {
         if (showCollitionsShape) {
             int[][] arregloTilesets = this.getMapTileNum();
-
-            for (int posX = 0; posX < getWorldCols(); posX++) {
-                for (int posY = 0; posY < getWorldRows(); posY++) {
+            for (int posX = 0; posX < getWorldCols() + getOffsetCols(); posX++) {
+                for (int posY = 0; posY < getWorldRows() + getOffsetRows(); posY++) {
                     int tile = arregloTilesets[posX][posY];
                     if (tile == 1) {
                         int offsetBlock = CommonConstants.TILE_SIZE / 2;

@@ -26,7 +26,7 @@ public class CollideNode extends GameNode {
         this.parent = parent;
         this.showCollitionsShape = Constants.SHOW_COLLISION_SHAPE && Constants.SHOW_COLLISION_NODE_COLLISION_SHAPE;
     }
-    
+
     public boolean isShowCollitionsShape() {
         return showCollitionsShape;
     }
@@ -91,10 +91,13 @@ public class CollideNode extends GameNode {
         }
 
         MapCollitionManagerParent mapTilesManager = mapNode.getCollideMap();
+        if (mapTilesManager == null) {
+            return true;
+        }
         int[][] arregloTilesets = mapTilesManager.getMapTileNum();
 
-        for (int posX = 0; posX < mapTilesManager.getWorldCols(); posX++) {
-            for (int posY = 0; posY < mapTilesManager.getWorldRows(); posY++) {
+        for (int posX = 0; posX < mapTilesManager.getWorldCols() + mapTilesManager.getOffsetCols(); posX++) {
+            for (int posY = 0; posY < mapTilesManager.getWorldRows() + mapTilesManager.getOffsetRows(); posY++) {
                 int tile = arregloTilesets[posX][posY];
                 if (tile == 1) {
                     int offsetBlock = CommonConstants.TILE_SIZE / 2;

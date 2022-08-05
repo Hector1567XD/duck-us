@@ -33,16 +33,16 @@ public class Map1MapDrawer implements MapDrawerParentInterface {
     private void loadMapImageLayers() {
         try {
             this.image = new BufferedImage[10];
-            this.image[0] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 0.png"));
-            this.image[1] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 1.png"));
-            this.image[2] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 2.png"));
-            this.image[3] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 3.png"));
-            this.image[4] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 4.png"));
-            this.image[5] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 5.png"));
-            this.image[6] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 6.png"));
-            this.image[7] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 7.png"));
-            this.image[8] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 8.png"));
-            this.image[9] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 9.png"));
+            //this.image[0] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 0.png"));
+            this.image[0] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 1.png"));
+            this.image[1] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 2.png"));
+            this.image[2] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 3.png"));
+            this.image[3] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 4.png"));
+            this.image[4] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 5.png"));
+            this.image[5] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 6.png"));
+            this.image[6] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 7.png"));
+            this.image[7] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 8.png"));
+            this.image[8] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/mapa1/Capa 9.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

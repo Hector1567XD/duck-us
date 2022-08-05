@@ -37,7 +37,7 @@ public class LobbyMapDrawer implements MapDrawerParentInterface {
 
     private void loadMapImageLayers() {
         try {
-            this.image = new BufferedImage[8];
+            this.image = new BufferedImage[9];
             this.image[0] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/lobby/Capa 1.png"));
             this.image[1] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/lobby/Capa 2.png"));
             this.image[2] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/lobby/Capa 3.png"));
@@ -46,13 +46,14 @@ public class LobbyMapDrawer implements MapDrawerParentInterface {
             this.image[5] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/lobby/Capa 6.png"));
             this.image[6] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/lobby/Capa 7.png"));
             this.image[7] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/lobby/Capa 8.png"));
+            this.image[8] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/maps/lobby/Capa 9.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void draw(Graphics2D g2, int x, int y) {
-        for (int i = 0; i <= 7; i++) {
+        for (int i = 0; i <= 8; i++) {
             if (this.image[i] != null) {
                 g2.drawImage(this.image[i], x, y, getTileSize()*getWorldCols(), getTileSize()*getWorldRows(), null);
             }

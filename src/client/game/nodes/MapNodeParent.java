@@ -4,6 +4,7 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.nodes.tiles.MapCollitionManagerParent;
 import client.game.nodes.tiles.MapDrawerParentInterface;
+import common.utils.NodeCollectionUtils;
 
 import java.awt.Graphics2D;
 
@@ -18,12 +19,18 @@ public abstract class MapNodeParent extends GameNode {
     }
 
     @Override
-    public void update(GameContainer container) {}
+    public void update(GameContainer container) {
+        //NodeCollectionUtils.print(container.getController().getNodes());
+    }
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
-        mapDrawer.draw(g2, drawX, drawY);
-        mapCollitions.draw(container, g2);
+        if (mapDrawer != null) {
+            mapDrawer.draw(g2, drawX, drawY);
+        }
+        if (mapCollitions != null) {
+            mapCollitions.draw(container, g2);
+        }
     }
 
     public MapCollitionManagerParent getCollideMap() {
