@@ -43,7 +43,6 @@ public class Mision extends GameNode {
         this.mision1 = mision1;
     }
 
-
     public Mision() {
     }
 
@@ -66,16 +65,17 @@ public class Mision extends GameNode {
     public void setGanaste(boolean ganaste) {
         this.ganaste = ganaste;
     }
-    
-    
 
     @Override
     public void created(GameContainer container) {
         try {
             this.imagen = new BufferedImage[3];
-            this.imagen[0] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v1.png"));
-            this.imagen[1] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v2.png"));
-            this.imagen[2] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v3.png"));
+            this.imagen[0] = ImageIO
+                    .read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v1.png"));
+            this.imagen[1] = ImageIO
+                    .read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v2.png"));
+            this.imagen[2] = ImageIO
+                    .read(getClass().getResourceAsStream("/client/resources/game/misiones/Te ahorco v3.png"));
             this.palabra = "H_l_Mundo";
             this.keyRestantes = new int[3];
             this.keyRestantes[0] = KeyEvent.VK_O;
@@ -106,28 +106,27 @@ public class Mision extends GameNode {
                 palabraArreglo[posicionesRestantes[letrasEncontradas]] = letrasRestantes[letrasEncontradas];
                 this.palabra = String.valueOf(palabraArreglo);
                 letrasEncontradas++;
-               
-              
+
             }
-             if (letrasEncontradas >= letrasTotalesAEncontrar) {
-                    contador--;
-                    this.ganaste = true;
-                    this.ganarMision(container);
-             }     
+            if (letrasEncontradas >= letrasTotalesAEncontrar) {
+                contador--;
+                this.ganaste = true;
+                this.ganarMision(container);
+            }
 
         }
     }
 
     private void ganarMision(GameContainer container) {
-       if (contador == 0) {
-        this.setAbrir(false);
-        this.mision1.setMisionAbierta(false);
-        Player player = container.getController().getNodes().findByName("Player");
-        player.setMisionOpen(false);
-        this.mision1.setGanaste(ganaste);
+        if (contador == 0) {
+            this.setAbrir(false);
+            this.mision1.setMisionAbierta(false);
+            Player player = container.getController().getNodes().findByName("Player");
+            player.setMisionOpen(false);
+            this.mision1.setGanaste(ganaste);
 
-       }        
-        
+        }
+
     }
 
     @Override
@@ -140,23 +139,24 @@ public class Mision extends GameNode {
             int maxScreenRow = container.getWindow().getMaxScreenRow();
             g2.setColor(new Color(0, 0, 0, 85));
             g2.fillRect(0, 0, maxScreenCol * tileSize, maxScreenRow * tileSize);
-            g2.drawImage(imagen[letrasEncontradas], (int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize,
-                     (int) (maxScreenRow - 2.5) * tileSize, null);
+            g2.drawImage(imagen[letrasEncontradas], (int) (1.5 * tileSize), (int) (1.5 * tileSize),
+                    (int) (maxScreenCol - 2.5) * tileSize,
+                    (int) (maxScreenRow - 2.5) * tileSize, null);
 
             g2.setColor(Color.BLACK);
 
             g2.setFont(new Font("Arial", Font.BOLD, 23 * scale));
-            //g2.drawString("JUEGO DEL AHORCADO", 125 *scale, 75 *scale);
+            // g2.drawString("JUEGO DEL AHORCADO", 125 *scale, 75 *scale);
             g2.drawString(palabra, 200 * scale, 200 * scale);
-              if (ganaste == true) {
-                   if (contador!=0 && soundDead==false){
-                        sound.setFile(8);
-                        sound.play();
-                        soundDead = true;
-                     }
-                  g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
-                  g2.drawString("MISION CUMPLIDA", 170, 250);
-              }
+            if (ganaste == true) {
+                if (contador != 0 && soundDead == false) {
+                    sound.setFile(8);
+                    sound.play();
+                    soundDead = true;
+                }
+                g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
+                g2.drawString("MISION CUMPLIDA", 170, 250);
+            }
         }
 
     }
