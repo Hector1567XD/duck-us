@@ -1,11 +1,11 @@
 package common.networking.engine.socket;
 
-import common.networking.engine.Packet;
+import common.CommonConstants;
 import common.networking.engine.Packet;
 import java.util.ArrayList;
 
 public class SocketPublisher {
-    private ArrayList<SocketEventSuscriber> subscribers;
+    private final ArrayList<SocketEventSuscriber> subscribers;
 
     public SocketPublisher() {
         this.subscribers = new ArrayList<>();
@@ -21,6 +21,12 @@ public class SocketPublisher {
     }
 
     public void notify(short event, Packet packet) {
+        if (packet == null) {
+            if (CommonConstants.DEBUG_MODE && CommonConstants.EDGE_CASES_LOG) {
+                System.out.println("Se ha notificado de un paquete nulo. ignoraremos el error.");
+            }
+            return;
+        }
         switch (event) {
             case SocketEvents.PACKET_RECEIVED_EVENT -> {
                 for (SocketEventSuscriber subscriber: subscribers) {

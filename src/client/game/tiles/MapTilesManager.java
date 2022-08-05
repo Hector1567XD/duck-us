@@ -23,10 +23,26 @@ public class MapTilesManager {
     public final int worldHeight;
     public MapNode mapNode;
 
+    public GameContainer getContainer() {
+        return container;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Tiles[] getTile() {
+        return tile;
+    }
+
+    public int[][] getMapTileNum() {
+        return mapTileNum;
+    }    
+
     public MapTilesManager(MapNode mapNode, GameContainer container) {
         this.mapNode = mapNode;
         this.container = container;
-        this.size =  container.getScale().getTileSize();
+        this.size = container.getScale().getTileSize();
 
         worldWitdh = size * container.getMaxMapCol();
         worldHeight = size * container.getMaxMapRow();
@@ -38,17 +54,17 @@ public class MapTilesManager {
     }
 
     public void getTileImagen() {
-        try{
-           tile[0] = new Tiles();
-           tile[0].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/grass.png"));
+        try {
+            tile[0] = new Tiles();
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/grass.png"));
 
-           tile[1] = new Tiles();
-           tile[1].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/wall.png"));
+            tile[1] = new Tiles();
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/wall.png"));
 
-           tile[2] = new Tiles();
-           tile[2].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/water.png"));
+            tile[2] = new Tiles();
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/water.png"));
 
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

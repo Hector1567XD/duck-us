@@ -6,15 +6,16 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-public class KillPacket extends Packet {
+public class PlayerKillPacket extends Packet {
     private int playerId;
 
-    public KillPacket(int playerId) {
+    public PlayerKillPacket(int playerId) {
         this.playerId = playerId;
     }
 
-    public KillPacket(DataInputStream bufferInput) throws IOException {
+    public PlayerKillPacket(DataInputStream bufferInput) throws IOException {
         this.playerId = bufferInput.readShort();
+
     }
 
     @Override
@@ -27,6 +28,9 @@ public class KillPacket extends Packet {
     public int getPackageType() {
         return PacketTypes.KILL_PACKET;
     }
-}
 
-// TODO: Change by "UnsignedShort" instead "Short"
+    public int getPlayerId() {
+        return playerId;
+    }
+
+}
