@@ -1,14 +1,14 @@
 package client.game.nodes;
 
 import client.game.nodes.classes.Sound;
+import client.game.engine.nodos.SpriteNode;
+import client.game.engine.nodos.SpriteableNode;
 import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
 import common.game.engine.node.NodeI;
-import client.game.engine.nodos.SpriteNode;
-import client.game.engine.nodos.SpriteableNode;
 import client.game.engine.nodos.NodeKilleable;
 import common.CommonConstants;
 import common.networking.packets.PlayerKillPacket;
@@ -19,19 +19,23 @@ import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import client.game.engine.core.Input;
+import common.networking.packets.PlayerMovePacket;
 import client.game.engine.nodos.CollideNode;
 import client.game.engine.nodos.NodeColladable;
 import client.utils.ImageUtils;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Player extends GameNode implements SpriteableNode, NodeColladable, NodeKilleable {
 
     private int velocity = 4;
+    private boolean misionOpen = false;
     private BufferedImage[] movingLeft;
     private BufferedImage[] movingRight;
     private BufferedImage[] staticDuckLeft;
@@ -131,13 +135,13 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
             this.staticDuckLeft = staticSpriteLeft;
             this.staticDuckRight = ImageUtils.flipXImageArray(this.staticDuckLeft);
             BufferedImage[] movingLeft = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak1.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak2.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak3.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak4.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak5.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak6.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png"))
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak1.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak2.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak3.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak4.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak5.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak6.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png"))
             };
             this.movingLeft = movingLeft;
             this.movingRight = ImageUtils.flipXImageArray(this.movingLeft);
@@ -296,6 +300,29 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 this.sprite2.setSprite(null);
             }
         }
+
+        if (input.isKey(KeyEvent.VK_P)) {
+            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+
+            for (NodeOpenable mision : missions) {
+                if (this.collideNode.isColliding(mision)) {
+                    //System.out.println("si :)");
+                    misionOpen = true;
+                    mision.setMisionAbierta(true);
+                }
+            }
+        }
+
+        if (input.isKey(KeyEvent.VK_X)) {
+            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+            for (NodeOpenable mision: missions) {
+                if (this.collideNode.isColliding(mision)) {
+                    //System.out.println("no :)");  
+                    misionOpen = false;
+                    mision.setMisionAbierta(false);
+                }
+            }
+        }
     }
 
     @Override
@@ -393,4 +420,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 soundCounter = 0;
     }
     
+    public void setMisionOpen(boolean misionOpen) {
+        this.misionOpen = misionOpen;
+    }
 }

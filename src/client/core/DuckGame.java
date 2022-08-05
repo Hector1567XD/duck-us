@@ -13,6 +13,11 @@ import client.game.nodes.Bloque;
 import client.game.nodes.Triangulito;
 import common.networking.engine.socket.SocketPublisher;
 import client.game.nodes.PingNode;
+import client.game.nodes.AbrirMision1;
+import client.game.nodes.AbrirMision2;
+import client.game.nodes.AbrirMision3;
+import client.game.nodes.Mision;
+import client.game.nodes.Mision2;
 
 public class DuckGame {
     public static void start(SocketPublisher publisher, Client client) {
@@ -26,12 +31,18 @@ public class DuckGame {
             Player player = new Player();
             MapNode mapa = new MapNode(container);
             PingNode pingNode = new PingNode();
+
             // Agregando Nodos
             controller.addNode(mapa, "MapNode");
             controller.addNode(new Bloque(100,300));
             controller.addNode(new Bloque(50,50));
             controller.addNode(new Bloque(300,300));
+            
             controller.addNode(player, "Player");
+            controller.addNode(new AbrirMision1(250,300));
+            controller.addNode(new AbrirMision2(150,150));
+            controller.addNode(new AbrirMision3(150,250));
+            
             controller.addNode(new Triangulito());
             // ACOPLANDO NODOS
             network.setPingNode(pingNode);

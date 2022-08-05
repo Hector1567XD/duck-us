@@ -13,23 +13,25 @@ import java.awt.Graphics2D;
 public class Triangulito extends GameNode {
     @Override
     public void created(GameContainer container) {
-        
+
     }
+
     @Override
     public void update(GameContainer container) {
 
     }
+
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-      
+
         g2.setColor(Color.ORANGE);
         int alto = tileSize * scale;
         int ancho = tileSize * scale;
         int offSetX = 0;
         int offSetY = 0;
-        
+
         g2.fillRect(drawX, drawY, alto, ancho);
         g2.setColor(Color.BLUE);
         g2.fillRect(x, y, alto, ancho);
