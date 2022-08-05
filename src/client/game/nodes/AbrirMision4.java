@@ -32,12 +32,13 @@ public class AbrirMision4 extends GameNode implements SpriteableNode, NodeCenter
     BufferedImage[] spriteMissionLigth;
     boolean isCercaPlayer = false;
 
-    public AbrirMision4(int x, int y) {
+    public AbrirMision4(int x, int y, Mision4 mision) {
         this.x = x;
         this.y = y;
-        this.misionActual = new Mision4(this);
-        this.addNode(misionActual);
+        this.misionActual = mision;
+        //this.addNode(misionActual);
         this.sprite = new SpriteNode(this);
+        this.misionActual.setParentMision(this);
         this.addNode(sprite);
         this.initPlayerImages();
     }

@@ -29,12 +29,13 @@ public class AbrirMision2 extends GameNode implements SpriteableNode, NodeCenter
     
     private boolean ganaste = false;
 
-    public AbrirMision2(int x, int y) {
+    public AbrirMision2(int x, int y, Mision2 mision) {
         this.x = x;
         this.y = y;
-        this.misionActual = new Mision2(this);
-        this.addNode(misionActual);
+        this.misionActual = mision;
+        //this.addNode(misionActual);
         this.sprite = new SpriteNode(this);
+        this.misionActual.setParentMision(this);
         this.addNode(sprite);
         this.initPlayerImages();
     }

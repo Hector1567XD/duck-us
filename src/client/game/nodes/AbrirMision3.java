@@ -33,12 +33,13 @@ public class AbrirMision3 extends GameNode implements SpriteableNode, NodeCenter
     boolean isCercaPlayer = false;
 
     
-    public AbrirMision3(int x, int y) {
+    public AbrirMision3(int x, int y, Mision3 mision) {
         this.x = x;
         this.y = y;
-        this.misionActual = new Mision3(this);
-        this.addNode(misionActual);
+        this.misionActual = mision;
+        //this.addNode(misionActual);
         this.sprite = new SpriteNode(this);
+        this.misionActual.setParentMision(this);
         this.addNode(sprite);
         this.initPlayerImages();
     }

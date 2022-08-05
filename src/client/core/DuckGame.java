@@ -17,6 +17,10 @@ import client.game.nodes.AbrirMision1;
 import client.game.nodes.AbrirMision2;
 import client.game.nodes.AbrirMision3;
 import client.game.nodes.AbrirMision4;
+import client.game.nodes.Mision;
+import client.game.nodes.Mision2;
+import client.game.nodes.Mision3;
+import client.game.nodes.Mision4;
 
 public class DuckGame {
     public static void start(SocketPublisher publisher, Client client, String nombre) {
@@ -40,13 +44,25 @@ public class DuckGame {
             controller.addNode(new Bloque(100,300));
             controller.addNode(new Bloque(50,50));
             controller.addNode(new Bloque(300,300));
-
+/*
+                    this.x = 4032;
+        this.y = 1440;
+            */
             controller.addNode(player, "Player");
             controller.addNode(new MapEscuelaUpsideNode(container), "MapNodeUpside");
-            controller.addNode(new AbrirMision1(250,300));
-            controller.addNode(new AbrirMision2(150,150));
-            controller.addNode(new AbrirMision3(150,250));
-            controller.addNode(new AbrirMision4(300,70));
+            Mision mision = new Mision();
+            Mision2 mision2 = new Mision2();
+            Mision3 mision3 = new Mision3();
+            Mision4 mision4 = new Mision4();
+            controller.addNode(new AbrirMision1(4032+32,1440+32, mision));
+            controller.addNode(new AbrirMision2(4032-32,1440+32, mision2));
+            controller.addNode(new AbrirMision3(4032+32,1440-32, mision3));
+            controller.addNode(new AbrirMision4(4032-32,1440-32, mision4));
+            controller.addNode(mision);
+            controller.addNode(mision2);
+            controller.addNode(mision3);
+            controller.addNode(mision4);
+
         // ACOPLANDO NODOS
             network.setPingNode(pingNode);
             controller.setCamera(new Camera(container)); // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR

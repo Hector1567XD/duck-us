@@ -29,9 +29,15 @@ public class Mision3 extends GameNode {
     private int control;
     private int imprimir;
 
+    public void setParentMision(AbrirMision3 mision3) {
+        this.mision3 = mision3;
+    }
+    
     public Mision3(AbrirMision3 mision3) {
         this.mision3 = mision3;
     }
+
+    public Mision3() {}
 
     public boolean isAbrir() {
         return abrir;
@@ -130,4 +136,8 @@ public class Mision3 extends GameNode {
         }
     }
 
+    @Override
+    public int getNodeLevel() {
+        return 500;
+    }
 }
