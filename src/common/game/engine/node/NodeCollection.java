@@ -1,6 +1,7 @@
 package common.game.engine.node;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class NodeCollection {
@@ -24,6 +25,7 @@ public class NodeCollection {
 
             // Añade el nodo a las distintas listas
             nodes.add(node);
+            Collections.sort(nodes, NodeComparator.levelComparator);
             nodesByID.put(node.getNodeId(), node);
 
             if (node.getNodeName() != null) {
@@ -56,6 +58,7 @@ public class NodeCollection {
 
             // Elimina el nodo de las distintas listas
             nodes.remove(node);
+            Collections.sort(nodes, NodeComparator.levelComparator);
             nodesByID.remove(nodeId);
 
             if (node.getNodeName() != null) {

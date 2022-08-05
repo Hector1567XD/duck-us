@@ -1,5 +1,6 @@
 package client.game.nodes;
 
+import client.game.engine.nodos.SpriteNode;
 import client.game.engine.nodos.SpriteableNode;
 import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
@@ -7,22 +8,21 @@ import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import common.networking.packets.PlayerMovePacket;
 import client.game.engine.nodos.CollideNode;
-import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
 import client.utils.ImageUtils;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.awt.event.KeyEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
-public class Player extends GameNode implements NodeCenterable, SpriteableNode, NodeColladable {
+public class Player extends GameNode implements SpriteableNode, NodeColladable {
+
     private int velocity = 4;
+    private boolean misionOpen = false;
     private BufferedImage[] movingLeft;
     private BufferedImage[] movingRight;
     private BufferedImage[] staticDuckLeft;
@@ -48,19 +48,18 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
     private void initPlayerImages() {
         try {
             BufferedImage[] staticSpriteLeft = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")),
-            };
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")),};
             this.staticDuckLeft = staticSpriteLeft;
             this.staticDuckRight = ImageUtils.flipXImageArray(this.staticDuckLeft);
 
             BufferedImage[] movingLeft = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak1.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak2.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak3.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak4.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak5.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak6.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png"))
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak1.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak2.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak3.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak4.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak5.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak6.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png"))
             };
             this.movingLeft = movingLeft;
             this.movingRight = ImageUtils.flipXImageArray(this.movingLeft);
@@ -83,8 +82,8 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
                 || input.isKey(KeyEvent.VK_D);
 
         boolean canWalking = false;
-        
-        if (isWalking) {
+
+        if (isWalking && !misionOpen) {
             if (input.isKey(KeyEvent.VK_W)) {
                 if (this.collideNode.canMove(container, this.x, this.y - velocity)) {
                     canWalking = true;
@@ -143,7 +142,7 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
                 this.sprite.setSprite(movingLeft);
             }
             this.sprite.setSpeed(5);
-        }else{
+        } else {
             if (directionX == 1) {
                 this.sprite.setSprite(staticDuckRight);
             } else if (directionX == -1) {
@@ -151,10 +150,37 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
             }
             this.sprite.setSpeed(-1);
         }
+
+        if (input.isKey(KeyEvent.VK_P)) {
+            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+
+            for (NodeOpenable mision : missions) {
+                if (this.collideNode.isColliding(mision) && mision.isGanaste() == false) {
+                    //System.out.println("si :)");
+                    misionOpen = true;
+                    mision.setMisionAbierta(true);
+                }
+            }
+        }
+
+        ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+        for (NodeOpenable mision : missions) {
+            if (this.collideNode.isColliding(mision)) {
+                mision.setIsCercaPlayer(true);
+                if (input.isKey(KeyEvent.VK_X)) {
+                    //System.out.println("no :)");  
+                    misionOpen = false;
+                    mision.setMisionAbierta(false);
+                }
+            }else{
+                mision.setIsCercaPlayer(false);
+            }
+        }
     }
 
     @Override
-    public void draw(GameContainer container, Graphics2D g2) {}
+    public void draw(GameContainer container, Graphics2D g2) {
+    }
 
     @Override
     public String getNodeTag() {
@@ -179,10 +205,18 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
 
     public CenterBorders getCenterBorders() {
         return new CenterBorders(20, 24, 20, 20);
-    }        
-            
+    }
+
     @Override
     public CollideBox getCollideBox() {
         return this.collideNode.getPositionCollideBox(this.x, this.y);
+    }
+
+    public void setMisionOpen(boolean misionOpen) {
+        this.misionOpen = misionOpen;
+    }
+
+    public int getNodeLevel() {
+        return 150;
     }
 }
