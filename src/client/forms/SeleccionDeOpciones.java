@@ -8,6 +8,12 @@ import client.Constants;
 import client.DuckOrquestador;
 import client.game.engine.GameContainer;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -23,6 +29,17 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
         initComponents();
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        try {
+            BufferedImage bgImage = ImageIO.read(getClass().getResourceAsStream("/client/resources/forms/image.jpg"));
+            g.drawImage(bgImage, 0, 0, null);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,8 +54,6 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
         jugar = new javax.swing.JButton();
         ayuda = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
         acercaDe.setText("Acerca de");
         acercaDe.addActionListener(new java.awt.event.ActionListener() {
@@ -68,31 +83,28 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jugar)
-                .addGap(259, 259, 259))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(160, 160, 160)
                 .addComponent(jLabel2)
                 .addContainerGap(160, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(92, 92, 92)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(acercaDe)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addComponent(jugar)
+                .addGap(44, 44, 44)
                 .addComponent(ayuda)
-                .addGap(98, 98, 98))
+                .addGap(143, 143, 143))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jugar)
                     .addComponent(acercaDe)
                     .addComponent(ayuda))
-                .addGap(67, 67, 67)
-                .addComponent(jugar)
                 .addGap(120, 120, 120))
         );
 
@@ -108,7 +120,7 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -8,6 +8,11 @@ import client.DuckOrquestador;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -30,6 +35,17 @@ public class MenuPrincipal extends javax.swing.JPanel {
         this.orquestator = orquestator;  
         initComponents();
         
+    }
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        try {
+            BufferedImage bgImage = ImageIO.read(getClass().getResourceAsStream("/client/resources/forms/image.jpg"));
+            g.drawImage(bgImage, 0, 0, null);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
@@ -68,7 +84,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
                 .addComponent(inicio)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(188, Short.MAX_VALUE)
+                .addGap(0, 188, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(186, 186, 186))
         );

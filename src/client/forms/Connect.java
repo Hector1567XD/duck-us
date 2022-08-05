@@ -8,11 +8,17 @@ import client.Constants;
 import client.DuckOrquestador;
 import client.game.engine.GameContainer;
 import common.networking.packets.PlayerLoginPacket;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -36,6 +42,17 @@ public class Connect extends javax.swing.JPanel {
         txtPort.setText(Constants.DEFAULT_PORT);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        try {
+            BufferedImage bgImage = ImageIO.read(getClass().getResourceAsStream("/client/resources/forms/image.jpg"));
+            g.drawImage(bgImage, 0, 0, null);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
