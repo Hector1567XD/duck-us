@@ -6,6 +6,7 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
+import common.game.engine.node.NodeI;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -17,32 +18,24 @@ public class Player extends GameNode implements NodeCenterable {
     private int soundStep = 0;
     private int soundAcumulatorMax = 20;
     
+    
     @Override
     public void created(GameContainer container) {
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+    
     }
 
     @Override
     public void update(GameContainer container) {
         Input input = container.getInput();
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
-
+        
+        this.soundGO(4);
+        
         if (isWalking) {
             soundCounter++;
             if (soundCounter >= soundAcumulatorMax + 5) {
                 sonidoPisada(soundStep);
-                soundStep++;
-                if (soundStep > 2) {
-                    soundStep = 0;
-                }
-                if (soundStep == 0) {
-                    soundAcumulatorMax = 7 + 5;
-                }else if (soundStep == 1) {
-                    soundAcumulatorMax = 15;
-                }else if (soundStep == 2) {
-                    soundAcumulatorMax = 14;
-                }
-                soundCounter = 0;
             }
 
             if (input.isKey(KeyEvent.VK_W)) {
@@ -89,8 +82,29 @@ public class Player extends GameNode implements NodeCenterable {
         return 16;
     }
 
+    public void soundGO(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    
+    
+    
     public void sonidoPisada(int i) {
+        
        sound.setFile(i);
        sound.play();
+       soundStep++;
+                if (soundStep > 2) {
+                    soundStep = 0;
+                }
+                if (soundStep == 0) {
+                    soundAcumulatorMax = 7 + 5;
+                }else if (soundStep == 1) {
+                    soundAcumulatorMax = 15;
+                }else if (soundStep == 2) {
+                    soundAcumulatorMax = 14;
+                }
+                soundCounter = 0;
     }
 }

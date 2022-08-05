@@ -11,10 +11,15 @@ public class Sound {
    URL soundURL[] = new URL[30]; 
    
    public Sound (){
-       soundURL[0] = getClass().getResource("/client/resources/game/sounds/Pisada 1.wav");
-       soundURL[1] = getClass().getResource("/client/resources/game/sounds/Pisada 2.wav");
-       soundURL[2] = getClass().getResource("/client/resources/game/sounds/Pisada 3.wav");
-       soundURL[4] = getClass().getResource("/client/resources/game/sounds/Pato impostor.wav");
+       soundURL[0] = getClass().getResource("/client/resources/game/sounds/Pisada1.wav");
+       soundURL[1] = getClass().getResource("/client/resources/game/sounds/Pisada2.wav");
+       soundURL[2] = getClass().getResource("/client/resources/game/sounds/Pisada3.wav");
+       soundURL[3] = getClass().getResource("/client/resources/game/sounds/Patoimpostor.wav");
+       soundURL[4] = getClass().getResource("/client/resources/game/sounds/Explosion.wav");
+       
+       
+       
+       
    }
    
    public void setFile(int i) {
