@@ -7,6 +7,7 @@ package client.game.nodes;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
+import client.game.nodes.classes.Sound;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -38,6 +39,8 @@ public class Mision2 extends GameNode {
     private BufferedImage[] imagen;
     private int contador;
     private boolean ganaste;
+    private boolean soundDead = false;
+    Sound sound = new Sound();
 
     public Mision2(AbrirMision2 mision2) {
         this.mision2 = mision2;
@@ -135,6 +138,11 @@ public class Mision2 extends GameNode {
             g2.drawString("Resultado : ", 75 * scale, 180 * scale);
             g2.drawString(palabraAEscribir.substring(0, letraActual), 74 * scale, 200 * scale);
               if (ganaste == true) {
+                   if (contador!=0 && soundDead==false){
+                        sound.setFile(8);
+                        sound.play();
+                        soundDead = true;
+                     }
                   g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
                   g2.drawString("MISION CUMPLIDA", 170, 250);
               }
