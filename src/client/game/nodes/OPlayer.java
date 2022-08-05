@@ -2,7 +2,6 @@ package client.game.nodes;
 
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
-import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeKilleable;
 import client.game.nodes.classes.Sound;
@@ -41,8 +40,8 @@ public class OPlayer extends GameNode implements NodeCenterable, NodeKilleable {
         int offSetY = this.getOffsetY() * scale;
         g2.fillRect(drawX - offSetX, drawY - offSetY, tileSize * scale, tileSize * scale);
         g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.CENTER_BASELINE, 11 * scale));
-        g2.drawString(this.name + "(" + this.playerId + ")", (drawX - 16) * scale, (drawY + 36) * scale);
+        g2.setFont(new Font("Arial", Font.CENTER_BASELINE, 11 * scale));        
+        g2.drawString(this.name + "(" + this.playerId + ")", (drawX - 16* scale), (drawY + 36* scale));
         if (isDead == true) {
             if (soundDead ==false){
                sound.setFile(10);
@@ -76,5 +75,9 @@ public class OPlayer extends GameNode implements NodeCenterable, NodeKilleable {
 
     public void setIsDead(boolean isDead) {
         this.isDead = isDead;
+    }
+
+    public int getNodeLevel() {
+        return 100;
     }
 }

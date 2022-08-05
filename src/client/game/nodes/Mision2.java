@@ -42,9 +42,15 @@ public class Mision2 extends GameNode {
     private boolean soundDead = false;
     Sound sound = new Sound();
 
+    public void setParentMision(AbrirMision2 mision2) {
+        this.mision2 = mision2;
+    }
+    
     public Mision2(AbrirMision2 mision2) {
         this.mision2 = mision2;
     }
+
+    public Mision2() {}
     
     public boolean isAbrir() {
         return abrir;
@@ -159,4 +165,8 @@ public class Mision2 extends GameNode {
         return 16;
     }
 
+    @Override
+    public int getNodeLevel() {
+        return 500;
+    }
 }

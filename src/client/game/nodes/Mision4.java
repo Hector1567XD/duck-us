@@ -32,10 +32,16 @@ public class Mision4 extends GameNode{
     Sound sound = new Sound();
 
     
-    public Mision4(AbrirMision4 mision4) {
+    public void setParentMision(AbrirMision4 mision4) {
         this.mision4 = mision4;
     }
     
+    public Mision4(AbrirMision4 mision4) {
+        this.mision4 = mision4;
+    }
+
+    public Mision4() {}
+
     public boolean isAbrir() {
         return abrir;
     }
@@ -126,4 +132,8 @@ public class Mision4 extends GameNode{
         
     }
 
+    @Override
+    public int getNodeLevel() {
+        return 500;
+    }
 }

@@ -114,4 +114,8 @@ public abstract class Node implements NodeI {
     public String toString() {
         return "Node{" + "id=" + nodeId + ", x=" + x + ", y=" + y + ", tag=" + getNodeTag() + ", name=" + getNodeName() + ", removed=" + removed + ", childs=" + childNodes + '}';
     }
+
+    public int getNodeLevel() {
+        return 0;
+    }
 }

@@ -1,14 +1,13 @@
 package client.game.tiles;
 
 import client.game.engine.GameContainer;
-import client.game.engine.tiles.Tiles;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
-import client.game.nodes.MapNode;
+import client.game.nodes.MapEscuelaNode;
 
 /**
  *
@@ -17,11 +16,10 @@ import client.game.nodes.MapNode;
 public class MapTilesManager {
     GameContainer container;
     int size;
-    Tiles[] tile;
     int mapTileNum[][];
     public final int worldWitdh;
     public final int worldHeight;
-    public MapNode mapNode;
+    public MapEscuelaNode mapNode;
 
     public GameContainer getContainer() {
         return container;
@@ -31,15 +29,11 @@ public class MapTilesManager {
         return size;
     }
 
-    public Tiles[] getTile() {
-        return tile;
-    }
-
     public int[][] getMapTileNum() {
         return mapTileNum;
     }    
 
-    public MapTilesManager(MapNode mapNode, GameContainer container) {
+    public MapTilesManager(MapEscuelaNode mapNode, GameContainer container) {
         this.mapNode = mapNode;
         this.container = container;
         this.size = container.getScale().getTileSize();
@@ -47,26 +41,8 @@ public class MapTilesManager {
         worldWitdh = size * container.getMaxMapCol();
         worldHeight = size * container.getMaxMapRow();
 
-        tile = new Tiles[10]; //10 mosaicos
         mapTileNum = new int[container.getMaxMapCol()][container.getMaxMapRow()];
-        getTileImagen();
         loadMap();
-    }
-
-    public void getTileImagen() {
-        try {
-            tile[0] = new Tiles();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/grass.png"));
-
-            tile[1] = new Tiles();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/wall.png"));
-
-            tile[2] = new Tiles();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/tiles/water.png"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void loadMap() { 
@@ -94,7 +70,7 @@ public class MapTilesManager {
        }
     }
 
-    public void draw(Graphics2D g2) {
+    /*public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
 
@@ -116,5 +92,29 @@ public class MapTilesManager {
                 worldRow++;
             }
         }
-    }
+    }*/
+
+    /*@Override
+    public void draw(Graphics2D g2) {
+        if (showCollitionsShape) {
+            //CenterBorders centerBorders = this.parent.getCenterBorders();
+            g2.setColor(Color.ORANGE);
+            CollideBox collideBox = this.getPositionCollideBox(this.x, this.y);
+            this.drawCollideBox(container, g2, collideBox);
+            MapTilesManager mapTilesManager = mapNode.getMapa();
+            int[][] arregloTilesets = mapTilesManager.getMapTileNum();
+
+            for (int posX = 0; posX < container.getMaxMapCol(); posX++) {
+                for (int posY = 0; posY < container.getMaxMapRow(); posY++) {
+                    int tile = arregloTilesets[posX][posY];
+                    if (tile == 1) {
+                        int offsetBlock = CommonConstants.TILE_SIZE / 2;
+                        CollideBox tileCollideBox = this.getCollideBoxByTile(posX, posY, offsetBlock);
+                        g2.setColor(Color.red);
+                        this.drawCollideBox(container, g2, tileCollideBox);
+                    }
+                }
+            }
+        }
+    }*/
 }

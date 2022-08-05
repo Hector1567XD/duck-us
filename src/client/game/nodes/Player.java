@@ -7,8 +7,6 @@ import common.networking.packets.PlayerLoginPacket;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
-import client.game.engine.nodos.NodeCenterable;
-import common.game.engine.node.NodeI;
 import client.game.engine.nodos.NodeKilleable;
 import common.CommonConstants;
 import common.networking.packets.PlayerKillPacket;
@@ -18,16 +16,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import client.game.engine.core.Input;
-import common.networking.packets.PlayerMovePacket;
 import client.game.engine.nodos.CollideNode;
 import client.game.engine.nodos.NodeColladable;
 import client.utils.ImageUtils;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -62,10 +56,12 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     private int soundStep = 0;
     private int soundAcumulatorMax = 20;
 
+    private String gameName;
 
-    public Player() {
+    public Player(String nombre) {
         // Sub nodo de colision
         this.collideNode = new CollideNode(this);
+        //this.collideNode.setShowCollitionsShape(false);// (Solo activar para debuggear)
         this.collideNode.setShowCollitionsShape(false);// (Solo activar para debuggear)
         this.addNode(this.collideNode);
         // Sub nodo de sprites
@@ -76,62 +72,57 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         this.addNode(this.sprite2);
         // Init Images
         this.initPlayerImages();
+        this.gameName = nombre;
     }
 
     private void initPlayerImages() {
         try {
             BufferedImage[] spriteDead = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dead/dead.png")),
-            };
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dead/dead.png")),};
             this.spriteDead = spriteDead;
 
             BufferedImage[] spriteDying = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die1.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die2.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die3.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die4.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die5.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die6.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die7.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die8.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die9.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die10.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die11.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die11.png")),
-            };
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die1.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die2.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die3.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die4.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die5.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die6.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die7.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die8.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die9.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die10.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die11.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die11.png")),};
             this.spriteDying = spriteDying;
 
             BufferedImage[] spriteKillingLeft = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft1.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft2.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft3.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft4.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft5.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft5.png")),
-                    
-            };
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft1.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft2.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft3.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft4.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft5.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft5.png")),};
             this.spriteKillingLeft = spriteKillingLeft;
 
             BufferedImage[] spriteKillingRight = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight1.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight2.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight3.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight4.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight5.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight5.png")),
-            
-            };
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight1.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight2.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight3.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight4.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight5.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight5.png")),};
             this.spriteKillingRight = spriteKillingRight;
 
             BufferedImage[] spriteButton = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButton.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButtonWait.png")),
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButtonNo.png"))
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButton.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButtonWait.png")),
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButtonNo.png"))
             };
             this.spriteButton = spriteButton;
 
             BufferedImage[] staticSpriteLeft = {
-                    ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")), };
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")),};
             this.staticDuckLeft = staticSpriteLeft;
             this.staticDuckRight = ImageUtils.flipXImageArray(this.staticDuckLeft);
             BufferedImage[] movingLeft = {
@@ -152,17 +143,24 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
 
     @Override
     public void created(GameContainer container) {
-        this.x = 235;
-        this.y = 200;
-        container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
+        this.x = 4032;
+        this.y = 1440;
+        /*this.y = 3200;
+        this.x = 322;*/
+ /*this.x = 455;
+        this.y = 322;*/
+        /*this.x = 235;
+        this.y = 200;*/
         alredyKill = false;
         timer = 10 * 60;
         impostor = true;
         if (impostor) {
             this.soundGO(3);
             System.out.println("soy impostor :D");
-        }else 
+        } else {
             this.soundGO(9);
+        }
+        container.getNetwork().sendPacket(new PlayerLoginPacket(gameName));
     }
 
     @Override
@@ -171,11 +169,10 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A)
                 || input.isKey(KeyEvent.VK_D);
         boolean canWalking = false;
-        
+
         if (input.isKeyDown(KeyEvent.VK_H)) {
             this.soundGO(3);
-        }      
-
+        }
 
         if (isDying) {
             this.sprite.setSprite(spriteDying);
@@ -185,7 +182,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 isDying = false;
                 this.sprite.setSpeed(0);
             }
-        } else {
+        }else{
             if (!isDead) {
                 if (isKilling) {
                     if (directionX == 1) {
@@ -200,6 +197,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                         this.sprite.setSpeed(0);
                     }
                 } else {
+                    // LOGICA DE IMPOSTOR
                     if (impostor) {
                         this.sprite2.setSprite(spriteButton);
                         this.sprite2.setIndex(0);
@@ -285,6 +283,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                             this.sprite.setSprite(movingLeft);
                         }
                         this.sprite.setSpeed(5);
+                        //this.soundGO(6);
                     } else {
                         if (directionX == 1) {
                             this.sprite.setSprite(staticDuckRight);
@@ -293,34 +292,39 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                         }
                         this.sprite.setSpeed(-1);
                     }
+
+                    // P Mission abrir mision
+                    if (input.isKey(KeyEvent.VK_P)) {
+                        ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+
+                        for (NodeOpenable mision : missions) {
+                            if (this.collideNode.isColliding(mision) && mision.isGanaste() == false) {
+                                //System.out.println("si :)");
+                                misionOpen = true;
+                                mision.setMisionAbierta(true);
+                            }
+                        }
+                    }
+
+                    // Cerrar mision
+                    ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+                    for (NodeOpenable mision : missions) {
+                        if (this.collideNode.isColliding(mision)) {
+                            mision.setIsCercaPlayer(true);
+                            if (input.isKey(KeyEvent.VK_X)) {
+                                //System.out.println("no :)");  
+                                misionOpen = false;
+                                mision.setMisionAbierta(false);
+                            }
+                        } else {
+                            mision.setIsCercaPlayer(false);
+                        }
+                    }
                 }
 
             } else {
                 this.sprite.setSprite(spriteDead);
                 this.sprite2.setSprite(null);
-            }
-        }
-
-        if (input.isKey(KeyEvent.VK_P)) {
-            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
-
-            for (NodeOpenable mision : missions) {
-                if (this.collideNode.isColliding(mision) && mision.isGanaste() == false) {
-                    //System.out.println("si :)");
-                    misionOpen = true;
-                    mision.setMisionAbierta(true);
-                }
-            }
-        }
-
-        if (input.isKey(KeyEvent.VK_X)) {
-            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
-            for (NodeOpenable mision: missions) {
-                if (this.collideNode.isColliding(mision)) {
-                    //System.out.println("no :)");  
-                    misionOpen = false;
-                    mision.setMisionAbierta(false);
-                }
             }
         }
     }
@@ -398,29 +402,33 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         return this.collideNode.getPositionCollideBox(this.x, this.y);
     }
 
-    public void soundGO(int i){
+    public void soundGO(int i) {
         sound.setFile(i);
         sound.play();
     }
 
     public void sonidoPisada(int i) {
-       sound.setFile(i);
-       sound.play();
-       soundStep++;
-                if (soundStep > 2) {
-                    soundStep = 0;
-                }
-                if (soundStep == 0) {
-                    soundAcumulatorMax = 7 + 5;
-                }else if (soundStep == 1) {
-                    soundAcumulatorMax = 15;
-                }else if (soundStep == 2) {
-                    soundAcumulatorMax = 14;
-                }
-                soundCounter = 0;
+        sound.setFile(i);
+        sound.play();
+        soundStep++;
+        if (soundStep > 2) {
+            soundStep = 0;
+        }
+        if (soundStep == 0) {
+            soundAcumulatorMax = 7 + 5;
+        } else if (soundStep == 1) {
+            soundAcumulatorMax = 15;
+        } else if (soundStep == 2) {
+            soundAcumulatorMax = 14;
+        }
+        soundCounter = 0;
     }
-    
+
     public void setMisionOpen(boolean misionOpen) {
         this.misionOpen = misionOpen;
+    }
+
+    public int getNodeLevel() {
+        return 150;
     }
 }

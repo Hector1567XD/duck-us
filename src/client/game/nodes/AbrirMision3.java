@@ -8,26 +8,54 @@ import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeColladable;
+import client.game.engine.nodos.SpriteNode;
+import client.game.engine.nodos.SpriteableNode;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
 import client.utils.game.collitions.CollitionsUtils;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
  * @author david_000
  */
-public class AbrirMision3 extends GameNode implements NodeCenterable, NodeColladable, NodeOpenable{
+public class AbrirMision3 extends GameNode implements SpriteableNode, NodeCenterable, NodeColladable, NodeOpenable{
     private boolean misionAbierta = false;
     Mision3 misionActual;
     private boolean ganaste = false;
+    SpriteNode sprite;
+    BufferedImage[] spriteMission;
+    BufferedImage[] spriteMissionLigth;
+    boolean isCercaPlayer = false;
 
-    public AbrirMision3(int x, int y) {
+    
+    public AbrirMision3(int x, int y, Mision3 mision) {
         this.x = x;
         this.y = y;
-        this.misionActual = new Mision3(this);
-        this.addNode(misionActual);
+        this.misionActual = mision;
+        //this.addNode(misionActual);
+        this.sprite = new SpriteNode(this);
+        this.misionActual.setParentMision(this);
+        this.addNode(sprite);
+        this.initPlayerImages();
+    }
+
+    private void initPlayerImages() {
+        try {
+            BufferedImage[] spriteMission = {
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/missions/mission-1.png")),};
+            BufferedImage[] spriteMissionLigth = {
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/missions/mission-1-light.png")),};
+
+            this.spriteMission = spriteMission;
+            this.spriteMissionLigth = spriteMissionLigth;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -59,7 +87,11 @@ public class AbrirMision3 extends GameNode implements NodeCenterable, NodeCollad
 
     @Override
     public void update(GameContainer container) {
-
+        if (isCercaPlayer) {
+            this.sprite.setSprite(spriteMissionLigth);
+        }else{
+            this.sprite.setSprite(spriteMission);
+        }
     }
 
     @Override
@@ -107,5 +139,19 @@ public class AbrirMision3 extends GameNode implements NodeCenterable, NodeCollad
         CenterBorders centerBorders = this.getCenterBorders();
         return CollitionsUtils.createCenteredBox(x, y, centerBorders);
     }
-    
+
+    @Override
+    public int getWidth() {
+        return 32;
+    }
+
+    @Override
+    public int getHeight() {
+        return 32;
+    }
+
+    @Override
+    public void setIsCercaPlayer(boolean isCercaPlayer) {
+        this.isCercaPlayer = isCercaPlayer;
+    }
 }
