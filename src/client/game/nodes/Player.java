@@ -43,6 +43,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     public Player(String nombre) {
         // Sub nodo de colision
         this.collideNode = new CollideNode(this);
+        //this.collideNode.setShowCollitionsShape(false);// (Solo activar para debuggear)
         this.collideNode.setShowCollitionsShape(false);// (Solo activar para debuggear)
         this.addNode(this.collideNode);
         // Sub nodo de sprites
@@ -82,6 +83,12 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
 
     @Override
     public void created(GameContainer container) {
+        this.x = 4032;
+        this.y = 1440;
+        /*this.y = 3200;
+        this.x = 322;*/
+        /*this.x = 455;
+        this.y = 322;*/
         this.x = 235;
         this.y = 200;
         alredyKill = false;

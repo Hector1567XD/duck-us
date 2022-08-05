@@ -1,14 +1,19 @@
 package client.game.engine.nodos;
 
+import client.Constants;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.nodes.Bloque;
-import client.game.nodes.MapNode;
-import client.game.tiles.MapTilesManager;
+import client.game.nodes.MapEscuelaNode;
+import client.game.nodes.MapNodeParent;
+import client.game.nodes.tiles.Map1CollitionManager;
+import client.game.nodes.tiles.MapCollitionManagerParent;
+import client.game.utils.CollideBoxCamDrawer;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
 import client.utils.game.collitions.CollitionsUtils;
 import common.CommonConstants;
+import common.utils.NodeCollectionUtils;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -19,9 +24,9 @@ public class CollideNode extends GameNode {
 
     public CollideNode(NodeColladable parent) {
         this.parent = parent;
-        this.showCollitionsShape = false;
+        this.showCollitionsShape = Constants.SHOW_COLLISION_SHAPE && Constants.SHOW_COLLISION_NODE_COLLISION_SHAPE;
     }
-    
+
     public boolean isShowCollitionsShape() {
         return showCollitionsShape;
     }
@@ -45,54 +50,8 @@ public class CollideNode extends GameNode {
             //CenterBorders centerBorders = this.parent.getCenterBorders();
             g2.setColor(Color.ORANGE);
             CollideBox collideBox = this.getPositionCollideBox(this.x, this.y);
-            this.drawCollideBox(container, g2, collideBox);
-
-            // COLISION CON COLLIDE MAPS
-            MapNode mapNode = container.getController().getNodes().findByName("MapNode");
-            if (mapNode == null) {
-                return;
-            }
-
-            MapTilesManager mapTilesManager = mapNode.getMapa();
-            int[][] arregloTilesets = mapTilesManager.getMapTileNum();
-
-            for (int posX = 0; posX < container.getMaxMapCol(); posX++) {
-                for (int posY = 0; posY < container.getMaxMapRow(); posY++) {
-                    int tile = arregloTilesets[posX][posY];
-                    if (tile == 1) {
-                        int offsetBlock = CommonConstants.TILE_SIZE / 2;
-                        CollideBox tileCollideBox = this.getCollideBoxByTile(posX, posY, offsetBlock);
-                        g2.setColor(Color.red);
-                        this.drawCollideBox(container, g2, tileCollideBox);
-                    }
-                }
-            }
+            CollideBoxCamDrawer.drawCollideBox(container, g2, collideBox);
         }
-    }
-
-    private void drawCollideBox(GameContainer container, Graphics2D g2, CollideBox collideBox) {
-        AbstractCamera camera = container.getController().getCamera();
-        int x1 = collideBox.getX1();
-        int y1 = collideBox.getY1();
-        if (camera != null) {
-            x1 = collideBox.getX1() + camera.getDeltaCameraX();
-            y1 = collideBox.getY1() + camera.getDeltaCameraY();
-        }
-        int x2 = collideBox.getX2() - collideBox.getX1();
-        int y2 = collideBox.getY2() - collideBox.getY1();
-        g2.fillRect(x1, y1, x2, y2);
-    }
-
-    public CollideBox getCollideBoxByTile(int posX, int posY, int offsetBlock) {
-        int tilePosX = posX * CommonConstants.TILE_SIZE + offsetBlock;
-        int tilePosY = posY * CommonConstants.TILE_SIZE + offsetBlock;
-
-        CollideBox tileCollideBox = CollitionsUtils.createCenteredBox(
-            tilePosX,
-            tilePosY,
-            new CenterBorders(offsetBlock, offsetBlock, offsetBlock, offsetBlock)
-        );
-        return tileCollideBox;
     }
 
     public boolean isColliding(NodeColladable otherNode) {
@@ -116,19 +75,33 @@ public class CollideNode extends GameNode {
         }
 
         // COLISION CON COLLIDE MAPS
-        MapNode mapNode = container.getController().getNodes().findByName("MapNode");
+        ArrayList<MapNodeParent> mapNodes = container.getController().getNodes().getListByTag("MapNode");
+        boolean canMoveInMapNode = true;
+        for (MapNodeParent mapNode: mapNodes) {
+            canMoveInMapNode = this.canMoveInMapNode(mapNode, x, y);
+            if (canMoveInMapNode == false) return false;
+        }
+
+        return canMoveInMapNode;
+    }
+
+    public boolean canMoveInMapNode(MapNodeParent mapNode, int x, int y) {
         if (mapNode == null) {
             return true;
         }
-        MapTilesManager mapTilesManager = mapNode.getMapa();
+
+        MapCollitionManagerParent mapTilesManager = mapNode.getCollideMap();
+        if (mapTilesManager == null) {
+            return true;
+        }
         int[][] arregloTilesets = mapTilesManager.getMapTileNum();
 
-        for (int posX = 0; posX < container.getMaxMapCol(); posX++) {
-            for (int posY = 0; posY < container.getMaxMapRow(); posY++) {
+        for (int posX = 0; posX < mapTilesManager.getWorldCols() + mapTilesManager.getOffsetCols(); posX++) {
+            for (int posY = 0; posY < mapTilesManager.getWorldRows() + mapTilesManager.getOffsetRows(); posY++) {
                 int tile = arregloTilesets[posX][posY];
                 if (tile == 1) {
                     int offsetBlock = CommonConstants.TILE_SIZE / 2;
-                    CollideBox tileCollideBox = this.getCollideBoxByTile(posX, posY, offsetBlock);
+                    CollideBox tileCollideBox = mapTilesManager.getCollideBoxByTile(posX, posY, offsetBlock);
                     if (this.isHipoteticPositionCollidingWithCollideBox(x, y, tileCollideBox)) {
                         return false;
                     }

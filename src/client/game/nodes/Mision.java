@@ -36,6 +36,10 @@ public class Mision extends GameNode {
     private boolean ganaste;
     private int contador;
 
+    public void setParentMision(AbrirMision1 mision1) {
+        this.mision1 = mision1;
+    }
+
 
     public Mision() {
     }
@@ -157,4 +161,8 @@ public class Mision extends GameNode {
         return 16;
     }
 
+    @Override
+    public int getNodeLevel() {
+        return 500;
+    }
 }

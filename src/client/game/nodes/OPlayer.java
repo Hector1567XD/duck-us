@@ -33,7 +33,7 @@ public class OPlayer extends GameNode implements NodeCenterable, NodeKilleable {
         int offSetY = this.getOffsetY() * scale;
         g2.fillRect(drawX - offSetX, drawY - offSetY, tileSize * scale, tileSize * scale);
         g2.setColor(Color.WHITE);
-        g2.drawString(this.name + "(" + this.playerId + ")", (drawX - 16)*scale, (drawY + 36)* scale);
+        g2.drawString(this.name + "(" + this.playerId + ")", (drawX - 16* scale), (drawY + 36* scale));
         if (isDead==true){
             g2.setColor(Color.BLUE);
             g2.fillOval(drawX - offSetX, drawY - offSetY, tileSize * scale, tileSize * scale);
