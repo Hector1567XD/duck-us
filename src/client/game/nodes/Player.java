@@ -222,7 +222,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                         this.sprite2.setSprite(null);
                     }
 
-                    if (isWalking) {
+                    if ((isWalking && !misionOpen)) {
                         soundCounter++;
                         if (soundCounter >= soundAcumulatorMax + 5) {
                             sonidoPisada(soundStep);

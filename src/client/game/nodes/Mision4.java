@@ -7,6 +7,7 @@ package client.game.nodes;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
+import client.game.nodes.classes.Sound;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -27,6 +28,9 @@ public class Mision4 extends GameNode{
     private int contador;
     private int control;
     private Input input;
+    private boolean soundDead = false;
+    Sound sound = new Sound();
+
     
     public Mision4(AbrirMision4 mision4) {
         this.mision4 = mision4;
@@ -110,7 +114,11 @@ public class Mision4 extends GameNode{
             g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
             g2.drawString("PRESIONE O PARA LIMPIAR",135 * scale , 300 * scale);
             if (ganaste == true) {
-                
+                  if (contador!=0 && soundDead==false){
+                        sound.setFile(8);
+                        sound.play();
+                        soundDead = true;
+                     }
                 g2.drawString("MISION CUMPLIDA", 170 * scale, 150 * scale);
             }
 

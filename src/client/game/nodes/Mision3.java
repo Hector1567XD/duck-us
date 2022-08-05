@@ -127,7 +127,7 @@ public class Mision3 extends GameNode {
                     (int) (maxScreenRow - 2.5) * tileSize, null);
             if (ganaste == true) {
                    if (contador!=0 && soundDead==false){
-                        sound.setFile(8);
+                        sound.setFile(11);
                         sound.play();
                         soundDead = true;
                      }
