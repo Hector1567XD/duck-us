@@ -1,22 +1,16 @@
 package client.game.engine;
 
-import client.game.executors.GameInformationExecutor;
-import client.game.executors.PlayerDisconnectedExecutor;
+import client.game.executors.*;
 import client.game.nodes.OPlayer;
 import client.game.nodes.PingNode;
 import common.game.engine.Container;
 import common.game.engine.Network;
 import common.networking.engine.Packet;
 import client.networking.Client;
-import client.utils.ErrorHelper;
 import common.networking.PacketTypes;
 import common.networking.packets.*;
-import common.networking.packets.classes.PlayerJoined;
 import java.io.IOException;
 import java.util.ArrayList;
-import client.game.executors.PlayerJoinedExecutor;
-import client.game.executors.PlayerMovedExecutor;
-import client.game.executors.ServerPongExecutor;
 
 public class GameNetwork extends Network {
     private final Client client;
@@ -53,6 +47,7 @@ public class GameNetwork extends Network {
             case PacketTypes.PLAYER_MOVED -> PlayerMovedExecutor.execute(container, (PlayerMovedPacket) packet);
             case PacketTypes.SERVER_PONG -> ServerPongExecutor.execute(container, (PongPacket) packet);
             case PacketTypes.PLAYER_DISCONNECTED -> PlayerDisconnectedExecutor.execute(container, (PlayerDisconnectedPacket) packet);
+            case PacketTypes.PLAYER_KILLED -> KilledExecutor.execute(container, (PlayerKilledPacket) packet);
             default -> {
             }
         }

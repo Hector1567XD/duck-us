@@ -3,13 +3,15 @@ package client.game.nodes;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.nodos.NodeCenterable;
+import client.game.engine.nodos.NodeKilleable;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class OPlayer extends GameNode implements NodeCenterable {
+public class OPlayer extends GameNode implements NodeCenterable, NodeKilleable {
     private int velocity = 4;
     private int playerId;
     private String name;
+    private boolean isDead;
 
     public OPlayer(int playerId, String name) {
         this.playerId = playerId;
@@ -27,11 +29,21 @@ public class OPlayer extends GameNode implements NodeCenterable {
         g2.setColor(Color.GRAY);
         int scale = container.getScale().getScale();
         int tileSize = container.getScale().getOriginalTileSize();
-        g2.fillRect(drawX * scale - getOffsetX(), drawY * scale - getOffsetY(), tileSize * scale, tileSize * scale);
+        int offSetX = this.getOffsetX() * scale;
+        int offSetY = this.getOffsetY() * scale;
+        g2.fillRect(drawX - offSetX, drawY - offSetY, tileSize * scale, tileSize * scale);
         g2.setColor(Color.WHITE);
         g2.drawString(this.name + "(" + this.playerId + ")", (drawX - 16)*scale, (drawY + 36)* scale);
+        if (isDead==true){
+            g2.setColor(Color.BLUE);
+            g2.fillOval(drawX - offSetX, drawY - offSetY, tileSize * scale, tileSize * scale);
+        }
     }
 
+    public String getNodeTag() {
+        return "Oplayer";
+    }
+ 
     public int getPlayerId() {
         return playerId;
     }
@@ -42,6 +54,14 @@ public class OPlayer extends GameNode implements NodeCenterable {
 
     public int getOffsetY() {
         return 16;
+    }
+
+    public boolean isIsDead() {
+        return isDead;
+    }
+
+    public void setIsDead(boolean isDead) {
+        this.isDead = isDead;
     }
 
     public int getNodeLevel() {

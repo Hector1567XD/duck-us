@@ -8,9 +8,7 @@ import common.networking.engine.Packet;
 import common.networking.packets.*;
 import java.io.IOException;
 import java.util.HashMap;
-import server.game.executors.PlayerLoginExecutor;
-import server.game.executors.PlayerMoveExecutor;
-import server.game.executors.PlayerPingExecutor;
+import server.game.executors.*;
 import server.game.nodes.PongNode;
 import server.game.nodes.SPlayer;
 import server.networking.Server;
@@ -49,6 +47,7 @@ public class ServerNetwork extends Network {
             case PacketTypes.PLAYER_LOGIN_PACKET -> PlayerLoginExecutor.execute(container, (PlayerLoginPacket) packet, packetSender);
             case PacketTypes.PLAYER_MOVE -> PlayerMoveExecutor.execute(container, (PlayerMovePacket) packet, packetSender);
             case PacketTypes.PLAYER_PING -> PlayerPingExecutor.execute(container, (PingPacket) packet, packetSender);
+            case PacketTypes.KILL_PACKET -> KillExecutor.execute(container, (PlayerKillPacket) packet, packetSender);
             default -> {}
         }
     }
@@ -77,9 +76,9 @@ public class ServerNetwork extends Network {
     public void setPongNode(PongNode pongNode) {
         this.pongNode = pongNode;
     }
-    
+
     // METHODS
-    
+
     public SPlayer addNewPlayer(ServerContainer container, Agent playerAgent, String playerName) {
         // Creamos el NODO del nuevo jugador
         lastPlayerId++;
@@ -95,9 +94,9 @@ public class ServerNetwork extends Network {
     }
 
     public HashMap<Agent, SPlayer> getPlayersMap() {
-        return this.players;
+        return players;
     }
-    
+
     public SPlayer getPlayerByAgent(Agent packetSender) {
         return this.players.get(packetSender);
     }
