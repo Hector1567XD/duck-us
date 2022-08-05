@@ -47,9 +47,9 @@ public class AbrirMision3 extends GameNode implements SpriteableNode, NodeCenter
     private void initPlayerImages() {
         try {
             BufferedImage[] spriteMission = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/missions/mission-1.png")),};
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/missions/mission3.png")),};
             BufferedImage[] spriteMissionLigth = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/missions/mission-1-light.png")),};
+                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/missions/mission3-light.png")),};
 
             this.spriteMission = spriteMission;
             this.spriteMissionLigth = spriteMissionLigth;
@@ -97,16 +97,6 @@ public class AbrirMision3 extends GameNode implements SpriteableNode, NodeCenter
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
 
-        int scale = container.getScale().getScale();
-        int tileSize = container.getScale().getOriginalTileSize();
-        g2.setColor(Color.pink);
-        int alto = tileSize * scale;
-        int ancho = tileSize * scale;
-        int offSetX = this.getOffsetX() * scale;
-        int offSetY = this.getOffsetY() * scale;
-
-        g2.fillOval((drawX) - offSetX, (drawY) - offSetY, alto, ancho);
-
         if (getMisionAbierta() == true) {
             this.misionActual.setAbrir(true);
             this.misionActual.draw(container, g2);
@@ -117,11 +107,11 @@ public class AbrirMision3 extends GameNode implements SpriteableNode, NodeCenter
     }
 
     public int getOffsetX() {
-        return 16;
+        return 64;
     }
 
     public int getOffsetY() {
-        return 16;
+        return 64;
     }
 
     @Override
@@ -142,12 +132,12 @@ public class AbrirMision3 extends GameNode implements SpriteableNode, NodeCenter
 
     @Override
     public int getWidth() {
-        return 32;
+        return 64;
     }
 
     @Override
     public int getHeight() {
-        return 32;
+        return 88;
     }
 
     @Override
