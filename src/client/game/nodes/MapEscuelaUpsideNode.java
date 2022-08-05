@@ -19,4 +19,8 @@ public class MapEscuelaUpsideNode extends MapNodeParent {
     public int getOffsetRows() {
         return 0;
     }
+    
+    public int getNodeLevel() {
+        return 600;
+    }
 }

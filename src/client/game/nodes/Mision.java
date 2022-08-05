@@ -7,6 +7,7 @@ package client.game.nodes;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
+import client.game.nodes.classes.Sound;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -35,6 +36,8 @@ public class Mision extends GameNode {
     private BufferedImage[] imagen;
     private boolean ganaste;
     private int contador;
+    private boolean soundDead = false;
+    Sound sound = new Sound();
 
     public void setParentMision(AbrirMision1 mision1) {
         this.mision1 = mision1;
@@ -146,6 +149,11 @@ public class Mision extends GameNode {
             //g2.drawString("JUEGO DEL AHORCADO", 125 *scale, 75 *scale);
             g2.drawString(palabra, 200 * scale, 200 * scale);
               if (ganaste == true) {
+                   if (contador!=0 && soundDead==false){
+                        sound.setFile(8);
+                        sound.play();
+                        soundDead = true;
+                     }
                   g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
                   g2.drawString("MISION CUMPLIDA", 170, 250);
               }

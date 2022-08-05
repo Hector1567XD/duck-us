@@ -7,6 +7,7 @@ package client.game.nodes;
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
 import client.game.engine.core.Input;
+import client.game.nodes.classes.Sound;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -28,6 +29,8 @@ public class Mision3 extends GameNode {
     private int timer;
     private int control;
     private int imprimir;
+    private boolean soundDead = false;
+    Sound sound = new Sound();
 
     public void setParentMision(AbrirMision3 mision3) {
         this.mision3 = mision3;
@@ -101,7 +104,7 @@ public class Mision3 extends GameNode {
             control++;
            }
 
-            if (control == 81) {
+            if (control == 81) {   
               imprimir++;
               control = 0;
             }
@@ -129,6 +132,11 @@ public class Mision3 extends GameNode {
             g2.drawImage(imagen[imprimir], (int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize,
                     (int) (maxScreenRow - 2.5) * tileSize, null);
             if (ganaste == true) {
+                   if (contador!=0 && soundDead==false){
+                        sound.setFile(11);
+                        sound.play();
+                        soundDead = true;
+                     }
                 g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
                 g2.drawString("MISION CUMPLIDA", 170 * scale, 70 *scale);
             }

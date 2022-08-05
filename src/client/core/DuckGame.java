@@ -37,13 +37,9 @@ public class DuckGame {
         // Agregando Nodos
             controller.addNode(new MapEscuelaNode(container), "MapNode");
             controller.addNode(new MapLobbyNode(container), "LobbyNode");
-            controller.addNode(new Bloque(100,300));
+            /*controller.addNode(new Bloque(100,300));
             controller.addNode(new Bloque(50,50));
-            controller.addNode(new Bloque(300,300));
-
-            controller.addNode(new Bloque(100,300));
-            controller.addNode(new Bloque(50,50));
-            controller.addNode(new Bloque(300,300));
+            controller.addNode(new Bloque(300,300));*/
 /*
                     this.x = 4032;
         this.y = 1440;
