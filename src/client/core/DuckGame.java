@@ -14,8 +14,8 @@ import common.networking.engine.socket.SocketPublisher;
 import client.game.nodes.PingNode;
 import client.game.nodes.AbrirMision1;
 import client.game.nodes.AbrirMision2;
-import client.game.nodes.Mision;
-import client.game.nodes.Mision2;
+import client.game.nodes.AbrirMision3;
+import client.game.nodes.AbrirMision4;
 
 public class DuckGame {
     public static void start(SocketPublisher publisher, Client client) {
@@ -40,10 +40,13 @@ public class DuckGame {
             controller.addNode(new Bloque(50,50));
             controller.addNode(new Bloque(300,300));
 
+            controller.addNode(player, "Player");
+
             controller.addNode(new AbrirMision1(250,300));
             controller.addNode(new AbrirMision2(150,150));
+            controller.addNode(new AbrirMision3(150,250));
+            controller.addNode(new AbrirMision4(300,70));
 
-            controller.addNode(player, "Player");
             // ACOPLANDO NODOS
             network.setPingNode(pingNode);
             controller.setCamera(new Camera(container)); // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR

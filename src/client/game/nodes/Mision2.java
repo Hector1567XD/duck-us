@@ -11,7 +11,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -26,11 +34,15 @@ public class Mision2 extends GameNode {
     private int letraActual;
     private String palabraAEscribir;
     private AbrirMision2 mision2;
+    private String cadena;
+    private BufferedImage[] imagen;
+    private int contador;
+    private boolean ganaste;
 
     public Mision2(AbrirMision2 mision2) {
         this.mision2 = mision2;
     }
-
+    
     public boolean isAbrir() {
         return abrir;
     }
@@ -39,10 +51,31 @@ public class Mision2 extends GameNode {
         this.abrir = abrir;
     }
 
+    public boolean isGanaste() {
+        return ganaste;
+    }
+
+    public void setGanaste(boolean ganaste) {
+        this.ganaste = ganaste;
+    }
+    
+    
     @Override
     public void created(GameContainer container) {
-        this.palabraAEscribir = "Harry potter era un muchacho";
-        this.letraActual = 0;
+        try {
+            this.imagen = new BufferedImage[2];
+            this.imagen[0] = ImageIO.read(getClass().getResourceAsStream("/client/resources/game/misiones/misiontyperacer.png"));
+            this.palabraAEscribir = "Harry potter es un legendario mago que estudio en la academia Howard ";
+            this.letraActual = 0;
+            this.cadena = palabraAEscribir.substring(0, this.palabraAEscribir.length());
+            this.contador = 13 * 10;
+            this.ganaste = false;
+            
+
+        } catch (IOException ex) {
+            
+        }
+        
     }
 
     @Override
@@ -55,16 +88,25 @@ public class Mision2 extends GameNode {
             char character = letrasAEscribir[letraActual];
             int ascii = (int) character;
             if (input.isKeyDown(ascii)) {
-                letraActual++;
+                letraActual++;     
             }
-        }
-    }
+            if (letraActual == this.palabraAEscribir.length()-1){
+                       contador--;
+                       this.ganaste = true;
+                       this.ganarMision(container);
+                   }
+         }
+     }
 
     private void ganarMision(GameContainer container) {
-        this.setAbrir(false);
-        this.mision2.setMisionAbierta(false);
-        Player player = container.getController().getNodes().findByName("Player");
-        player.setMisionOpen(false);
+        
+       if (contador == 0) {
+         this.setAbrir(false);
+         this.mision2.setMisionAbierta(false);
+         Player player = container.getController().getNodes().findByName("Player");
+         player.setMisionOpen(false);
+         this.mision2.setGanaste(ganaste);
+       }       
     }
 
     @Override
@@ -78,14 +120,25 @@ public class Mision2 extends GameNode {
             g2.setColor(new Color(0, 0, 0, 85));
             g2.fillRect(0, 0, maxScreenCol * tileSize, maxScreenRow * tileSize);
 
+            g2.setColor(Color.white);
+            g2.drawImage(imagen[0], (int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize,
+                     (int) (maxScreenRow - 2.5) * tileSize, null);
+            g2.setFont(new Font("Arial", Font.BOLD, 15 * scale));
+            g2.drawString("Escribir Veloz", 200 * scale, 75 * scale);
+
+            g2.setFont(new Font("Arial", Font.BOLD, 12 * scale));
+
+            g2.drawString("APURATE!! Esta es la palabra : ", 150, 125 * scale);
+            g2.setFont(new Font("Arial", Font.BOLD, 10 * scale));
+            g2.drawString(palabraAEscribir, 70 * scale, 136 * scale);
             g2.setColor(Color.BLACK);
-            g2.fillRect((int) (1.5 * tileSize), (int) (1.5 * tileSize), (int) (maxScreenCol - 2.5) * tileSize,
-                    (int) (maxScreenRow - 2.5) * tileSize);
-            g2.setColor(Color.WHITE);
-            g2.setFont(new Font("Arial", Font.BOLD, 23 * scale));
-            g2.drawString("Velocidad", 125 * scale, 75 * scale);
-            g2.drawString(palabraAEscribir, 200 * scale, 150 * scale);
-            g2.drawString(palabraAEscribir.substring(0, letraActual), 200 * scale, 300 * scale);
+            g2.drawString("Resultado : ", 75 * scale, 180 * scale);
+            g2.drawString(palabraAEscribir.substring(0, letraActual), 74 * scale, 200 * scale);
+              if (ganaste == true) {
+                  g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
+                  g2.drawString("MISION CUMPLIDA", 170 *scale, 250 *scale);
+              }
+              
         }
 
     }

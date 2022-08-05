@@ -27,6 +27,8 @@ public class AbrirMision2 extends GameNode implements SpriteableNode, NodeCenter
         this.isCercaPlayer = isCercaPlayer;
     }
     
+    private boolean ganaste = false;
+
     public AbrirMision2(int x, int y) {
         this.x = x;
         this.y = y;
@@ -58,6 +60,17 @@ public class AbrirMision2 extends GameNode implements SpriteableNode, NodeCenter
     public void setMisionAbierta(boolean misionAbierta) {
         this.misionAbierta = misionAbierta;
     }
+
+    public boolean isGanaste() {
+        return ganaste;
+    }
+
+    public void setGanaste(boolean ganaste) {
+        this.ganaste = ganaste;
+    }
+    
+    
+    
 
     @Override
     public void created(GameContainer container) {

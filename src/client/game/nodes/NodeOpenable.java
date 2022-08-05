@@ -9,4 +9,6 @@ public interface NodeOpenable extends NodeColladable {
     
     // Nuevo metodo de la interface :3
     public void setIsCercaPlayer(boolean isCercaPlayer);
+    public boolean isGanaste();
+    public void setGanaste(boolean ganaste);
 }
