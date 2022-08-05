@@ -89,6 +89,5 @@ public class SpriteNode extends GameNode{
     @Override
     public void created(GameContainer container) {
         // TODO Auto-generated method stub
-        
     }
 }
