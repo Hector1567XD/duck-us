@@ -8,7 +8,6 @@ import client.game.nodes.MapEscuelaNode;
 import client.game.nodes.Player;
 import client.networking.Client;
 import client.game.nodes.Camera;
-import client.game.nodes.Bloque;
 import client.game.nodes.MapEscuelaUpsideNode;
 import client.game.nodes.MapLobbyNode;
 import common.networking.engine.socket.SocketPublisher;
@@ -46,18 +45,50 @@ public class DuckGame {
             */
             controller.addNode(player, "Player");
             controller.addNode(new MapEscuelaUpsideNode(container), "MapNodeUpside");
+
+            // ORCADOS
             Mision mision = new Mision();
-            Mision2 mision2 = new Mision2();
-            Mision3 mision3 = new Mision3();
-            Mision4 mision4 = new Mision4();
-            controller.addNode(new AbrirMision1(4032+32,1440+32, mision));
-            controller.addNode(new AbrirMision2(4032-32,1440+32, mision2));
-            controller.addNode(new AbrirMision3(4032+32,1440-32, mision3));
-            controller.addNode(new AbrirMision4(4032-32,1440-32, mision4));
+            controller.addNode(new AbrirMision1(38*32,37*32, mision));
             controller.addNode(mision);
+
+            Mision mision_b = new Mision();
+            controller.addNode(new AbrirMision1(64*32,42*32, mision_b));
+            controller.addNode(mision_b);
+
+            Mision mision_c = new Mision();
+            controller.addNode(new AbrirMision1(156*32,46*32, mision_c));
+            controller.addNode(mision_c);
+
+            // TYPERACERS
+            Mision2 mision2 = new Mision2();
+            controller.addNode(new AbrirMision2(122*32,53*32, mision2));
             controller.addNode(mision2);
+
+            Mision2 mision2_b = new Mision2();
+            controller.addNode(new AbrirMision2(169*32,66*32, mision2_b));
+            controller.addNode(mision2_b);
+
+            // OSCILOSCOPIOS
+            Mision3 mision3 = new Mision3();
+            controller.addNode(new AbrirMision3(109*32,37*32, mision3));
             controller.addNode(mision3);
+
+            Mision3 mision3_b = new Mision3();
+            controller.addNode(new AbrirMision3(71*32,61*32, mision3_b));
+            controller.addNode(mision3_b);
+
+            Mision3 mision3_c = new Mision3();
+            controller.addNode(new AbrirMision3(120*32,22*32, mision3_c));
+            controller.addNode(mision3_c);
+
+            // CARETELERAS
+            Mision4 mision4 = new Mision4();
+            controller.addNode(new AbrirMision4(131*32,60*32, mision4));
             controller.addNode(mision4);
+
+            Mision4 mision4_b = new Mision4();
+            controller.addNode(new AbrirMision4(87*32,36*32, mision4_b));
+            controller.addNode(mision4_b);
 
         // ACOPLANDO NODOS
             network.setPingNode(pingNode);
