@@ -97,6 +97,7 @@ public class SpriteNode extends GameNode {
                 parent.getHeight() * escala,
                 null
             );
+            
         }else{
             // Dibuja en coordenadas absolutas (No en el mapa)
             g2.drawImage(
