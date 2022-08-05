@@ -18,27 +18,15 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import client.game.engine.nodos.CollideNode;
 import client.game.engine.nodos.NodeColladable;
-import client.utils.ImageUtils;
+import client.game.nodes.classes.DuckImages;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class Player extends GameNode implements SpriteableNode, NodeColladable, NodeKilleable {
 
     private int velocity = 5;
     private boolean misionOpen = false;
-    private BufferedImage[] movingLeft;
-    private BufferedImage[] movingRight;
-    private BufferedImage[] staticDuckLeft;
-    private BufferedImage[] staticDuckRight;
-    private BufferedImage[] spriteDead;
-    private BufferedImage[] spriteButton;
-    private BufferedImage[] spriteDying;
-    private BufferedImage[] spriteKillingLeft;
-    private BufferedImage[] spriteKillingRight;
     private SpriteNode sprite;
     private SpriteNode sprite2;
     private CollideNode collideNode;
@@ -71,74 +59,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         this.sprite2 = new SpriteNode(this, 410, 255, 100, 100);
         this.addNode(this.sprite2);
         // Init Images
-        this.initPlayerImages();
         this.gameName = nombre;
-    }
-
-    private void initPlayerImages() {
-        try {
-            BufferedImage[] spriteDead = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dead/dead.png")),};
-            this.spriteDead = spriteDead;
-
-            BufferedImage[] spriteDying = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die1.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die2.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die3.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die4.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die5.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die6.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die7.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die8.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die9.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die10.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die11.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/dying/die11.png")),};
-            this.spriteDying = spriteDying;
-
-            BufferedImage[] spriteKillingLeft = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft1.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft2.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft3.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft4.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft5.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingLeft/killLeft5.png")),};
-            this.spriteKillingLeft = spriteKillingLeft;
-
-            BufferedImage[] spriteKillingRight = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight1.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight2.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight3.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight4.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight5.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/killingRight/killRight5.png")),};
-            this.spriteKillingRight = spriteKillingRight;
-
-            BufferedImage[] spriteButton = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButton.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButtonWait.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/buttons/killButtonNo.png"))
-            };
-            this.spriteButton = spriteButton;
-
-            BufferedImage[] staticSpriteLeft = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png")),};
-            this.staticDuckLeft = staticSpriteLeft;
-            this.staticDuckRight = ImageUtils.flipXImageArray(this.staticDuckLeft);
-            BufferedImage[] movingLeft = {
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak1.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak2.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak3.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak4.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak5.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak6.png")),
-                ImageIO.read(getClass().getResourceAsStream("/client/resources/game/duck/walking/cuak7.png"))
-            };
-            this.movingLeft = movingLeft;
-            this.movingRight = ImageUtils.flipXImageArray(this.movingLeft);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -175,7 +96,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         }
 
         if (isDying) {
-            this.sprite.setSprite(spriteDying);
+            this.sprite.setSprite(DuckImages.spriteDying);
             this.sprite.setSpeed(5);
             this.soundGO(6);
             if (this.sprite.getIndex() >= 10) {
@@ -186,10 +107,10 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
             if (!isDead) {
                 if (isKilling) {
                     if (directionX == 1) {
-                        this.sprite.setSprite(spriteKillingRight);
+                        this.sprite.setSprite(DuckImages.spriteKillingRight);
                         this.sprite.setSpeed(5);
                     } else if (directionX == -1) {
-                        this.sprite.setSprite(spriteKillingLeft);
+                        this.sprite.setSprite(DuckImages.spriteKillingLeft);
                         this.sprite.setSpeed(5);
                     }
                     if (this.sprite.getIndex() >= 4 + 1) {
@@ -199,7 +120,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 } else {
                     // LOGICA DE IMPOSTOR
                     if (impostor) {
-                        this.sprite2.setSprite(spriteButton);
+                        this.sprite2.setSprite(DuckImages.spriteButton);
                         this.sprite2.setIndex(0);
 
                         if (alredyKill == true) {
@@ -278,17 +199,17 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
 
                     if (canWalking) {
                         if (directionX == 1) {
-                            this.sprite.setSprite(movingRight);
+                            this.sprite.setSprite(DuckImages.movingRight);
                         } else if (directionX == -1) {
-                            this.sprite.setSprite(movingLeft);
+                            this.sprite.setSprite(DuckImages.movingLeft);
                         }
                         this.sprite.setSpeed(4);
                         //this.soundGO(6);
                     } else {
                         if (directionX == 1) {
-                            this.sprite.setSprite(staticDuckRight);
+                            this.sprite.setSprite(DuckImages.staticDuckRight);
                         } else if (directionX == -1) {
-                            this.sprite.setSprite(staticDuckLeft);
+                            this.sprite.setSprite(DuckImages.staticDuckLeft);
                         }
                         this.sprite.setSpeed(-1);
                     }
@@ -323,7 +244,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 }
 
             } else {
-                this.sprite.setSprite(spriteDead);
+                this.sprite.setSprite(DuckImages.spriteDead);
                 this.sprite2.setSprite(null);
             }
         }

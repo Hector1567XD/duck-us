@@ -21,6 +21,7 @@ import client.game.nodes.Mision;
 import client.game.nodes.Mision2;
 import client.game.nodes.Mision3;
 import client.game.nodes.Mision4;
+import client.game.nodes.classes.DuckImages;
 
 public class DuckGame {
     public static void start(SocketPublisher publisher, Client client, String nombre) {
@@ -28,7 +29,7 @@ public class DuckGame {
             GameController controller = new GameController();
             GameNetwork network = new GameNetwork(client);
             GameContainer container = new GameContainer(Constants.SCALE, network, controller);
-
+            DuckImages.load();
         // GAME
         //Creando Nodos
             Player player = new Player(nombre);
@@ -65,6 +66,5 @@ public class DuckGame {
         // BEGIN
             publisher.subscribe(network);
             container.start();
-
         }
-    }  
+    }
