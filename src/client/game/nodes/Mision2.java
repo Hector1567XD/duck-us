@@ -136,7 +136,7 @@ public class Mision2 extends GameNode {
             g2.drawString(palabraAEscribir.substring(0, letraActual), 74 * scale, 200 * scale);
               if (ganaste == true) {
                   g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
-                  g2.drawString("MISION CUMPLIDA", 170, 250);
+                  g2.drawString("MISION CUMPLIDA", 170 *scale, 250 *scale);
               }
               
         }
