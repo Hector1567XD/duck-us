@@ -20,12 +20,12 @@ import client.utils.ImageUtils;
 import client.utils.game.collitions.CenterBorders;
 import client.utils.game.collitions.CollideBox;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Player extends GameNode implements SpriteableNode, NodeColladable, NodeKilleable {
-
     private int velocity = 4;
+    private boolean misionOpen = false;
     private BufferedImage[] movingLeft;
     private BufferedImage[] movingRight;
     private BufferedImage[] staticDuckLeft;
@@ -99,6 +99,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                 || input.isKey(KeyEvent.VK_D);
         boolean canWalking = false;
 
+        // LOGICA DE IMPOSTOR
         if (impostor) {
             if (alredyKill == true) {
                 if (timer <= 0) {
@@ -113,7 +114,8 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
             }
         }
 
-        if (isWalking) {
+        // IS WALKING
+        if (isWalking && !misionOpen) {
             if (input.isKey(KeyEvent.VK_W)) {
                 if (this.collideNode.canMove(container, this.x, this.y - velocity)) {
                     canWalking = true;
@@ -165,6 +167,35 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
             container.getNetwork().sendPacket(new PlayerMovePacket(this.x, this.y));
         }
 
+        // P Mission abrir mision
+        if (input.isKey(KeyEvent.VK_P)) {
+            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+    
+            for (NodeOpenable mision : missions) {
+                if (this.collideNode.isColliding(mision) && mision.isGanaste() == false) {
+                    //System.out.println("si :)");
+                    misionOpen = true;
+                    mision.setMisionAbierta(true);
+                }
+            }
+        }
+    
+        // Cerrar mision
+        ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+        for (NodeOpenable mision : missions) {
+            if (this.collideNode.isColliding(mision)) {
+                mision.setIsCercaPlayer(true);
+                if (input.isKey(KeyEvent.VK_X)) {
+                    //System.out.println("no :)");  
+                    misionOpen = false;
+                    mision.setMisionAbierta(false);
+                }
+            }else{
+                mision.setIsCercaPlayer(false);
+            }
+        }
+
+        // ESTA CAMINANDO ?
         if (canWalking) {
             if (directionX == 1) {
                 this.sprite.setSprite(movingRight);
@@ -235,5 +266,13 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     @Override
     public CollideBox getCollideBox() {
         return this.collideNode.getPositionCollideBox(this.x, this.y);
+    }
+
+    public void setMisionOpen(boolean misionOpen) {
+        this.misionOpen = misionOpen;
+    }
+
+    public int getNodeLevel() {
+        return 150;
     }
 }

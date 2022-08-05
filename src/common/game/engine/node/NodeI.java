@@ -28,4 +28,6 @@ public interface NodeI {
         public String getNodeTag();
         public void setNodeName(String nodeName);
         public String getNodeName();
+        // PRIORIDAD DEL NODO
+        public int getNodeLevel();
 }

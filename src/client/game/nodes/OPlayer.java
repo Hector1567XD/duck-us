@@ -2,7 +2,6 @@ package client.game.nodes;
 
 import client.game.engine.GameContainer;
 import client.game.engine.GameNode;
-import client.game.engine.core.Input;
 import client.game.engine.nodos.NodeCenterable;
 import client.game.engine.nodos.NodeKilleable;
 import java.awt.Color;
@@ -63,5 +62,9 @@ public class OPlayer extends GameNode implements NodeCenterable, NodeKilleable {
 
     public void setIsDead(boolean isDead) {
         this.isDead = isDead;
+    }
+
+    public int getNodeLevel() {
+        return 100;
     }
 }
