@@ -42,7 +42,7 @@ public class Mision2 extends GameNode {
     public Mision2(AbrirMision2 mision2) {
         this.mision2 = mision2;
     }
-
+    
     public boolean isAbrir() {
         return abrir;
     }
