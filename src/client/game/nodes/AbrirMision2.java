@@ -13,7 +13,12 @@ import java.awt.Graphics2D;
 public class AbrirMision2 extends GameNode implements NodeCenterable, NodeColladable, NodeOpenable {
     private boolean misionAbierta = false;
     Mision2 misionActual;
-
+    boolean isCercaPlayer = false;
+    
+    public void setIsCercaPlayer(boolean isCercaPlayer) {
+        this.isCercaPlayer = isCercaPlayer;
+    }
+    
     public AbrirMision2(int x, int y) {
         this.x = x;
         this.y = y;

@@ -1,12 +1,9 @@
 package client.game.engine.nodos;
 
-import client.game.engine.nodos.SpriteableNode;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import client.game.engine.GameContainer;
-import client.game.engine.GameContainer;
-import client.game.engine.GameNode;
 import client.game.engine.GameNode;
 
 public class SpriteNode extends GameNode{

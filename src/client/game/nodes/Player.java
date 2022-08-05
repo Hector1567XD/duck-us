@@ -161,14 +161,17 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable {
             }
         }
 
-        if (input.isKey(KeyEvent.VK_X)) {
-            ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
-            for (NodeOpenable mision: missions) {
-                if (this.collideNode.isColliding(mision)) {
+        ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
+        for (NodeOpenable mision : missions) {
+            if (this.collideNode.isColliding(mision)) {
+                mision.setIsCercaPlayer(true);
+                if (input.isKey(KeyEvent.VK_X)) {
                     //System.out.println("no :)");  
                     misionOpen = false;
                     mision.setMisionAbierta(false);
                 }
+            }else{
+                mision.setIsCercaPlayer(false);
             }
         }
     }
