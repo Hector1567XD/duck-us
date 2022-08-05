@@ -16,10 +16,6 @@ public class Sound {
        soundURL[2] = getClass().getResource("/client/resources/game/sounds/Pisada3.wav");
        soundURL[3] = getClass().getResource("/client/resources/game/sounds/Patoimpostor.wav");
        soundURL[4] = getClass().getResource("/client/resources/game/sounds/Explosion.wav");
-       
-       
-       
-       
    }
    
    public void setFile(int i) {
@@ -30,7 +26,6 @@ public class Sound {
        }catch(Exception e) {
            
        }
-           
    }
    
    public void play(){
