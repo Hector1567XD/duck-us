@@ -8,6 +8,12 @@ import client.Constants;
 import client.DuckOrquestador;
 import client.game.engine.GameContainer;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -23,6 +29,17 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
         initComponents();
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        try {
+            BufferedImage bgImage = ImageIO.read(getClass().getResourceAsStream("/client/resources/forms/image.jpg"));
+            g.drawImage(bgImage, 0, 0, null);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,15 +50,10 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         acercaDe = new javax.swing.JButton();
         jugar = new javax.swing.JButton();
         ayuda = new javax.swing.JButton();
-
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/resources/forms/header.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel2 = new javax.swing.JLabel();
 
         acercaDe.setText("Acerca de");
         acercaDe.addActionListener(new java.awt.event.ActionListener() {
@@ -64,37 +76,36 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/client/resources/forms/Duck-Us.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(256, 256, 256)
-                        .addComponent(jugar)))
-                .addContainerGap(64, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(160, 160, 160)
+                .addComponent(jLabel2)
+                .addContainerGap(160, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(acercaDe)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addComponent(jugar)
+                .addGap(44, 44, 44)
                 .addComponent(ayuda)
-                .addGap(108, 108, 108))
+                .addGap(143, 143, 143))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                .addGap(65, 65, 65)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jugar)
                     .addComponent(acercaDe)
                     .addComponent(ayuda))
-                .addGap(18, 18, 18)
-                .addComponent(jugar)
-                .addGap(61, 61, 61))
+                .addGap(120, 120, 120))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -109,7 +120,7 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -131,7 +142,7 @@ public class SeleccionDeOpciones extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acercaDe;
     private javax.swing.JButton ayuda;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jugar;
     // End of variables declaration//GEN-END:variables

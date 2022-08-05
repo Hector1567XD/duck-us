@@ -2,7 +2,9 @@ package common.game.engine;
 
 import common.game.engine.node.Node;
 import common.game.engine.node.NodeCollection;
+import common.game.engine.node.NodeComparator;
 import common.game.engine.node.NodeI;
+import java.util.Collections;
 
 public abstract class Controller {
     private final NodeCollection nodes = new NodeCollection();
@@ -31,7 +33,7 @@ public abstract class Controller {
     public void addNode(Node node) {
         nodes.add(node);
     }
-    
+
     public void addNode(Node node, String name) {
         node.setNodeName(name);
         this.addNode(node);
