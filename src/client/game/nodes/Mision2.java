@@ -144,7 +144,7 @@ public class Mision2 extends GameNode {
                         soundDead = true;
                      }
                   g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
-                  g2.drawString("MISION CUMPLIDA", 170, 250);
+                  g2.drawString("MISION CUMPLIDA", 170 *scale, 250 *scale);
               }
               
         }

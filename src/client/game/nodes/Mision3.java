@@ -132,7 +132,7 @@ public class Mision3 extends GameNode {
                         soundDead = true;
                      }
                 g2.setFont(new Font("Arial", Font.BOLD, 20 * scale));
-                g2.drawString("MISION CUMPLIDA", 170, 70);
+                g2.drawString("MISION CUMPLIDA", 170 * scale, 70 *scale);
             }
 
         }

@@ -305,7 +305,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
             ArrayList<NodeOpenable> missions = container.getController().getNodes().getListByTag("mission");
 
             for (NodeOpenable mision : missions) {
-                if (this.collideNode.isColliding(mision)) {
+                if (this.collideNode.isColliding(mision) && mision.isGanaste() == false) {
                     //System.out.println("si :)");
                     misionOpen = true;
                     mision.setMisionAbierta(true);
