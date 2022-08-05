@@ -22,7 +22,7 @@ public class Player extends GameNode implements NodeCenterable {
     @Override
     public void created(GameContainer container) {
         container.getNetwork().sendPacket(new PlayerLoginPacket("Feredev"));
-    
+        this.soundGO(3);
     }
 
     @Override
@@ -30,7 +30,6 @@ public class Player extends GameNode implements NodeCenterable {
         Input input = container.getInput();
         boolean isWalking = input.isKey(KeyEvent.VK_W) || input.isKey(KeyEvent.VK_S) || input.isKey(KeyEvent.VK_A) || input.isKey(KeyEvent.VK_D);
         
-        this.soundGO(4);
         
         if (isWalking) {
             soundCounter++;
@@ -85,7 +84,6 @@ public class Player extends GameNode implements NodeCenterable {
     public void soundGO(int i){
         sound.setFile(i);
         sound.play();
-        sound.loop();
     }
     
     

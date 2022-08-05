@@ -15,7 +15,17 @@ public class Sound {
        soundURL[1] = getClass().getResource("/client/resources/game/sounds/Pisada2.wav");
        soundURL[2] = getClass().getResource("/client/resources/game/sounds/Pisada3.wav");
        soundURL[3] = getClass().getResource("/client/resources/game/sounds/Patoimpostor.wav");
-       soundURL[4] = getClass().getResource("/client/resources/game/sounds/Explosion.wav");
+       soundURL[4] = getClass().getResource("/client/resources/game/sounds/Win.wav");
+       soundURL[5] = getClass().getResource("/client/resources/game/sounds/Lose.wav");
+       soundURL[6] = getClass().getResource("/client/resources/game/sounds/Muerte.wav");
+       soundURL[7] = getClass().getResource("/client/resources/game/sounds/Reunion.wav");
+       soundURL[8] = getClass().getResource("/client/resources/game/sounds/Misioncompletada.wav");
+       soundURL[9] = getClass().getResource("/client/resources/game/sounds/Patoreal.wav");
+       
+       
+       
+       
+       
        
        
        
