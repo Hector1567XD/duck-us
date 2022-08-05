@@ -12,4 +12,7 @@ public class CommonConstants {
     final public static boolean NETWORK_DEBUG = false;
     final public static boolean SOCKET_DEBUG = true;
     final public static boolean EDGE_CASES_LOG = true;
+    
+    // COSAS ESPECIFICAS DEL JUEGO
+    final public static int DISTANCE_TO_KILL = 75;
 }

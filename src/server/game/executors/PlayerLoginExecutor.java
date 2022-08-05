@@ -55,7 +55,8 @@ public class PlayerLoginExecutor {
                         oSPlayer.getPlayerId(),
                         oSPlayer.getName(),
                         oSPlayer.getX(),
-                        oSPlayer.getY()
+                        oSPlayer.getY(),
+                        oSPlayer.isDead()
                     )
                 );
             }
