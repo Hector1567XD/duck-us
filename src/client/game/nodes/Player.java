@@ -28,7 +28,7 @@ import javax.imageio.ImageIO;
 
 public class Player extends GameNode implements SpriteableNode, NodeColladable, NodeKilleable {
 
-    private int velocity = 4;
+    private int velocity = 5;
     private boolean misionOpen = false;
     private BufferedImage[] movingLeft;
     private BufferedImage[] movingRight;
@@ -222,7 +222,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
 
                     if ((isWalking && !misionOpen)) {
                         soundCounter++;
-                        if (soundCounter >= soundAcumulatorMax + 5) {
+                        if (soundCounter >= soundAcumulatorMax + 9) {
                             sonidoPisada(soundStep);
                         }
                         if (input.isKey(KeyEvent.VK_W)) {
@@ -282,7 +282,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
                         } else if (directionX == -1) {
                             this.sprite.setSprite(movingLeft);
                         }
-                        this.sprite.setSpeed(5);
+                        this.sprite.setSpeed(4);
                         //this.soundGO(6);
                     } else {
                         if (directionX == 1) {
@@ -332,10 +332,11 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
         if (alredyKill == true) {
+            int scale = container.getScale().getScale();
             this.sprite2.setIndex(2);
             g2.setColor(Color.white);
             g2.setFont(new Font("Arial", Font.BOLD, 30));
-            g2.drawString("   " + timer, 410, 255);
+            g2.drawString("   " + timer, 410*scale, 255*scale);
         }
     }
 
@@ -416,7 +417,7 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable, 
         }
         if (soundStep == 0) {
             soundAcumulatorMax = 7 + 5;
-        } else if (soundStep == 1) {
+        } else if (soundStep == 1) {//asdsad
             soundAcumulatorMax = 15;
         } else if (soundStep == 2) {
             soundAcumulatorMax = 14;
