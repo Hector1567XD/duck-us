@@ -213,4 +213,8 @@ public class Player extends GameNode implements SpriteableNode, NodeColladable {
     public void setMisionOpen(boolean misionOpen) {
         this.misionOpen = misionOpen;
     }
+
+    public int getNodeLevel() {
+        return 150;
+    }
 }

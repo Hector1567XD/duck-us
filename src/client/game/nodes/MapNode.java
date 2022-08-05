@@ -12,15 +12,12 @@ public class MapNode extends GameNode {
     public MapNode(GameContainer container){
        this.mapa = new MapTilesManager(this, container);
     }
-    
-    @Override
-    public void created(GameContainer container) {
-
-    }
 
     @Override
-    public void update(GameContainer container) {
-    }
+    public void created(GameContainer container) {}
+
+    @Override
+    public void update(GameContainer container) {}
 
     @Override
     public void draw(GameContainer container, Graphics2D g2) {
@@ -33,5 +30,9 @@ public class MapNode extends GameNode {
 
     public String getTagName() {
         return "MapNode";
+    }
+
+    public int getNodeLevel() {
+        return 50;
     }
 }

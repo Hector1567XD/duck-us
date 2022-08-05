@@ -43,4 +43,8 @@ public class OPlayer extends GameNode implements NodeCenterable {
     public int getOffsetY() {
         return 16;
     }
+
+    public int getNodeLevel() {
+        return 100;
+    }
 }

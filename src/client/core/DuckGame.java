@@ -10,7 +10,6 @@ import client.game.nodes.Player;
 import client.networking.Client;
 import client.game.nodes.Camera;
 import client.game.nodes.Bloque;
-import client.game.nodes.Triangulito;
 import common.networking.engine.socket.SocketPublisher;
 import client.game.nodes.PingNode;
 import client.game.nodes.AbrirMision1;
@@ -36,12 +35,8 @@ public class DuckGame {
             controller.addNode(new Bloque(100,300));
             controller.addNode(new Bloque(50,50));
             controller.addNode(new Bloque(300,300));
-            
+
             controller.addNode(player, "Player");
-            controller.addNode(new AbrirMision1(250,300));
-            controller.addNode(new AbrirMision2(150,150));
-            
-            controller.addNode(new Triangulito());
             // ACOPLANDO NODOS
             network.setPingNode(pingNode);
             controller.setCamera(new Camera(container)); // LA CAMARA SIEMPRE DEBE IR DESPUES DEL JUGADOR
