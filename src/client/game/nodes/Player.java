@@ -81,7 +81,7 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
                 || input.isKey(KeyEvent.VK_D);
 
         boolean canWalking = false;
-        
+
         if (isWalking) {
             if (input.isKey(KeyEvent.VK_W)) {
                 if (this.collideNode.canMove(container, this.x, this.y - velocity)) {
@@ -177,10 +177,14 @@ public class Player extends GameNode implements NodeCenterable, SpriteableNode, 
 
     public CenterBorders getCenterBorders() {
         return new CenterBorders(20, 24, 20, 20);
-    }        
-            
+    }
+
     @Override
     public CollideBox getCollideBox() {
         return this.collideNode.getPositionCollideBox(this.x, this.y);
+    }
+
+    public int getNodeLevel() {
+        return 150;
     }
 }
