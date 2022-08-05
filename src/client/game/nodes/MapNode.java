@@ -33,6 +33,6 @@ public class MapNode extends GameNode {
     }
 
     public int getNodeLevel() {
-        return 50;
+        return -100;
     }
 }

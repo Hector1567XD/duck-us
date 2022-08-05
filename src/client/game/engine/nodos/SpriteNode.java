@@ -1,6 +1,5 @@
-package client.game.nodes;
+package client.game.engine.nodos;
 
-import client.game.engine.nodos.SpriteableNode;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
