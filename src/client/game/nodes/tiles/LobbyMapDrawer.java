@@ -22,12 +22,12 @@ public class LobbyMapDrawer implements MapDrawerParentInterface {
 
     @Override
     public int getWorldCols() {
-        return 40;
+        return 34;
     }
 
     @Override
     public int getWorldRows() {
-        return 40;
+        return 35;
     }
 
     public LobbyMapDrawer(int tileSize) {

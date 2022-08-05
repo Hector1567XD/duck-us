@@ -8,7 +8,7 @@ import client.game.nodes.MapEscuelaNode;
  */
 public class LobbyCollitionManager extends MapCollitionManagerParent {
     public LobbyCollitionManager(int offsetCols, int offsetRows) {
-        super(offsetCols, offsetRows + 2);
+        super(offsetCols, offsetRows + 3);
     }
 
     @Override
