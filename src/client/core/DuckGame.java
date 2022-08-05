@@ -36,6 +36,13 @@ public class DuckGame {
             controller.addNode(new Bloque(50,50));
             controller.addNode(new Bloque(300,300));
 
+            controller.addNode(new Bloque(100,300));
+            controller.addNode(new Bloque(50,50));
+            controller.addNode(new Bloque(300,300));
+
+            controller.addNode(new AbrirMision1(250,300));
+            controller.addNode(new AbrirMision2(150,150));
+
             controller.addNode(player, "Player");
             // ACOPLANDO NODOS
             network.setPingNode(pingNode);
