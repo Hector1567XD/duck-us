@@ -21,14 +21,7 @@ public class Sound {
        soundURL[7] = getClass().getResource("/client/resources/game/sounds/Reunion.wav");
        soundURL[8] = getClass().getResource("/client/resources/game/sounds/Misioncompletada.wav");
        soundURL[9] = getClass().getResource("/client/resources/game/sounds/Patoreal.wav");
-       
-       
-       
-       
-       
-       
-       
-       
+       soundURL[10] = getClass().getResource("/client/resources/game/sounds/Explosion.wav"); 
        
    }
    
@@ -40,7 +33,6 @@ public class Sound {
        }catch(Exception e) {
            
        }
-           
    }
    
    public void play(){
