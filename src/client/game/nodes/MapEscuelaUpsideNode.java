@@ -21,6 +21,6 @@ public class MapEscuelaUpsideNode extends MapNodeParent {
     }
     
     public int getNodeLevel() {
-        return 600;
+        return 400;
     }
 }
