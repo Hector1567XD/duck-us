@@ -69,7 +69,7 @@ public class DuckGame {
             controller.addNode(new AbrirMision2(169*32,66*32, mision2_b));
             controller.addNode(mision2_b);
 
-            // OSCILOSCOPIOS
+            // OSCILOSCOPIOSs
             Mision3 mision3 = new Mision3();
             controller.addNode(new AbrirMision3(109*32,37*32, mision3));
             controller.addNode(mision3);

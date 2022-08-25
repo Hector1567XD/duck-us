@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package client.forms;
-
+    
 import client.DuckOrquestador;
 import java.awt.Dimension;
 import java.awt.Graphics;
